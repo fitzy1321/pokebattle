@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
     void *items;
@@ -33,36 +34,37 @@ typedef enum {
     PSYCHIC  = 0x18,
     ICE      = 0x19,
     DRAGON   = 0x1A
-} PokemonType;
+} Types;
+
+typedef unsigned int uint;
 
 // Structure for a single Pokémon in the party or box
 typedef struct {
-    unsigned int species;        // Species ID
-    unsigned int hp;             // Current HP (low byte)
-    unsigned int level;          // Current level
-    unsigned int status;         // Status condition (e.g., sleep, poison)
-    unsigned int type1;          // Primary type (PokemonType)
-    unsigned int type2;          // Secondary type (PokemonType)
-    unsigned int catch_rate;     // Catch rate (for wild Pokémon)
-    unsigned int moves[4];       // Four move IDs
-    unsigned int dv;            // Determinant Values (combined Attack, Defense, Speed, Special)
-    unsigned int max_hp;        // Max HP
-    unsigned int attack;        // Attack stat
-    unsigned int defense;       // Defense stat
-    unsigned int speed;         // Speed stat
-    unsigned int special;       // Special stat (used for Spc Attack/Defense)
-    unsigned int pp[4];          // PP for each move
-} Pokemon;
+    uint species;        // Species ID
+    uint hp;             // Current HP (low byte)
+    uint level;          // Current level
+    uint status;         // Status condition (e.g., sleep, poison)
+    uint type1;          // Primary type (PokemonType)
+    uint type2;          // Secondary type (PokemonType)
+    uint catch_rate;     // Catch rate (for wild Pokémon)
+    uint moves[4];       // Four move IDs
+    uint dv;            // Determinant Values (combined Attack, Defense, Speed, Special)
+    uint max_hp;        // Max HP
+    uint attack;        // Attack stat
+    uint defense;       // Defense stat
+    uint speed;         // Speed stat
+    uint special;       // Special stat (used for Spc Attack/Defense)
+    uint pp[4];          // PP for each move
+} PokemonStaticData;
 
-// Structure for the player's party
-typedef struct {
-    unsigned int count;          // Number of Pokémon in party (0-6)
-    Pokemon pokemon[6];     // Array of 6 Pokémon
-    // Followed by box data in memory
-} PartyData;
 
 int main() {
     printf("Welcome to Pokémon Battle CLI!\n");
+
+    PokemonStaticData *p1 = calloc(1, sizeof(PokemonStaticData));
+    p1->species=1;
+
+    free(p1);
 
     return 0;
 }

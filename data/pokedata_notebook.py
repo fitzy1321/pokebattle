@@ -48,45 +48,60 @@ def _(mo):
 
 
 @app.cell
-def _(mo):
-    gen_1_rbtn = mo.ui.run_button()
-    gen_1_rbtn
-    return (gen_1_rbtn,)
+def _(mo, requests):
+    @mo.persistent_cache
+    def request_pokeapi(url: str):
+        print("fetching data form api")
+        result = requests.get(url)
+        if not result.ok:
+            raise RuntimeError(
+                f"Something went wrong fetching pokeapi data. {result.status_code} {result.raw}"
+            )
+        return result.json()
+
+    return (request_pokeapi,)
 
 
 @app.cell
-def _(gen_1_rbtn, mo, requests):
-    mo.stop(predicate=not gen_1_rbtn.value, output=mo.md("Click 👆 to run this cell"))
+def _(request_pokeapi):
+    # mo.stop(
+    #     predicate=not gen_1_rbtn.value, output=mo.md("Click 👆 to run this cell")
+    # )
 
-    gen_1_request = requests.get("https://pokeapi.co/api/v2/generation/1")
-    if not gen_1_request.ok:
-        print(f"Error fecthing gen 1 data: {gen_1_request.status_code} {gen_1_request.raw}")
-        exit(code=1)
-
-    gen_1_data = gen_1_request.json()
+    gen_1_data = request_pokeapi("https://pokeapi.co/api/v2/generation/1")
     gen_1_data
+    return (gen_1_data,)
+
+
+@app.cell
+def _(gen_1_data):
+    move_urls = [
+        m["url"] for m in sorted(gen_1_data["moves"], key=lambda x: x["name"])
+    ]
+    move_urls
     return
 
 
 @app.cell
-def _(mo):
-    # Create a run button
-    run_button = mo.ui.run_button()
-    run_button
-    return (run_button,)
+def _(gen_1_data):
+    pokemon_urls = [p["url"] for p in gen_1_data["pokemon_species"]]
+    pokemon_urls
+    return
 
 
 @app.cell
-def _(mo, requests, run_button):
+def _():
+    # run_button = mo.ui.run_button()
+    # run_button
+    return
+
+
+@app.cell
+def _(request_pokeapi):
     # Stop execution if the button hasn't been clicked
-    mo.stop(not run_button.value, mo.md("Click 👆 to run this cell"))
+    # mo.stop(not run_button.value, mo.md("Click 👆 to run this cell"))
 
-    r = requests.get("https://pokeapi.co/api/v2/pokemon/1")
-    if not r.ok:
-        print(f"Error fetching pokemon: {r.status_code} {r.raw}")
-        exit(1)
-
-    data = r.json()
+    data = request_pokeapi("https://pokeapi.co/api/v2/pokemon/1")
     data
     return
 

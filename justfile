@@ -4,11 +4,24 @@ default:
 open-marimo:
     marimo edit --sandbox data/pokedata_notebook.py --watch
 
-compile-c:
-    @mkdir -p c/build
-    cc -std=c11 -Wall -Werror c/src/main.c -o c/build/main
+C_BUILD_DIR := "c/build"
+C_SRC_DIR := "c/src"
+C_TEST_DIR := "c/tests"
+
+clean:
+    rm -rf {{ C_BUILD_DIR }}
+    mkdir -p {{ C_BUILD_DIR }}
+
+compile:
+    @mkdir -p {{ C_BUILD_DIR }}
+    cc -std=c11 -Wall -Werror -o {{ C_BUILD_DIR }}/pokemain \
+        {{ C_SRC_DIR }}/main.c
+compile-run: compile
+    ./{{ C_BUILD_DIR }}/pokemain
+
+alias cr := compile-run
 
 test:
-    @mkdir -p c/build/tests
-    gcc -o c/build/tests/test_mylib c/tests/test_mylib.c
-    ./c/build/tests/test_mylib
+    gcc -o {{ C_BUILD_DIR }}/test_runner \
+        {{ C_TEST_DIR }}/test_mylib.c
+    ./{{ C_BUILD_DIR }}/test_runner
