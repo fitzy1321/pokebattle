@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <sqlite3.h>
 
 // Gen 1 Type Enum (matches internal game values)
 // ? Do I really need to make the gameboy internal values?
@@ -50,6 +50,14 @@ typedef struct {
 
 int main() {
     printf("Welcome to Pokémon Battle CLI!\n");
+
+    sqlite3 *db;
+    // TODO: what path should this be, and do I really care right now as long as it runs?
+    int rc = sqlite3_open("pokedata.db", &db);
+    if (rc) {
+        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+        return 1;
+    }
 
     Pokemon *p1 = calloc(1, sizeof(Pokemon));
     p1->species=1;

@@ -1,10 +1,14 @@
 # /// script
 # requires-python = ">=3.14"
 # dependencies = [
+#     "duckdb==1.5.2",
 #     "marimo>=0.23.5",
 #     "polars==1.40.1",
 #     "requests==2.33.1",
+#     "sqlalchemy==2.0.49",
+#     "sqlglot==30.7.0",
 # ]
+# ///
 
 # pyright: reportUnusedExpression=false
 
@@ -73,10 +77,22 @@ def _(mo):
 @app.cell
 def _(mo, request_pokeapi, run_button):
     # Stop execution if the button hasn't been clicked
-    mo.stop(not run_button.value, mo.md("Click 👆 to run this cell"))
+    mo.stop(
+        not run_button.value,
+        mo.md("Expensive network and parsing operation. Click 👆 to run this cell"),
+    )
 
     data = request_pokeapi("https://pokeapi.co/api/v2/pokemon/1")
     data
+    return
+
+
+@app.cell
+def _():
+    import sqlalchemy
+
+    DATABASE_URL = "sqlite:///pokedata.db"
+    engine = sqlalchemy.create_engine(DATABASE_URL)
     return
 
 

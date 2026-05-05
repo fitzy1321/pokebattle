@@ -15,7 +15,7 @@ clean:
 
 compile:
     @mkdir -p {{ C_BUILD_DIR }}
-    cc -std=c11 -Wall -Werror -o {{ C_BUILD_DIR }}/pokemain \
+    cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain \
         {{ C_SRC_DIR }}/main.c
 compile-run: compile
     ./{{ C_BUILD_DIR }}/pokemain

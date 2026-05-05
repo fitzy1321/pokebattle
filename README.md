@@ -32,3 +32,7 @@ For the actual battles, I want to implement strategy pattern in C, but I'm not s
 ## Data
 
 Using https://pokeapi.co and python to fetch and transform data from json to sqlite. Still in progress.
+
+## Gotchas
+
+1. Add `-lsqlite3` to CC, to link sqlite3 library. Otherwise it won't compile.
