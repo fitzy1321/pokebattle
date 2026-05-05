@@ -1,9 +1,12 @@
-default:
-    @just --list
+default: build-and-run
 
 C_BUILD_DIR := "c/build"
 C_SRC_DIR := "c/src"
 C_TEST_DIR := "c/tests"
+
+build-and-run: compile run
+
+alias bar := build-and-run
 
 build-db:
     rm pokedata.db || true
@@ -22,17 +25,15 @@ compile:
     cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain \
         {{ C_SRC_DIR }}/main.c
 
-compile-run: compile
-    ./{{ C_BUILD_DIR }}/pokemain
-
-alias cr := compile-run
-
 fmt:
     just --fmt --unstable
 
 # pip3 install -U marimo
 open-marimo:
     marimo edit --sandbox pokedata_notebook.py --watch
+
+run:
+    ./{{ C_BUILD_DIR }}/pokemain
 
 test:
     gcc -o {{ C_BUILD_DIR }}/test_runner \
