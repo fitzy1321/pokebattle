@@ -4,6 +4,9 @@
 **/*.o
 **/*.so
 
+**/**.db-shm
+**/**.db-wal
+
 **/*.env
 **/*.venv
 **/*.ruff_cache
