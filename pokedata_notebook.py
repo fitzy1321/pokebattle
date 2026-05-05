@@ -5,7 +5,8 @@
 #     "polars==1.40.1",
 #     "requests==2.33.1",
 # ]
-# ///
+
+# pyright: reportUnusedExpression=false
 
 import marimo
 
