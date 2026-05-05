@@ -31,7 +31,9 @@ For the actual battles, I want to implement strategy pattern in C, but I'm not s
 
 ## Data
 
-Using https://pokeapi.co and python to fetch and transform data from json to sqlite. Still in progress.
+Using <https://pokeapi.co> and python to fetch and transform data from json to sqlite. Still in progress.
+
+OpenAPI Schema file on github: <https://raw.githubusercontent.com/PokeAPI/pokeapi/master/openapi.yml>
 
 ## Gotchas
 
