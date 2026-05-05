@@ -1,7 +1,7 @@
 # /// script
 # requires-python = ">=3.14"
 # dependencies = [
-#     "marimo>=0.23.3",
+#     "marimo>=0.23.5",
 #     "polars==1.40.1",
 #     "requests==2.33.1",
 # ]
@@ -17,34 +17,9 @@ app = marimo.App(width="full")
 def _():
     import marimo as mo
     import requests
-    import os
 
+    # import os
     return mo, requests
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    # Pokemon Data
-
-    https://pokeapi.co/docs/v2
-
-    Let's figure out what data I need to make a simple battle system replica of a Pokemon game, i.e. turn based pokemon fights. Needs to support different types of moves, and moves with stages and affects, etc.
-
-    First, start with gen 1 systems, no fancy abilities or held items or super advance stuff, just simple gen 1 pokemon battle.
-
-
-    Let's map out which json fields I need from this api
-
-    I know I need all the Pokemon of each generation
-
-    - [ ] Pokemon
-        - [ ] id
-        - [ ]
-    - [ ] Moves
-        - [ ]
-    """)
-    return
 
 
 @app.cell
@@ -75,9 +50,7 @@ def _(request_pokeapi):
 
 @app.cell
 def _(gen_1_data):
-    move_urls = [
-        m["url"] for m in sorted(gen_1_data["moves"], key=lambda x: x["name"])
-    ]
+    move_urls = [m["url"] for m in sorted(gen_1_data["moves"], key=lambda x: x["name"])]
     move_urls
     return
 
@@ -90,16 +63,16 @@ def _(gen_1_data):
 
 
 @app.cell
-def _():
-    # run_button = mo.ui.run_button()
-    # run_button
-    return
+def _(mo):
+    run_button = mo.ui.run_button()
+    run_button
+    return (run_button,)
 
 
 @app.cell
-def _(request_pokeapi):
+def _(mo, request_pokeapi, run_button):
     # Stop execution if the button hasn't been clicked
-    # mo.stop(not run_button.value, mo.md("Click 👆 to run this cell"))
+    mo.stop(not run_button.value, mo.md("Click 👆 to run this cell"))
 
     data = request_pokeapi("https://pokeapi.co/api/v2/pokemon/1")
     data

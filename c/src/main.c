@@ -1,21 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
-    void *items;
-    size_t length;
-    size_t capacity;
-} array_t;
-
-void array_bounds_check(array_t array, size_t index) {
-    if (index >= 0 && index < array.length) { // always less, not less or equal
-        return array.items[index];
-    }
-
-    return;
-}
 
 // Gen 1 Type Enum (matches internal game values)
+// ? Do I really need to make the gameboy internal values?
+// *Not really, this isn't a one to one simulation, just my silly C code.*
 typedef enum {
     NORMAL   = 0x00,
     FIGHTING = 0x01,
@@ -39,6 +28,7 @@ typedef enum {
 typedef unsigned int uint;
 
 // Structure for a single Pokémon in the party or box
+// ?hmmmm which of these need to be in instance pokemon data and static data?
 typedef struct {
     uint species;        // Species ID
     uint hp;             // Current HP (low byte)
@@ -55,13 +45,13 @@ typedef struct {
     uint speed;         // Speed stat
     uint special;       // Special stat (used for Spc Attack/Defense)
     uint pp[4];          // PP for each move
-} PokemonStaticData;
+} Pokemon;
 
 
 int main() {
     printf("Welcome to Pokémon Battle CLI!\n");
 
-    PokemonStaticData *p1 = calloc(1, sizeof(PokemonStaticData));
+    Pokemon *p1 = calloc(1, sizeof(Pokemon));
     p1->species=1;
 
     free(p1);

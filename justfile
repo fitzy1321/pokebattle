@@ -1,8 +1,9 @@
 default:
     @just --list
 
+# pip3 install -U marimo
 open-marimo:
-    marimo edit --sandbox data/pokedata_notebook.py --watch
+    marimo edit --sandbox pokedata_notebook.py --watch
 
 C_BUILD_DIR := "c/build"
 C_SRC_DIR := "c/src"
