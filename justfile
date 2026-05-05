@@ -10,7 +10,7 @@ alias bar := build-and-run
 
 build-db:
     rm pokedata.db || true
-    ./claude_etl
+    ./pokedata
 
 clean:
     rm -rf {{ C_BUILD_DIR }}
@@ -19,7 +19,7 @@ clean:
 compile:
     #!/usr/bin/env bash
     if [ ! -f "pokedata.db" ]; then
-        ./claude_etl
+        ./pokedata
     fi
     mkdir -p {{ C_BUILD_DIR }}
     cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain \

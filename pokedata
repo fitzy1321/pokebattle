@@ -171,68 +171,6 @@ CREATE TABLE IF NOT EXISTS party_pokemon_moves (
 CREATE INDEX IF NOT EXISTS idx_ppm_party_pokemon ON party_pokemon_moves(party_pokemon_id);
 """
 
-# =============================================================================
-# Helpers
-# =============================================================================
-
-
-def get_connection(db_path: str) -> sqlite3.Connection:
-    conn = sqlite3.connect(db_path)
-    conn.execute("PRAGMA foreign_keys = ON")
-    conn.execute("PRAGMA journal_mode = WAL")  # better concurrent read perf
-    conn.execute("PRAGMA synchronous = NORMAL")  # safe but faster than FULL
-    conn.row_factory = sqlite3.Row
-    return conn
-
-
-def drop_all_tables(conn: sqlite3.Connection) -> None:
-    tables = [
-        # instance first (FK dependents)
-        "party_pokemon_moves",
-        "party_pokemon",
-        "parties",
-        "battles",
-        # static
-        "morphdex",
-        "pokemon_moves",
-        "moves",
-        "pokemon",
-    ]
-    cur = conn.cursor()
-    for table in tables:
-        cur.execute(f"DROP TABLE IF EXISTS {table}")
-        print(f"  dropped: {table}")
-    conn.commit()
-
-
-def create_schemas(conn: sqlite3.Connection) -> None:
-    cur = conn.cursor()
-    cur.executescript(STATIC_SCHEMA)
-    cur.executescript(INSTANCE_SCHEMA)
-    conn.commit()
-
-
-def verify_schemas(conn: sqlite3.Connection) -> None:
-    """Quick sanity check — query sqlite_master to confirm all tables exist."""
-    expected = {
-        "pokemon",
-        "moves",
-        "pokemon_moves",
-        "morphdex",
-        "battles",
-        "parties",
-        "party_pokemon",
-        "party_pokemon_moves",
-    }
-    cur = conn.cursor()
-    cur.execute("SELECT name FROM sqlite_master WHERE type='table'")
-    found = {row["name"] for row in cur.fetchall()}
-    missing = expected - found
-    if missing:
-        print(f"[ERROR] missing tables after creation: {missing}", file=sys.stderr)
-        sys.exit(1)
-    print(f"  verified {len(found)} tables: {', '.join(sorted(found))}")
-
 
 def seed_smoke_test(conn: sqlite3.Connection) -> None:
     """
@@ -310,22 +248,66 @@ def seed_smoke_test(conn: sqlite3.Connection) -> None:
 
 def main():
     db_path = Path("pokedata.db")
-    print(f"[setup_db] target: {db_path.resolve()}")
+    print(f"[pokedata] target: {db_path.resolve()}")
 
-    conn = get_connection(str(db_path))
+    # setup sqlite3 db
+    conn = sqlite3.connect(str(db_path))
+    conn.execute("PRAGMA foreign_keys = ON")
+    conn.execute("PRAGMA journal_mode = WAL")  # better concurrent read perf
+    conn.execute("PRAGMA synchronous = NORMAL")  # safe but faster than FULL
+    conn.row_factory = sqlite3.Row
 
-    drop_all_tables(conn)
+    # drop all tables
+    tables = [
+        # instance first (FK dependents)
+        "party_pokemon_moves",
+        "party_pokemon",
+        "parties",
+        "battles",
+        # static
+        "morphdex",
+        "pokemon_moves",
+        "moves",
+        "pokemon",
+    ]
+    cur = conn.cursor()
+    for table in tables:
+        cur.execute(f"DROP TABLE IF EXISTS {table}")
+        print(f"  dropped: {table}")
+    conn.commit()
 
-    print("[setup_db] creating schemas...")
-    create_schemas(conn)
+    # create all tables
+    print("[pokedata] creating schemas...")
+    cur = conn.cursor()
+    cur.executescript(STATIC_SCHEMA)
+    cur.executescript(INSTANCE_SCHEMA)
+    conn.commit()
 
-    print("[setup_db] verifying schemas...")
-    verify_schemas(conn)
+    # verify schema
+    print("[pokedata] verifying schemas...")
+    expected = {
+        "pokemon",
+        "moves",
+        "pokemon_moves",
+        "morphdex",
+        "battles",
+        "parties",
+        "party_pokemon",
+        "party_pokemon_moves",
+    }
+    cur = conn.cursor()
+    cur.execute("SELECT name FROM sqlite_master WHERE type='table'")
+    found = {row["name"] for row in cur.fetchall()}
+    missing = expected - found
+    if missing:
+        print(f"[ERROR] missing tables after creation: {missing}", file=sys.stderr)
+        sys.exit(1)
+    print(f"  verified {len(found)} tables: {', '.join(sorted(found))}")
 
     seed_smoke_test(conn)
 
     conn.close()
-    print("[setup_db] done.")
+    print("[pokedata] done.")
 
 
 if __name__ == "__main__":
