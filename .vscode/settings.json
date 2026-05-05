@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 100,
+            "driver": "SQLite",
+            "name": "pokedata",
+            "database": "pokedata.db"
+        }
+    ]
+}

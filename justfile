@@ -5,6 +5,10 @@ C_BUILD_DIR := "c/build"
 C_SRC_DIR := "c/src"
 C_TEST_DIR := "c/tests"
 
+build-db:
+    rm pokedata.db || true
+    ./claude_etl
+
 clean:
     rm -rf {{ C_BUILD_DIR }}
     mkdir -p {{ C_BUILD_DIR }}
