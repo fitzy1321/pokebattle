@@ -9,7 +9,7 @@
 
 import marimo
 
-__generated_with = "0.23.4"
+__generated_with = "0.23.5"
 app = marimo.App(width="full")
 
 
@@ -44,6 +44,27 @@ def _(mo):
     - [ ] Moves
         - [ ]
     """)
+    return
+
+
+@app.cell
+def _(mo):
+    gen_1_rbtn = mo.ui.run_button()
+    gen_1_rbtn
+    return (gen_1_rbtn,)
+
+
+@app.cell
+def _(gen_1_rbtn, mo, requests):
+    mo.stop(predicate=not gen_1_rbtn.value, output=mo.md("Click 👆 to run this cell"))
+
+    gen_1_request = requests.get("https://pokeapi.co/api/v2/generation/1")
+    if not gen_1_request.ok:
+        print(f"Error fecthing gen 1 data: {gen_1_request.status_code} {gen_1_request.raw}")
+        exit(code=1)
+
+    gen_1_data = gen_1_request.json()
+    gen_1_data
     return
 
 
