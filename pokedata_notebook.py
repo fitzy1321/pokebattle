@@ -55,7 +55,9 @@ def _(request_pokeapi):
 
 @app.cell
 def _(gen_1_data):
-    move_urls = [m["url"] for m in sorted(gen_1_data["moves"], key=lambda x: x["name"])]
+    move_urls = [
+        m["url"] for m in sorted(gen_1_data["moves"], key=lambda x: x["name"])
+    ]
     move_urls
     return
 
@@ -67,23 +69,55 @@ def _(gen_1_data):
     return
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The next 2 cells are to hit the individual pokemon endpoint.
+    """)
+    return
+
+
 @app.cell
 def _(mo):
-    run_button = mo.ui.run_button()
-    run_button
-    return (run_button,)
+    poke_run_btn = mo.ui.run_button()
+    poke_run_btn
+    return (poke_run_btn,)
 
 
 @app.cell
-def _(mo, request_pokeapi, run_button):
+def _(mo, poke_run_btn, request_pokeapi):
     # Stop execution if the button hasn't been clicked
     mo.stop(
-        not run_button.value,
-        mo.md("Expensive network and parsing operation. Click 👆 to run this cell"),
+        not poke_run_btn.value,
+        mo.md(
+            "Expensive network and parsing operation. Click 👆 to run this cell"
+        ),
     )
 
-    data = request_pokeapi("https://pokeapi.co/api/v2/pokemon/1")
-    data
+    poke_data = request_pokeapi("https://pokeapi.co/api/v2/pokemon/1")
+    poke_data
+    return
+
+
+@app.cell
+def _(mo):
+    move_run_btn = mo.ui.run_button()
+    move_run_btn
+    return (move_run_btn,)
+
+
+@app.cell
+def _(mo, move_run_btn, request_pokeapi):
+    # Stop execution if the button hasn't been clicked
+    mo.stop(
+        not move_run_btn.value,
+        mo.md(
+            "Expensive network and parsing operation. Click 👆 to run this cell"
+        ),
+    )
+
+    move_data = request_pokeapi("https://pokeapi.co/api/v2/move/1")
+    move_data
     return
 
 

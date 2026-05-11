@@ -18,12 +18,12 @@ STATIC_SCHEMA = """
 CREATE TABLE IF NOT EXISTS pokemon (
     id              INTEGER PRIMARY KEY,  -- pokedex number 1-151
     name            TEXT    NOT NULL UNIQUE,
-    base_hp         INTEGER NOT NULL CHECK(base_hp > 0),
-    base_attack     INTEGER NOT NULL CHECK(base_attack > 0),
-    base_defense    INTEGER NOT NULL CHECK(base_defense > 0),
-    base_sp_attack  INTEGER NOT NULL CHECK(base_sp_attack > 0),
-    base_sp_defense INTEGER NOT NULL CHECK(base_sp_defense > 0),
-    base_speed      INTEGER NOT NULL CHECK(base_speed > 0),
+    hp              INTEGER NOT NULL CHECK(hp > 0),
+    attack          INTEGER NOT NULL CHECK(attack > 0),
+    defense         INTEGER NOT NULL CHECK(defense > 0),
+    sp_attack       INTEGER NOT NULL CHECK(sp_attack > 0),
+    sp_defense      INTEGER NOT NULL CHECK(sp_defense > 0),
+    speed           INTEGER NOT NULL CHECK(speed > 0),
     type1           TEXT    NOT NULL,
     type2           TEXT    DEFAULT NULL  -- NULL if single-type
 );

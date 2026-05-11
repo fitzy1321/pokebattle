@@ -20,14 +20,14 @@ sqlite might be the easiest solution, idk if it's the best but it works.
 
 For the actual battles, I want to implement strategy pattern in C, but I'm not sure how yet. Probably higher order functions and function pointers, oi. I'm still learning the nitty-gritty of C, so we'll see how this evolves.
 
-- [ ] C sqlite library
+- [x] C sqlite library
 - [ ] C unit testing
 - [ ] Static Pokemon Data (attack, defense, speed, special, evolution_level, next_pokemon_id)
 - [ ] Static Global Move List (name, base pp, base damage, status effects, stages, etc)
 - [ ] Static Species Learn set (pokemon_id, move_id, level=>=1, type=["level up","tm","hm","tutor","egg", etc])
 - [ ] User party pokemon data
 - [ ] Enemy party pokemon data
-- [ ] Strategy pattern in C, for the battle system (after other objects have been written)
+- [ ] Strategy pattern in C, for the battle system
 
 ## Data
 

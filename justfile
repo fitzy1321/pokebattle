@@ -25,12 +25,15 @@ compile:
     cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain \
         {{ C_SRC_DIR }}/main.c
 
-# pip3 install -U marimo
-data-notebook:
-    marimo edit --sandbox pokedata_notebook.py --watch
-
 fmt:
     just --fmt --unstable
+
+# pip3 install -U marimo
+marimo:
+    marimo edit --watch
+
+open-notebook:
+    marimo edit --no-sandbox pokedata_notebook.py --watch
 
 run:
     ./{{ C_BUILD_DIR }}/pokemain
