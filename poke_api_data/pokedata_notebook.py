@@ -15,20 +15,16 @@
 import marimo
 
 __generated_with = "0.23.5"
-app = marimo.App(width="full")
+app = marimo.App(width="columns")
 
 
-@app.cell
-def _():
+@app.cell(column=0)
+def utils():
     import marimo as mo
     import requests
 
+
     # import os
-    return mo, requests
-
-
-@app.cell
-def _(mo, requests):
     @mo.persistent_cache
     def request_pokeapi(url: str):
         print("fetching data form api")
@@ -39,10 +35,10 @@ def _(mo, requests):
             )
         return result.json()
 
-    return (request_pokeapi,)
+    return mo, request_pokeapi
 
 
-@app.cell
+@app.cell(column=1)
 def _(request_pokeapi):
     # mo.stop(
     #     predicate=not gen_1_rbtn.value, output=mo.md("Click 👆 to run this cell")
@@ -127,6 +123,33 @@ def _():
 
     DATABASE_URL = "sqlite:///pokedata.db"
     engine = sqlalchemy.create_engine(DATABASE_URL)
+    return
+
+
+@app.cell
+def _():
+    return
+
+
+@app.cell(column=2)
+def _():
+    import marimo as mo
+
+    run_full_fetch_btn = mo.ui.run_button()
+    run_full_fetch_btn
+    return mo, run_full_fetch_btn
+
+
+@app.cell
+def _(mo, run_full_fetch_btn):
+    mo.stop(
+        not run_full_fetch_btn.value,
+        mo.md(
+            "This will run multiple get requests against the pokeapi. Do not run this often"
+        ),
+    )
+
+
     return
 
 

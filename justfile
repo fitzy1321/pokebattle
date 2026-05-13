@@ -1,5 +1,6 @@
 default: build-and-run
 
+API_DATA_DIR := "poke_api_data"
 C_BUILD_DIR := "c/build"
 C_SRC_DIR := "c/src"
 C_TEST_DIR := "c/tests"
@@ -33,7 +34,7 @@ marimo:
     marimo edit --watch
 
 open-notebook:
-    marimo edit --no-sandbox pokedata_notebook.py --watch
+    marimo edit --no-sandbox {{ API_DATA_DIR }}pokedata_notebook.py --watch
 
 run:
     ./{{ C_BUILD_DIR }}/pokemain
