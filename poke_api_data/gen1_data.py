@@ -26,16 +26,12 @@ session = requests.Session()
 
 def get(url: str) -> dict:
     """Simple GET with basic error handling."""
-    try:
-        resp = session.get(url, timeout=10)
-        resp.raise_for_status()
-        return resp.json()
-    except requests.HTTPError as e:
-        print(f"  HTTP {e.response.status_code} for {url}")
+    resp = session.get(url, timeout=10)
+    if not resp.ok:
+        print(f"Error fetching from api, HTTP Code: {resp.status_code}. {resp.raw}")
         return {}
-    except Exception as e:
-        print(f"  Error fetching {url}: {e}")
-        return {}
+
+    return resp.json()
 
 
 def get_moves(pokemon_data: dict) -> list[dict]:

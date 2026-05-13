@@ -2,9 +2,9 @@
 # requires-python = ">=3.14"
 # dependencies = [
 #     "duckdb==1.5.2",
-#     "marimo>=0.23.5",
+#     "marimo>=0.23.6",
 #     "polars==1.40.1",
-#     "requests==2.33.1",
+#     "requests==2.34.0",
 #     "sqlalchemy==2.0.49",
 #     "sqlglot==30.7.0",
 # ]
@@ -22,7 +22,6 @@ app = marimo.App(width="columns")
 def utils():
     import marimo as mo
     import requests
-
 
     # import os
     @mo.persistent_cache
@@ -51,9 +50,7 @@ def _(request_pokeapi):
 
 @app.cell
 def _(gen_1_data):
-    move_urls = [
-        m["url"] for m in sorted(gen_1_data["moves"], key=lambda x: x["name"])
-    ]
+    move_urls = [m["url"] for m in sorted(gen_1_data["moves"], key=lambda x: x["name"])]
     move_urls
     return
 
@@ -85,9 +82,7 @@ def _(mo, poke_run_btn, request_pokeapi):
     # Stop execution if the button hasn't been clicked
     mo.stop(
         not poke_run_btn.value,
-        mo.md(
-            "Expensive network and parsing operation. Click 👆 to run this cell"
-        ),
+        mo.md("Expensive network and parsing operation. Click 👆 to run this cell"),
     )
 
     poke_data = request_pokeapi("https://pokeapi.co/api/v2/pokemon/1")
@@ -107,9 +102,7 @@ def _(mo, move_run_btn, request_pokeapi):
     # Stop execution if the button hasn't been clicked
     mo.stop(
         not move_run_btn.value,
-        mo.md(
-            "Expensive network and parsing operation. Click 👆 to run this cell"
-        ),
+        mo.md("Expensive network and parsing operation. Click 👆 to run this cell"),
     )
 
     move_data = request_pokeapi("https://pokeapi.co/api/v2/move/1")
@@ -148,7 +141,6 @@ def _(mo, run_full_fetch_btn):
             "This will run multiple get requests against the pokeapi. Do not run this often"
         ),
     )
-
 
     return
 
