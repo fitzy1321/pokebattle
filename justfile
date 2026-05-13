@@ -34,7 +34,7 @@ marimo:
     marimo edit --watch
 
 open-notebook:
-    marimo edit --no-sandbox {{ API_DATA_DIR }}pokedata_notebook.py --watch
+    marimo edit --no-sandbox {{ API_DATA_DIR }}/gen1_data_notebook.py --watch
 
 run:
     ./{{ C_BUILD_DIR }}/pokemain
