@@ -172,13 +172,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 2,
-      "evolves_into": "ivysaur",
-      "trigger": "level-up",
-      "min_level": 16,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 2,
+        "evolves_into": "ivysaur",
+        "trigger": "level-up",
+        "min_level": 16,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -354,13 +356,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 3,
-      "evolves_into": "venusaur",
-      "trigger": "level-up",
-      "min_level": 32,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 3,
+        "evolves_into": "venusaur",
+        "trigger": "level-up",
+        "min_level": 32,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -536,7 +540,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -689,13 +693,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 5,
-      "evolves_into": "charmeleon",
-      "trigger": "level-up",
-      "min_level": 16,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 5,
+        "evolves_into": "charmeleon",
+        "trigger": "level-up",
+        "min_level": 16,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -848,13 +854,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 6,
-      "evolves_into": "charizard",
-      "trigger": "level-up",
-      "min_level": 36,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 6,
+        "evolves_into": "charizard",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -1011,7 +1019,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -1169,13 +1177,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 8,
-      "evolves_into": "wartortle",
-      "trigger": "level-up",
-      "min_level": 16,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 8,
+        "evolves_into": "wartortle",
+        "trigger": "level-up",
+        "min_level": 16,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -1333,13 +1343,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 9,
-      "evolves_into": "blastoise",
-      "trigger": "level-up",
-      "min_level": 36,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 9,
+        "evolves_into": "blastoise",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -1497,7 +1509,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -1555,13 +1567,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 11,
-      "evolves_into": "metapod",
-      "trigger": "level-up",
-      "min_level": 7,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 11,
+        "evolves_into": "metapod",
+        "trigger": "level-up",
+        "min_level": 7,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -1604,13 +1618,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 12,
-      "evolves_into": "butterfree",
-      "trigger": "level-up",
-      "min_level": 10,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 12,
+        "evolves_into": "butterfree",
+        "trigger": "level-up",
+        "min_level": 10,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -1742,7 +1758,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -1804,13 +1820,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 14,
-      "evolves_into": "kakuna",
-      "trigger": "level-up",
-      "min_level": 7,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 14,
+        "evolves_into": "kakuna",
+        "trigger": "level-up",
+        "min_level": 7,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -1857,13 +1875,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 15,
-      "evolves_into": "beedrill",
-      "trigger": "level-up",
-      "min_level": 10,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 15,
+        "evolves_into": "beedrill",
+        "trigger": "level-up",
+        "min_level": 10,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -1985,7 +2005,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -2127,13 +2147,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 17,
-      "evolves_into": "pidgeotto",
-      "trigger": "level-up",
-      "min_level": 18,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 17,
+        "evolves_into": "pidgeotto",
+        "trigger": "level-up",
+        "min_level": 18,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -2275,13 +2297,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 18,
-      "evolves_into": "pidgeot",
-      "trigger": "level-up",
-      "min_level": 36,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 18,
+        "evolves_into": "pidgeot",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -2423,7 +2447,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -2541,13 +2565,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 20,
-      "evolves_into": "raticate",
-      "trigger": "level-up",
-      "min_level": 20,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 20,
+        "evolves_into": "raticate",
+        "trigger": "level-up",
+        "min_level": 20,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -2665,7 +2691,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -2812,13 +2838,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 22,
-      "evolves_into": "fearow",
-      "trigger": "level-up",
-      "min_level": 20,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 22,
+        "evolves_into": "fearow",
+        "trigger": "level-up",
+        "min_level": 20,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -2965,7 +2993,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -3108,13 +3136,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 24,
-      "evolves_into": "arbok",
-      "trigger": "level-up",
-      "min_level": 22,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 24,
+        "evolves_into": "arbok",
+        "trigger": "level-up",
+        "min_level": 22,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -3257,7 +3287,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -3395,13 +3425,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 26,
-      "evolves_into": "raichu",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "thunder-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 26,
+        "evolves_into": "raichu",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "thunder-stone"
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -3474,7 +3506,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -3592,13 +3624,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 28,
-      "evolves_into": "sandslash",
-      "trigger": "level-up",
-      "min_level": 22,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 28,
+        "evolves_into": "sandslash",
+        "trigger": "level-up",
+        "min_level": 22,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -3716,7 +3750,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -3869,13 +3903,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 30,
-      "evolves_into": "nidorina",
-      "trigger": "level-up",
-      "min_level": 16,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 30,
+        "evolves_into": "nidorina",
+        "trigger": "level-up",
+        "min_level": 16,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -4028,13 +4064,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 31,
-      "evolves_into": "nidoqueen",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "moon-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 31,
+        "evolves_into": "nidoqueen",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "moon-stone"
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -4141,7 +4179,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -4289,13 +4327,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 33,
-      "evolves_into": "nidorino",
-      "trigger": "level-up",
-      "min_level": 16,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 33,
+        "evolves_into": "nidorino",
+        "trigger": "level-up",
+        "min_level": 16,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -4443,13 +4483,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 34,
-      "evolves_into": "nidoking",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "moon-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 34,
+        "evolves_into": "nidoking",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "moon-stone"
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -4536,7 +4578,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -4694,13 +4736,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 36,
-      "evolves_into": "clefable",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "moon-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 36,
+        "evolves_into": "clefable",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "moon-stone"
+      }
+    ],
     "growth_rate": "fast"
   },
   {
@@ -4788,7 +4832,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "fast"
   },
   {
@@ -4921,13 +4965,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 38,
-      "evolves_into": "ninetales",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "fire-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 38,
+        "evolves_into": "ninetales",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "fire-stone"
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -5015,7 +5061,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -5167,13 +5213,15 @@
         "drain": -33
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 40,
-      "evolves_into": "wigglytuff",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "moon-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 40,
+        "evolves_into": "wigglytuff",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "moon-stone"
+      }
+    ],
     "growth_rate": "fast"
   },
   {
@@ -5265,7 +5313,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "fast"
   },
   {
@@ -5382,13 +5430,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 42,
-      "evolves_into": "golbat",
-      "trigger": "level-up",
-      "min_level": 22,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 42,
+        "evolves_into": "golbat",
+        "trigger": "level-up",
+        "min_level": 22,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -5525,13 +5575,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 169,
-      "evolves_into": "crobat",
-      "trigger": "level-up",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 169,
+        "evolves_into": "crobat",
+        "trigger": "level-up",
+        "min_level": null,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -5668,13 +5720,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 44,
-      "evolves_into": "gloom",
-      "trigger": "level-up",
-      "min_level": 21,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 44,
+        "evolves_into": "gloom",
+        "trigger": "level-up",
+        "min_level": 21,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -5811,13 +5865,22 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 45,
-      "evolves_into": "vileplume",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "leaf-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 45,
+        "evolves_into": "vileplume",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "leaf-stone"
+      },
+      {
+        "evolves_into_id": 182,
+        "evolves_into": "bellossom",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "sun-stone"
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -5924,7 +5987,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -6050,13 +6113,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 47,
-      "evolves_into": "parasect",
-      "trigger": "level-up",
-      "min_level": 24,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 47,
+        "evolves_into": "parasect",
+        "trigger": "level-up",
+        "min_level": 24,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -6182,7 +6247,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -6334,13 +6399,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 49,
-      "evolves_into": "venomoth",
-      "trigger": "level-up",
-      "min_level": 31,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 49,
+        "evolves_into": "venomoth",
+        "trigger": "level-up",
+        "min_level": 31,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -6492,7 +6559,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -6615,13 +6682,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 51,
-      "evolves_into": "dugtrio",
-      "trigger": "level-up",
-      "min_level": 26,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 51,
+        "evolves_into": "dugtrio",
+        "trigger": "level-up",
+        "min_level": 26,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -6744,7 +6813,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -6882,13 +6951,22 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 53,
-      "evolves_into": "persian",
-      "trigger": "level-up",
-      "min_level": 28,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 53,
+        "evolves_into": "persian",
+        "trigger": "level-up",
+        "min_level": 28,
+        "item": null
+      },
+      {
+        "evolves_into_id": 863,
+        "evolves_into": "perrserker",
+        "trigger": "level-up",
+        "min_level": 28,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -7026,7 +7104,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -7144,13 +7222,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 55,
-      "evolves_into": "golduck",
-      "trigger": "level-up",
-      "min_level": 33,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 55,
+        "evolves_into": "golduck",
+        "trigger": "level-up",
+        "min_level": 33,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -7268,7 +7348,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -7401,13 +7481,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 57,
-      "evolves_into": "primeape",
-      "trigger": "level-up",
-      "min_level": 28,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 57,
+        "evolves_into": "primeape",
+        "trigger": "level-up",
+        "min_level": 28,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -7540,13 +7622,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 979,
-      "evolves_into": "annihilape",
-      "trigger": "use-move",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 979,
+        "evolves_into": "annihilape",
+        "trigger": "use-move",
+        "min_level": null,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -7684,13 +7768,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 59,
-      "evolves_into": "arcanine",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "fire-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 59,
+        "evolves_into": "arcanine",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "fire-stone"
+      }
+    ],
     "growth_rate": "slow"
   },
   {
@@ -7778,7 +7864,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -7916,13 +8002,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 61,
-      "evolves_into": "poliwhirl",
-      "trigger": "level-up",
-      "min_level": 25,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 61,
+        "evolves_into": "poliwhirl",
+        "trigger": "level-up",
+        "min_level": 25,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -8060,13 +8148,22 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 62,
-      "evolves_into": "poliwrath",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "water-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 62,
+        "evolves_into": "poliwrath",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "water-stone"
+      },
+      {
+        "evolves_into_id": 186,
+        "evolves_into": "politoed",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -8153,7 +8250,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -8191,13 +8288,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 64,
-      "evolves_into": "kadabra",
-      "trigger": "level-up",
-      "min_level": 16,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 64,
+        "evolves_into": "kadabra",
+        "trigger": "level-up",
+        "min_level": 16,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -8330,13 +8429,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 65,
-      "evolves_into": "alakazam",
-      "trigger": "trade",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 65,
+        "evolves_into": "alakazam",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -8469,7 +8570,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -8587,13 +8688,15 @@
         "drain": -25
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 67,
-      "evolves_into": "machoke",
-      "trigger": "level-up",
-      "min_level": 28,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 67,
+        "evolves_into": "machoke",
+        "trigger": "level-up",
+        "min_level": 28,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -8711,13 +8814,15 @@
         "drain": -25
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 68,
-      "evolves_into": "machamp",
-      "trigger": "trade",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 68,
+        "evolves_into": "machamp",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -8835,7 +8940,7 @@
         "drain": -25
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -9011,13 +9116,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 70,
-      "evolves_into": "weepinbell",
-      "trigger": "level-up",
-      "min_level": 21,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 70,
+        "evolves_into": "weepinbell",
+        "trigger": "level-up",
+        "min_level": 21,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -9193,13 +9300,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 71,
-      "evolves_into": "victreebel",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "leaf-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 71,
+        "evolves_into": "victreebel",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "leaf-stone"
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -9321,7 +9430,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -9503,13 +9612,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 73,
-      "evolves_into": "tentacruel",
-      "trigger": "level-up",
-      "min_level": 30,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 73,
+        "evolves_into": "tentacruel",
+        "trigger": "level-up",
+        "min_level": 30,
+        "item": null
+      }
+    ],
     "growth_rate": "slow"
   },
   {
@@ -9691,7 +9802,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -9833,13 +9944,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 75,
-      "evolves_into": "graveler",
-      "trigger": "level-up",
-      "min_level": 25,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 75,
+        "evolves_into": "graveler",
+        "trigger": "level-up",
+        "min_level": 25,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -9981,13 +10094,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 76,
-      "evolves_into": "golem",
-      "trigger": "trade",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 76,
+        "evolves_into": "golem",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -10129,7 +10244,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -10272,13 +10387,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 78,
-      "evolves_into": "rapidash",
-      "trigger": "level-up",
-      "min_level": 40,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 78,
+        "evolves_into": "rapidash",
+        "trigger": "level-up",
+        "min_level": 40,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -10421,7 +10538,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -10568,13 +10685,22 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 80,
-      "evolves_into": "slowbro",
-      "trigger": "level-up",
-      "min_level": 37,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 80,
+        "evolves_into": "slowbro",
+        "trigger": "level-up",
+        "min_level": 37,
+        "item": null
+      },
+      {
+        "evolves_into_id": 199,
+        "evolves_into": "slowking",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -10741,7 +10867,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -10878,13 +11004,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 82,
-      "evolves_into": "magneton",
-      "trigger": "level-up",
-      "min_level": 30,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 82,
+        "evolves_into": "magneton",
+        "trigger": "level-up",
+        "min_level": 30,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -11021,13 +11149,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 462,
-      "evolves_into": "magnezone",
-      "trigger": "level-up",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 462,
+        "evolves_into": "magnezone",
+        "trigger": "level-up",
+        "min_level": null,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -11179,13 +11309,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 865,
-      "evolves_into": "sirfetchd",
-      "trigger": "three-critical-hits",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 865,
+        "evolves_into": "sirfetchd",
+        "trigger": "three-critical-hits",
+        "min_level": null,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -11327,13 +11459,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 85,
-      "evolves_into": "dodrio",
-      "trigger": "level-up",
-      "min_level": 31,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 85,
+        "evolves_into": "dodrio",
+        "trigger": "level-up",
+        "min_level": 31,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -11475,7 +11609,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -11598,13 +11732,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 87,
-      "evolves_into": "dewgong",
-      "trigger": "level-up",
-      "min_level": 34,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 87,
+        "evolves_into": "dewgong",
+        "trigger": "level-up",
+        "min_level": 34,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -11731,7 +11867,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -11894,13 +12030,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 89,
-      "evolves_into": "muk",
-      "trigger": "level-up",
-      "min_level": 38,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 89,
+        "evolves_into": "muk",
+        "trigger": "level-up",
+        "min_level": 38,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -12063,7 +12201,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -12206,13 +12344,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 91,
-      "evolves_into": "cloyster",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "water-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 91,
+        "evolves_into": "cloyster",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "water-stone"
+      }
+    ],
     "growth_rate": "slow"
   },
   {
@@ -12324,7 +12464,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -12426,13 +12566,15 @@
         "drain": 50
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 93,
-      "evolves_into": "haunter",
-      "trigger": "level-up",
-      "min_level": 25,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 93,
+        "evolves_into": "haunter",
+        "trigger": "level-up",
+        "min_level": 25,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -12534,13 +12676,15 @@
         "drain": 50
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 94,
-      "evolves_into": "gengar",
-      "trigger": "trade",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 94,
+        "evolves_into": "gengar",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium-slow"
   },
   {
@@ -12642,7 +12786,7 @@
         "drain": 50
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   },
   {
@@ -12784,13 +12928,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 208,
-      "evolves_into": "steelix",
-      "trigger": "trade",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 208,
+        "evolves_into": "steelix",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -12943,13 +13089,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 97,
-      "evolves_into": "hypno",
-      "trigger": "level-up",
-      "min_level": 26,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 97,
+        "evolves_into": "hypno",
+        "trigger": "level-up",
+        "min_level": 26,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -13102,7 +13250,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -13245,13 +13393,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 99,
-      "evolves_into": "kingler",
-      "trigger": "level-up",
-      "min_level": 28,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 99,
+        "evolves_into": "kingler",
+        "trigger": "level-up",
+        "min_level": 28,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -13394,7 +13544,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -13527,13 +13677,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 101,
-      "evolves_into": "electrode",
-      "trigger": "level-up",
-      "min_level": 30,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 101,
+        "evolves_into": "electrode",
+        "trigger": "level-up",
+        "min_level": 30,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -13666,7 +13818,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -13813,13 +13965,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 103,
-      "evolves_into": "exeggutor",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "leaf-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 103,
+        "evolves_into": "exeggutor",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "leaf-stone"
+      }
+    ],
     "growth_rate": "slow"
   },
   {
@@ -13891,7 +14045,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -14029,13 +14183,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 105,
-      "evolves_into": "marowak",
-      "trigger": "level-up",
-      "min_level": 28,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 105,
+        "evolves_into": "marowak",
+        "trigger": "level-up",
+        "min_level": 28,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -14173,7 +14329,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -14306,7 +14462,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -14439,7 +14595,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -14577,13 +14733,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 463,
-      "evolves_into": "lickilicky",
-      "trigger": "level-up",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 463,
+        "evolves_into": "lickilicky",
+        "trigger": "level-up",
+        "min_level": null,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -14716,13 +14874,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 110,
-      "evolves_into": "weezing",
-      "trigger": "level-up",
-      "min_level": 35,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 110,
+        "evolves_into": "weezing",
+        "trigger": "level-up",
+        "min_level": 35,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -14855,7 +15015,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -14997,13 +15157,15 @@
         "drain": -25
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 112,
-      "evolves_into": "rhydon",
-      "trigger": "level-up",
-      "min_level": 42,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 112,
+        "evolves_into": "rhydon",
+        "trigger": "level-up",
+        "min_level": 42,
+        "item": null
+      }
+    ],
     "growth_rate": "slow"
   },
   {
@@ -15145,13 +15307,15 @@
         "drain": -25
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 464,
-      "evolves_into": "rhyperior",
-      "trigger": "trade",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 464,
+        "evolves_into": "rhyperior",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "slow"
   },
   {
@@ -15309,13 +15473,15 @@
         "drain": -33
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 242,
-      "evolves_into": "blissey",
-      "trigger": "level-up",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 242,
+        "evolves_into": "blissey",
+        "trigger": "level-up",
+        "min_level": null,
+        "item": null
+      }
+    ],
     "growth_rate": "fast"
   },
   {
@@ -15472,13 +15638,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 465,
-      "evolves_into": "tangrowth",
-      "trigger": "level-up",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 465,
+        "evolves_into": "tangrowth",
+        "trigger": "level-up",
+        "min_level": null,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -15616,7 +15784,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -15749,13 +15917,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 117,
-      "evolves_into": "seadra",
-      "trigger": "level-up",
-      "min_level": 32,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 117,
+        "evolves_into": "seadra",
+        "trigger": "level-up",
+        "min_level": 32,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -15888,13 +16058,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 230,
-      "evolves_into": "kingdra",
-      "trigger": "trade",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 230,
+        "evolves_into": "kingdra",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -16047,13 +16219,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 119,
-      "evolves_into": "seaking",
-      "trigger": "level-up",
-      "min_level": 33,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 119,
+        "evolves_into": "seaking",
+        "trigger": "level-up",
+        "min_level": 33,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -16206,7 +16380,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -16359,13 +16533,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 121,
-      "evolves_into": "starmie",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "water-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 121,
+        "evolves_into": "starmie",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "water-stone"
+      }
+    ],
     "growth_rate": "slow"
   },
   {
@@ -16442,7 +16618,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -16569,13 +16745,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 866,
-      "evolves_into": "mr-rime",
-      "trigger": "level-up",
-      "min_level": 42,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 866,
+        "evolves_into": "mr-rime",
+        "trigger": "level-up",
+        "min_level": 42,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -16727,13 +16905,22 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 212,
-      "evolves_into": "scizor",
-      "trigger": "trade",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 212,
+        "evolves_into": "scizor",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      },
+      {
+        "evolves_into_id": 900,
+        "evolves_into": "kleavor",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "black-augurite"
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -16880,7 +17067,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -17018,13 +17205,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 466,
-      "evolves_into": "electivire",
-      "trigger": "trade",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 466,
+        "evolves_into": "electivire",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -17162,13 +17351,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 467,
-      "evolves_into": "magmortar",
-      "trigger": "trade",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 467,
+        "evolves_into": "magmortar",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -17306,7 +17497,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -17429,7 +17620,7 @@
         "drain": -25
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -17482,13 +17673,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 130,
-      "evolves_into": "gyarados",
-      "trigger": "level-up",
-      "min_level": 20,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 130,
+        "evolves_into": "gyarados",
+        "trigger": "level-up",
+        "min_level": 20,
+        "item": null
+      }
+    ],
     "growth_rate": "slow"
   },
   {
@@ -17595,7 +17788,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -17747,7 +17940,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -17785,7 +17978,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -17908,13 +18101,64 @@
         "drain": -25
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 134,
-      "evolves_into": "vaporeon",
-      "trigger": "use-item",
-      "min_level": null,
-      "item": "water-stone"
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 134,
+        "evolves_into": "vaporeon",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "water-stone"
+      },
+      {
+        "evolves_into_id": 135,
+        "evolves_into": "jolteon",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "thunder-stone"
+      },
+      {
+        "evolves_into_id": 136,
+        "evolves_into": "flareon",
+        "trigger": "use-item",
+        "min_level": null,
+        "item": "fire-stone"
+      },
+      {
+        "evolves_into_id": 196,
+        "evolves_into": "espeon",
+        "trigger": "level-up",
+        "min_level": null,
+        "item": null
+      },
+      {
+        "evolves_into_id": 197,
+        "evolves_into": "umbreon",
+        "trigger": "level-up",
+        "min_level": null,
+        "item": null
+      },
+      {
+        "evolves_into_id": 470,
+        "evolves_into": "leafeon",
+        "trigger": "level-up",
+        "min_level": null,
+        "item": null
+      },
+      {
+        "evolves_into_id": 471,
+        "evolves_into": "glaceon",
+        "trigger": "level-up",
+        "min_level": null,
+        "item": null
+      },
+      {
+        "evolves_into_id": 700,
+        "evolves_into": "sylveon",
+        "trigger": "level-up",
+        "min_level": null,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -18102,7 +18346,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -18290,7 +18534,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -18478,7 +18722,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -18616,13 +18860,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 233,
-      "evolves_into": "porygon2",
-      "trigger": "trade",
-      "min_level": null,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 233,
+        "evolves_into": "porygon2",
+        "trigger": "level-up",
+        "min_level": 36,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -18749,13 +18995,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 139,
-      "evolves_into": "omastar",
-      "trigger": "level-up",
-      "min_level": 40,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 139,
+        "evolves_into": "omastar",
+        "trigger": "level-up",
+        "min_level": 40,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -18882,7 +19130,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -19009,13 +19257,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 141,
-      "evolves_into": "kabutops",
-      "trigger": "level-up",
-      "min_level": 40,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 141,
+        "evolves_into": "kabutops",
+        "trigger": "level-up",
+        "min_level": 40,
+        "item": null
+      }
+    ],
     "growth_rate": "medium"
   },
   {
@@ -19142,7 +19392,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -19264,7 +19514,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -19402,7 +19652,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -19509,7 +19759,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -19616,7 +19866,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -19728,7 +19978,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -19866,13 +20116,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 148,
-      "evolves_into": "dragonair",
-      "trigger": "level-up",
-      "min_level": 30,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 148,
+        "evolves_into": "dragonair",
+        "trigger": "level-up",
+        "min_level": 30,
+        "item": null
+      }
+    ],
     "growth_rate": "slow"
   },
   {
@@ -20010,13 +20262,15 @@
         "drain": 0
       }
     ],
-    "next_evolution": {
-      "evolves_into_id": 149,
-      "evolves_into": "dragonite",
-      "trigger": "level-up",
-      "min_level": 55,
-      "item": null
-    },
+    "next_evolutions": [
+      {
+        "evolves_into_id": 149,
+        "evolves_into": "dragonite",
+        "trigger": "level-up",
+        "min_level": 55,
+        "item": null
+      }
+    ],
     "growth_rate": "slow"
   },
   {
@@ -20158,7 +20412,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -20316,7 +20570,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -20419,7 +20673,7 @@
         "drain": 0
       }
     ],
-    "next_evolution": null,
+    "next_evolutions": [],
     "growth_rate": "medium-slow"
   }
 ]

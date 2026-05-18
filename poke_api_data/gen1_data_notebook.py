@@ -20,37 +20,41 @@ app = marimo.App(width="columns")
 
 @app.cell(column=0)
 def _():
-    import marimo as mo
-    import requests
     import json
     import os
+    import time
+    from functools import lru_cache
     from pathlib import Path
     from typing import Any
 
+    import marimo as mo
+    import requests
 
-    @mo.persistent_cache
-    def request_pokeapi(url: str):
-        print("fetching data form api")
-        result = requests.get(url)
-        if not result.ok:
-            raise RuntimeError(
-                f"Something went wrong fetching pokeapi data. {result.status_code} {result.raw}"
-            )
-        return result.json()
+    DELAY = 0.3
 
+    @lru_cache(maxsize=None)
+    def request_pokeapi(url: str) -> dict:
+        """GET with basic error handling. Cached by URL — repeated calls are free."""
+        time.sleep(DELAY)
+        resp = requests.get(url, timeout=10)
+        if not resp.ok:
+            print(f"Error fetching from api, HTTP Code: {resp.status_code}. {resp.raw}")
+            return {}
+
+        return resp.json()
 
     def open_json_file(filename: str | Path) -> Any:
         with open(filename, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    def get_compiled_json(file_path: Path|str|None = None):
+    def get_compiled_json(file_path: Path | str | None = None):
         if not file_path:
             file_path = Path(os.getcwd())
         if not isinstance(file_path, Path):
             file_path = Path(file_path)
 
         if "poke_api_data" not in file_path.parts:
-            file_path  = file_path / "poke_api_data"
+            file_path = file_path / "poke_api_data"
 
         if "compiled_pokemon_data.json" not in file_path.parts:
             file_path = file_path / "compiled_pokemon_data.json"
@@ -80,9 +84,7 @@ def _(mo, poke_run_btn, request_pokeapi):
     # Stop execution if the button hasn't been clicked
     mo.stop(
         not poke_run_btn.value,
-        mo.md(
-            "Expensive network and parsing operation. Click 👆 to run this cell"
-        ),
+        mo.md("Expensive network and parsing operation. Click 👆 to run this cell"),
     )
 
     # gen_1_data = request_pokeapi("https://pokeapi.co/api/v2/generation/1")
@@ -113,9 +115,7 @@ def _(mo, move_run_btn, request_pokeapi):
     # Stop execution if the button hasn't been clicked
     mo.stop(
         not move_run_btn.value,
-        mo.md(
-            "Expensive network and parsing operation. Click 👆 to run this cell"
-        ),
+        mo.md("Expensive network and parsing operation. Click 👆 to run this cell"),
     )
 
     move_data = request_pokeapi("https://pokeapi.co/api/v2/move/1")

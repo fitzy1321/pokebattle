@@ -39,6 +39,10 @@ open-notebook:
 run:
     ./{{ C_BUILD_DIR }}/pokemain
 
+setup_db:
+    ./poke_api_data/compile_gen1_data.py
+    ./poke_api_data/setup_db.py
+
 test:
     gcc -o {{ C_BUILD_DIR }}/test_runner \
         {{ C_TEST_DIR }}/test_mylib.c

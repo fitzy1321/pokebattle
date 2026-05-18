@@ -6,9 +6,9 @@ Collects for each of the 151 Pokémon:
   - Base stats (HP, Attack, Defense, Sp.Atk, Sp.Def, Speed)
   - Moves learned in Red/Blue (level-up only, with level learned)
   - Type(s) as [slot, name] pairs
-  - Next evolution (if any) and the level/trigger for it
+  - Next evolutions (always a list; empty if none, multiple if branching e.g. Eevee)
   - Base experience (XP yielded when defeated)
-  - Growth rate XP table (XP required per level)
+  - Growth rate name
 """
 
 import json
@@ -18,10 +18,14 @@ from functools import lru_cache
 import requests
 
 BASE_URL = "https://pokeapi.co/api/v2"
-OUTPUT_FILE = "compiled_pokemon_data.json"
+OUTPUT_FILE = "poke_api_data/compiled_pokemon_data.json"
 VERSION_GROUP = "red-blue"
 TOTAL_POKEMON = 151
 DELAY = 0.3  # seconds between requests to be polite
+
+# Trade evolutions don't exist in a single-player context.
+# These four are remapped to level-up at level 36 (common fan game standard).
+TRADE_EVO_LEVEL = 36
 
 session = requests.Session()
 
@@ -34,15 +38,14 @@ def fetch(url: str) -> dict:
     if not resp.ok:
         print(f"Error fetching from api, HTTP Code: {resp.status_code}. {resp.raw}")
         return {}
-
     return resp.json()
 
 
 def get_moves(pokemon_data: dict) -> list[dict]:
     """
     Return moves available in Red/Blue via level-up, with the level learned.
-    Each entry: { name, level, power, accuracy, pp, type, damage_class }
-    We fetch move details for each unique move used in red-blue.
+    Each entry: { name, level_learned, power, accuracy, pp, type, damage_class,
+                  ailment, ailment_chance, stat_changes, move_category, healing, drain }
     """
     rb_moves = []
     seen = set()
@@ -64,10 +67,8 @@ def get_moves(pokemon_data: dict) -> list[dict]:
                         }
                     )
 
-    # Sort by level learned
     rb_moves.sort(key=lambda m: m["level"])
 
-    # Fetch details for each move
     detailed = []
     for m in rb_moves:
         data = fetch(m["url"])
@@ -100,80 +101,66 @@ def get_moves(pokemon_data: dict) -> list[dict]:
     return detailed
 
 
-def get_next_evolution(species_data: dict, pokemon_name: str) -> dict | None:
+def build_evo_entry(next_node: dict) -> dict:
     """
-    Walk the evolution chain and return the next stage after pokemon_name.
-    Returns { evolves_into_id, evolves_into, trigger, min_level, item } or None.
+    Build a single evolution entry from a chain node.
+    Fetches /pokemon/{name}/ to get the FK-ready pokemon id.
+    Remaps trade triggers to level-up at TRADE_EVO_LEVEL.
+    """
+    next_name = next_node["species"]["name"]
+    details = next_node.get("evolution_details", [{}])
+    detail = details[0] if details else {}
 
-    evolves_into_id is the pokemon (not species) ID — safe to use as an FK
-    against the pokemon table. We fetch /pokemon/{name}/ to get it explicitly,
-    since species IDs and pokemon IDs only happen to match for Gen 1 base forms.
+    trigger = detail.get("trigger", {}).get("name") if detail.get("trigger") else None
+    min_level = detail.get("min_level")
+    item = detail.get("item", {}).get("name") if detail.get("item") else None
+
+    # Remap trade evolutions to level-up at TRADE_EVO_LEVEL
+    if trigger == "trade":
+        trigger = "level-up"
+        min_level = TRADE_EVO_LEVEL
+        item = None
+
+    next_poke_data = fetch(f"{BASE_URL}/pokemon/{next_name}/")
+    next_id = next_poke_data.get("id") if next_poke_data else None
+
+    return {
+        "evolves_into_id": next_id,  # FK-ready pokemon.id
+        "evolves_into": next_name,
+        "trigger": trigger,
+        "min_level": min_level,
+        "item": item,
+    }
+
+
+def get_next_evolutions(species_data: dict, pokemon_name: str) -> list[dict]:
+    """
+    Walk the evolution chain and return ALL next-stage evolutions for pokemon_name.
+    Always returns a list:
+      []           — no further evolution (legendaries, final forms, etc.)
+      [entry]      — single evolution  (Charmander -> Charmeleon)
+      [e1, e2, e3] — branching         (Eevee -> Vaporeon / Jolteon / Flareon)
+
+    Each entry: { evolves_into_id, evolves_into, trigger, min_level, item }
     """
     evo_chain_url = species_data.get("evolution_chain", {}).get("url")
     if not evo_chain_url:
-        return None
+        return []
 
     chain_data = fetch(evo_chain_url)
     if not chain_data:
-        return None
+        return []
 
-    # Walk the chain tree looking for our pokemon, then return what it evolves into
     def walk(node, target_name):
-        species_name = node.get("species", {}).get("name", "")
-        if species_name == target_name:
-            # Found it — return first evolution if any
-            evolutions = node.get("evolves_to", [])
-            if evolutions:
-                next_node = evolutions[0]
-                next_name = next_node["species"]["name"]
-                details = next_node.get("evolution_details", [{}])
-                detail = details[0] if details else {}
-
-                # Fetch the pokemon endpoint (not species) to get the real pokemon id
-                next_poke_data = fetch(f"{BASE_URL}/pokemon/{next_name}/")
-                next_id = next_poke_data.get("id") if next_poke_data else None
-
-                return {
-                    "evolves_into_id": next_id,  # FK-ready pokemon.id
-                    "evolves_into": next_name,
-                    "trigger": detail.get("trigger", {}).get("name")
-                    if detail.get("trigger")
-                    else None,
-                    "min_level": detail.get("min_level"),
-                    "item": detail.get("item", {}).get("name")
-                    if detail.get("item")
-                    else None,
-                }
-            return None  # No further evolution
-
-        # Recurse into branches
+        if node.get("species", {}).get("name") == target_name:
+            return [build_evo_entry(child) for child in node.get("evolves_to", [])]
         for child in node.get("evolves_to", []):
             result = walk(child, target_name)
             if result is not None:
                 return result
         return None
 
-    return walk(chain_data.get("chain", {}), pokemon_name)
-
-
-# def get_growth_rate_table(species_data: dict) -> list[dict]:
-#     """
-#     Returns the XP-per-level table for this pokemon's growth rate.
-#     Each entry: { level, experience }
-#     """
-#     growth_rate_url = species_data.get("growth_rate", {}).get("url")
-#     if not growth_rate_url:
-#         return []
-
-#     time.sleep(DELAY)
-#     gr_data = get(growth_rate_url)
-#     if not gr_data:
-#         return []
-
-#     return [
-#         {"level": e["level"], "experience": e["experience"]}
-#         for e in gr_data.get("levels", [])
-#     ]
+    return walk(chain_data.get("chain", {}), pokemon_name) or []
 
 
 def fetch_all():
@@ -207,15 +194,15 @@ def fetch_all():
         print(f"    Fetching moves for {name}...")
         moves = get_moves(poke_data)
 
-        # --- Evolution & Growth Rate (fetch species once, share it) ---
+        # --- Species (evolution + growth rate) ---
         species_url = poke_data.get("species", {}).get("url")
         species_data = {}
-        next_evo = None
+        next_evolutions = []
         if species_url:
             print(f"    Fetching species data for {name}...")
             species_data = fetch(species_url)
             if species_data:
-                next_evo = get_next_evolution(species_data, name)
+                next_evolutions = get_next_evolutions(species_data, name)
 
         all_pokemon.append(
             {
@@ -232,16 +219,18 @@ def fetch_all():
                     "speed": stats.get("speed", 0),
                 },
                 "moves": moves,
-                "next_evolution": next_evo,
-                "growth_rate": species_data.get("growth_rate", {}).get("name", None),
+                "next_evolutions": next_evolutions,  # [] if none, [e] if one, [e1,e2,...] if branching
+                "growth_rate": species_data.get("growth_rate", {}).get("name"),
             }
         )
 
-        evo_str = (
-            f"{next_evo['evolves_into']} (id={next_evo['evolves_into_id']})"
-            if next_evo
-            else "none"
-        )
+        if next_evolutions:
+            evo_str = ", ".join(
+                f"{e['evolves_into']} (id={e['evolves_into_id']})"
+                for e in next_evolutions
+            )
+        else:
+            evo_str = "none"
         print(f"    -> {len(moves)} moves | evo: {evo_str}")
 
     return all_pokemon
