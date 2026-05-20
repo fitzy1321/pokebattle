@@ -54,7 +54,7 @@ def get_moves(pokemon_data: dict) -> list[dict]:
         for vgd in move_entry.get("version_group_details", []):
             if (
                 vgd["version_group"]["name"] == VERSION_GROUP
-                and vgd["move_learn_method"]["name"] == "level-up"
+                # and vgd["move_learn_method"]["name"] == "level-up"
             ):
                 move_name = move_entry["move"]["name"]
                 if move_name not in seen:
@@ -64,6 +64,7 @@ def get_moves(pokemon_data: dict) -> list[dict]:
                             "name": move_name,
                             "level": vgd["level_learned_at"],
                             "url": move_entry["move"]["url"],
+                            "method": vgd["move_learn_method"]["name"],
                         }
                     )
 
@@ -79,6 +80,7 @@ def get_moves(pokemon_data: dict) -> list[dict]:
             {
                 "name": m["name"],
                 "level_learned": m["level"],
+                "learn_method": m["method"],
                 "power": data.get("power"),
                 "accuracy": data.get("accuracy"),
                 "pp": data.get("pp"),

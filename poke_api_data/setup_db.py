@@ -5,7 +5,8 @@ import sqlite3
 from pathlib import Path
 
 STATIC_TABLES_SCHEMA = """
-CREATE TABLE IF NOT EXISTS pokemon (
+DROP TABLE IF EXISTS pokemon;
+CREATE TABLE pokemon (
     id              INTEGER PRIMARY KEY,   -- matches PokéAPI pokemon id
     name            TEXT    NOT NULL UNIQUE,
     type_1          TEXT    NOT NULL,      -- primary type, always present
@@ -20,7 +21,8 @@ CREATE TABLE IF NOT EXISTS pokemon (
     growth_rate     TEXT                   -- e.g. "slow", "medium-slow", "medium-fast" "fast"
 );
 
-CREATE TABLE IF NOT EXISTS moves (
+DROP TABLE IF EXISTS moves;
+CREATE TABLE moves (
     id             INTEGER PRIMARY KEY AUTOINCREMENT,
     name           TEXT    NOT NULL UNIQUE,
     power          INTEGER,               -- NULL for status moves
@@ -35,17 +37,20 @@ CREATE TABLE IF NOT EXISTS moves (
     drain          INTEGER                -- % HP drained from target, NULL if none
 );
 
-CREATE TABLE IF NOT EXISTS pokemon_moves (
+DROP TABLE IF EXISTS pokemon_moves;
+CREATE TABLE pokemon_moves (
     id            INTEGER PRIMARY KEY AUTOINCREMENT,
     pokemon_id    INTEGER NOT NULL,       -- FK pokemon(id)
     move_id       INTEGER NOT NULL,       -- FK moves(id)
     level_learned INTEGER NOT NULL,       -- 0 = learned at start
+    learn_method  TEXT,
     FOREIGN KEY(pokemon_id) REFERENCES pokemon(id),
     FOREIGN KEY(move_id) REFERENCES moves(id),
     UNIQUE(pokemon_id, move_id)
 );
 
-CREATE TABLE IF NOT EXISTS pokemon_evolutions (
+DROP TABLE IF EXISTS pokemon_evolutions;
+CREATE TABLE pokemon_evolutions (
     id               INTEGER PRIMARY KEY AUTOINCREMENT,
     pokemon_id       INTEGER NOT NULL REFERENCES pokemon(id),  -- who evolves
     evolves_into_id  INTEGER NOT NULL REFERENCES pokemon(id),  -- what it becomes
@@ -162,10 +167,15 @@ def insert_moves(
 
         cur.execute(
             """
-            INSERT OR IGNORE INTO pokemon_moves (pokemon_id, move_id, level_learned)
-            VALUES (?, ?, ?)
+            INSERT OR IGNORE INTO pokemon_moves (pokemon_id, move_id, level_learned, learn_method)
+            VALUES (?, ?, ?, ?)
             """,
-            (poke_id, move_name_to_id[move_name], move.get("level_learned", 0)),
+            (
+                poke_id,
+                move_name_to_id[move_name],
+                move.get("level_learned", 0),
+                move.get("learn_method", "NOT FOUND"),
+            ),
         )
 
 
@@ -255,32 +265,17 @@ def main():
     if not data_path.exists():
         print(f"ERROR: data file not found: {data_path}")
         raise SystemExit(1)
-
     print(f"Data file: {data_path}")
 
     db_path = Path("pokedata.db")
-    if db_path.exists():
-        os.remove(db_path)
-
     print(f"Database : {db_path}")
 
     conn = sqlite3.connect(db_path)
     try:
-        # # if args.reset:
-        # print("Dropping all tables...")
-        # stmt = "; ".join(
-        #     [
-        #         f"DROP TABLE IF EXISTS {table}"
-        #         for table in ["pokemon", "moves", "pokemon_moves", "pokemon_evolutions"]
-        #     ]
-        # )
-        # conn.executescript(stmt)
-        # conn.commit()
-        # print("Done.")
-
         print("Creating schema...")
-        conn.execute("PRAGMA foreign_keys = ON")
-        conn.executescript(STATIC_TABLES_SCHEMA)
+        cur = conn.cursor()
+        # cur.execute("PRAGMA foreign_keys = ON")
+        cur.executescript(STATIC_TABLES_SCHEMA)
         conn.commit()
 
         print("Loading static Pokémon data...")
