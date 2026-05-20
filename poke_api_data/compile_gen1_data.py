@@ -101,7 +101,7 @@ def get_moves(pokemon_data: dict) -> list[dict]:
     return detailed
 
 
-def build_evo_entry(next_node: dict) -> dict:
+def build_evo_entry(next_node: dict) -> dict | None:
     """
     Build a single evolution entry from a chain node.
     Fetches /pokemon/{name}/ to get the FK-ready pokemon id.
@@ -123,6 +123,9 @@ def build_evo_entry(next_node: dict) -> dict:
 
     next_poke_data = fetch(f"{BASE_URL}/pokemon/{next_name}/")
     next_id = next_poke_data.get("id") if next_poke_data else None
+
+    if not next_id or next_id > TOTAL_POKEMON:
+        return None
 
     return {
         "evolves_into_id": next_id,  # FK-ready pokemon.id
@@ -153,7 +156,13 @@ def get_next_evolutions(species_data: dict, pokemon_name: str) -> list[dict]:
 
     def walk(node, target_name):
         if node.get("species", {}).get("name") == target_name:
-            return [build_evo_entry(child) for child in node.get("evolves_to", [])]
+            evolutions = []
+            for child in node.get("evolves_to", []):
+                evo_entry = build_evo_entry(child)
+                if not evo_entry:
+                    continue
+                evolutions.append(evo_entry)
+            return evolutions
         for child in node.get("evolves_to", []):
             result = walk(child, target_name)
             if result is not None:

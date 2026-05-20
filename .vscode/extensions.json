@@ -4,7 +4,7 @@
         "mtxr.sqltools-driver-sqlite",
         "ms-python.python",
         // "marimo-team.vscode-marimo",
-        // "charliermarsh.ruff",
+        "charliermarsh.ruff",
         "ms-vscode.cpptools-extension-pack",
         "nefrob.vscode-just-syntax"
     ]

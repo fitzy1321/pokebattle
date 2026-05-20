@@ -9,19 +9,19 @@ build-and-run: compile run
 
 alias bar := build-and-run
 
-build-db:
-    rm pokedata.db || true
-    ./pokedata
+# build-db:
+#     rm pokedata.db || true
+#     ./pokedata
 
 clean:
     rm -rf {{ C_BUILD_DIR }}
     mkdir -p {{ C_BUILD_DIR }}
 
 compile:
-    #!/usr/bin/env bash
-    if [ ! -f "pokedata.db" ]; then
-        ./pokedata
-    fi
+    # #!/usr/bin/env bash
+    # if [ ! -f "pokedata.db" ]; then
+    #     ./pokedata
+    # fi
     mkdir -p {{ C_BUILD_DIR }}
     cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain \
         {{ C_SRC_DIR }}/main.c

@@ -5575,15 +5575,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 169,
-        "evolves_into": "crobat",
-        "trigger": "level-up",
-        "min_level": null,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -5872,13 +5864,6 @@
         "trigger": "use-item",
         "min_level": null,
         "item": "leaf-stone"
-      },
-      {
-        "evolves_into_id": 182,
-        "evolves_into": "bellossom",
-        "trigger": "use-item",
-        "min_level": null,
-        "item": "sun-stone"
       }
     ],
     "growth_rate": "medium-slow"
@@ -6958,13 +6943,6 @@
         "trigger": "level-up",
         "min_level": 28,
         "item": null
-      },
-      {
-        "evolves_into_id": 863,
-        "evolves_into": "perrserker",
-        "trigger": "level-up",
-        "min_level": 28,
-        "item": null
       }
     ],
     "growth_rate": "medium"
@@ -7622,15 +7600,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 979,
-        "evolves_into": "annihilape",
-        "trigger": "use-move",
-        "min_level": null,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -8155,13 +8125,6 @@
         "trigger": "use-item",
         "min_level": null,
         "item": "water-stone"
-      },
-      {
-        "evolves_into_id": 186,
-        "evolves_into": "politoed",
-        "trigger": "level-up",
-        "min_level": 36,
-        "item": null
       }
     ],
     "growth_rate": "medium-slow"
@@ -10692,13 +10655,6 @@
         "trigger": "level-up",
         "min_level": 37,
         "item": null
-      },
-      {
-        "evolves_into_id": 199,
-        "evolves_into": "slowking",
-        "trigger": "level-up",
-        "min_level": 36,
-        "item": null
       }
     ],
     "growth_rate": "medium"
@@ -11149,15 +11105,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 462,
-        "evolves_into": "magnezone",
-        "trigger": "level-up",
-        "min_level": null,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -11309,15 +11257,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 865,
-        "evolves_into": "sirfetchd",
-        "trigger": "three-critical-hits",
-        "min_level": null,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -12928,15 +12868,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 208,
-        "evolves_into": "steelix",
-        "trigger": "level-up",
-        "min_level": 36,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -14733,15 +14665,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 463,
-        "evolves_into": "lickilicky",
-        "trigger": "level-up",
-        "min_level": null,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -15307,15 +15231,7 @@
         "drain": -25
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 464,
-        "evolves_into": "rhyperior",
-        "trigger": "level-up",
-        "min_level": 36,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "slow"
   },
   {
@@ -15473,15 +15389,7 @@
         "drain": -33
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 242,
-        "evolves_into": "blissey",
-        "trigger": "level-up",
-        "min_level": null,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "fast"
   },
   {
@@ -15638,15 +15546,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 465,
-        "evolves_into": "tangrowth",
-        "trigger": "level-up",
-        "min_level": null,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -16058,15 +15958,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 230,
-        "evolves_into": "kingdra",
-        "trigger": "level-up",
-        "min_level": 36,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -16745,15 +16637,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 866,
-        "evolves_into": "mr-rime",
-        "trigger": "level-up",
-        "min_level": 42,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -16905,22 +16789,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 212,
-        "evolves_into": "scizor",
-        "trigger": "level-up",
-        "min_level": 36,
-        "item": null
-      },
-      {
-        "evolves_into_id": 900,
-        "evolves_into": "kleavor",
-        "trigger": "use-item",
-        "min_level": null,
-        "item": "black-augurite"
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -17205,15 +17074,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 466,
-        "evolves_into": "electivire",
-        "trigger": "level-up",
-        "min_level": 36,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -17351,15 +17212,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 467,
-        "evolves_into": "magmortar",
-        "trigger": "level-up",
-        "min_level": 36,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
@@ -18122,41 +17975,6 @@
         "trigger": "use-item",
         "min_level": null,
         "item": "fire-stone"
-      },
-      {
-        "evolves_into_id": 196,
-        "evolves_into": "espeon",
-        "trigger": "level-up",
-        "min_level": null,
-        "item": null
-      },
-      {
-        "evolves_into_id": 197,
-        "evolves_into": "umbreon",
-        "trigger": "level-up",
-        "min_level": null,
-        "item": null
-      },
-      {
-        "evolves_into_id": 470,
-        "evolves_into": "leafeon",
-        "trigger": "level-up",
-        "min_level": null,
-        "item": null
-      },
-      {
-        "evolves_into_id": 471,
-        "evolves_into": "glaceon",
-        "trigger": "level-up",
-        "min_level": null,
-        "item": null
-      },
-      {
-        "evolves_into_id": 700,
-        "evolves_into": "sylveon",
-        "trigger": "level-up",
-        "min_level": null,
-        "item": null
       }
     ],
     "growth_rate": "medium"
@@ -18860,15 +18678,7 @@
         "drain": 0
       }
     ],
-    "next_evolutions": [
-      {
-        "evolves_into_id": 233,
-        "evolves_into": "porygon2",
-        "trigger": "level-up",
-        "min_level": 36,
-        "item": null
-      }
-    ],
+    "next_evolutions": [],
     "growth_rate": "medium"
   },
   {
