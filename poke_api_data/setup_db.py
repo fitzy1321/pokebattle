@@ -247,14 +247,14 @@ def load_static_data(conn: sqlite3.Connection, data: list[dict]) -> None:
 
 
 def main():
-    data_path = Path(os.getcwd())
-    if "poke_api_data" not in data_path.parts:
-        data_path = data_path / "poke_api_data"
-    data_path = data_path / "compiled_pokemon_data.json"
-
+    FILE_NAME = "compiled_pokemon_data.json"
+    cwd = Path(os.getcwd())
+    data_path = cwd / FILE_NAME
+    if not data_path.exists():
+        data_path = cwd / "poke_api_data" / FILE_NAME
     if not data_path.exists():
         print(f"ERROR: data file not found: {data_path}")
-        return
+        raise SystemExit(1)
 
     print(f"Data file: {data_path}")
 
@@ -266,21 +266,20 @@ def main():
 
     conn = sqlite3.connect(db_path)
     try:
-        conn.execute("PRAGMA foreign_keys = ON")
-
-        # if args.reset:
-        print("Dropping all tables...")
-        stmt = "; ".join(
-            [
-                f"DROP TABLE IF EXISTS {table}"
-                for table in ["pokemon", "moves", "pokemon_moves", "pokemon_evolutions"]
-            ]
-        )
-        conn.executescript(stmt)
-        conn.commit()
-        print("Done.")
+        # # if args.reset:
+        # print("Dropping all tables...")
+        # stmt = "; ".join(
+        #     [
+        #         f"DROP TABLE IF EXISTS {table}"
+        #         for table in ["pokemon", "moves", "pokemon_moves", "pokemon_evolutions"]
+        #     ]
+        # )
+        # conn.executescript(stmt)
+        # conn.commit()
+        # print("Done.")
 
         print("Creating schema...")
+        conn.execute("PRAGMA foreign_keys = ON")
         conn.executescript(STATIC_TABLES_SCHEMA)
         conn.commit()
 

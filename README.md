@@ -21,13 +21,11 @@ sqlite might be the easiest solution, idk if it's the best but it works.
 For the actual battles, I want to implement strategy pattern in C, but I'm not sure how yet. Probably higher order functions and function pointers, oi. I'm still learning the nitty-gritty of C, so we'll see how this evolves.
 
 - [x] C sqlite library
-- [ ] C unit testing
-- [ ] Static Pokemon Data (attack, defense, speed, special, evolution_level, next_pokemon_id)
-- [ ] Static Global Move List (name, base pp, base damage, status effects, stages, etc)
-- [ ] Static Species Learn set (pokemon_id, move_id, level=>=1, type=["level up","tm","hm","tutor","egg", etc])
-- [ ] User party pokemon data
-- [ ] Enemy party pokemon data
+- [x] Python scripts to fetch pokemon data
+- [x] Stash Pokemon data into sqlite
+- [ ] C sqlite setup and how to query and insert data?
 - [ ] Strategy pattern in C, for the battle system
+- [ ] C unit testing
 
 ## Data
 
@@ -38,3 +36,4 @@ OpenAPI Schema file on github: <https://raw.githubusercontent.com/PokeAPI/pokeap
 ## Gotchas
 
 1. Add `-lsqlite3` to CC, to link sqlite3 library. Otherwise it won't compile.
+2. Poke API data has so much damn data, it took me a week to write scripts to fetch the data and etl it into a sqlite db ... I'm tired bouss ...

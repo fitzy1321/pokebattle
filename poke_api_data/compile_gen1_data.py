@@ -18,7 +18,7 @@ from functools import lru_cache
 import requests
 
 BASE_URL = "https://pokeapi.co/api/v2"
-OUTPUT_FILE = "poke_api_data/compiled_pokemon_data.json"
+OUTPUT_FILE = "compiled_pokemon_data.json"
 VERSION_GROUP = "red-blue"
 TOTAL_POKEMON = 151
 DELAY = 0.3  # seconds between requests to be polite
