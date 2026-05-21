@@ -21,7 +21,6 @@ app = marimo.App(width="columns")
 @app.cell(column=0)
 def _():
     import json
-    import os
     import time
     from functools import lru_cache
     from pathlib import Path
@@ -49,7 +48,7 @@ def _():
 
     def get_compiled_json(file_path: Path | str | None = None):
         if not file_path:
-            file_path = Path(os.getcwd())
+            file_path = Path.cwd()
         if not isinstance(file_path, Path):
             file_path = Path(file_path)
 
