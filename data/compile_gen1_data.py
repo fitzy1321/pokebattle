@@ -18,7 +18,7 @@ from functools import lru_cache
 import requests
 
 BASE_URL = "https://pokeapi.co/api/v2"
-OUTPUT_FILE = "compiled_pokemon_data.json"
+OUTPUT_FILE = "data/compiled_pokemon_data.json"
 VERSION_GROUP = "red-blue"
 TOTAL_POKEMON = 151
 DELAY = 0.3  # seconds between requests to be polite
@@ -196,10 +196,10 @@ def fetch_all():
         stats = {s["stat"]["name"]: s["base_stat"] for s in poke_data.get("stats", [])}
 
         # --- Types ---
-        types = [
-            [t["slot"], t["type"]["name"]]
+        types = {
+            t["slot"]: t["type"]["name"]
             for t in sorted(poke_data.get("types", []), key=lambda x: x["slot"])
-        ]
+        }
 
         # --- Moves (Red/Blue level-up) ---
         print(f"    Fetching moves for {name}...")

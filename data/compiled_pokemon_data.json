@@ -2,16 +2,10 @@
   {
     "id": 1,
     "name": "bulbasaur",
-    "types": [
-      [
-        1,
-        "grass"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "grass",
+      "2": "poison"
+    },
     "base_experience": 64,
     "stats": {
       "hp": 45,
@@ -429,16 +423,10 @@
   {
     "id": 2,
     "name": "ivysaur",
-    "types": [
-      [
-        1,
-        "grass"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "grass",
+      "2": "poison"
+    },
     "base_experience": 142,
     "stats": {
       "hp": 60,
@@ -856,16 +844,10 @@
   {
     "id": 3,
     "name": "venusaur",
-    "types": [
-      [
-        1,
-        "grass"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "grass",
+      "2": "poison"
+    },
     "base_experience": 236,
     "stats": {
       "hp": 80,
@@ -1291,12 +1273,9 @@
   {
     "id": 4,
     "name": "charmander",
-    "types": [
-      [
-        1,
-        "fire"
-      ]
-    ],
+    "types": {
+      "1": "fire"
+    },
     "base_experience": 62,
     "stats": {
       "hp": 39,
@@ -1838,12 +1817,9 @@
   {
     "id": 5,
     "name": "charmeleon",
-    "types": [
-      [
-        1,
-        "fire"
-      ]
-    ],
+    "types": {
+      "1": "fire"
+    },
     "base_experience": 142,
     "stats": {
       "hp": 58,
@@ -2385,16 +2361,10 @@
   {
     "id": 6,
     "name": "charizard",
-    "types": [
-      [
-        1,
-        "fire"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "fire",
+      "2": "flying"
+    },
     "base_experience": 240,
     "stats": {
       "hp": 78,
@@ -2976,12 +2946,9 @@
   {
     "id": 7,
     "name": "squirtle",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 63,
     "stats": {
       "hp": 44,
@@ -3512,12 +3479,9 @@
   {
     "id": 8,
     "name": "wartortle",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 142,
     "stats": {
       "hp": 59,
@@ -4048,12 +4012,9 @@
   {
     "id": 9,
     "name": "blastoise",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 239,
     "stats": {
       "hp": 79,
@@ -4624,12 +4585,9 @@
   {
     "id": 10,
     "name": "caterpie",
-    "types": [
-      [
-        1,
-        "bug"
-      ]
-    ],
+    "types": {
+      "1": "bug"
+    },
     "base_experience": 39,
     "stats": {
       "hp": 45,
@@ -4692,12 +4650,9 @@
   {
     "id": 11,
     "name": "metapod",
-    "types": [
-      [
-        1,
-        "bug"
-      ]
-    ],
+    "types": {
+      "1": "bug"
+    },
     "base_experience": 72,
     "stats": {
       "hp": 50,
@@ -4744,16 +4699,10 @@
   {
     "id": 12,
     "name": "butterfree",
-    "types": [
-      [
-        1,
-        "bug"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "bug",
+      "2": "flying"
+    },
     "base_experience": 178,
     "stats": {
       "hp": 60,
@@ -5181,16 +5130,10 @@
   {
     "id": 13,
     "name": "weedle",
-    "types": [
-      [
-        1,
-        "bug"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "bug",
+      "2": "poison"
+    },
     "base_experience": 39,
     "stats": {
       "hp": 40,
@@ -5253,16 +5196,10 @@
   {
     "id": 14,
     "name": "kakuna",
-    "types": [
-      [
-        1,
-        "bug"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "bug",
+      "2": "poison"
+    },
     "base_experience": 72,
     "stats": {
       "hp": 45,
@@ -5309,16 +5246,10 @@
   {
     "id": 15,
     "name": "beedrill",
-    "types": [
-      [
-        1,
-        "bug"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "bug",
+      "2": "poison"
+    },
     "base_experience": 178,
     "stats": {
       "hp": 65,
@@ -5687,16 +5618,10 @@
   {
     "id": 16,
     "name": "pidgey",
-    "types": [
-      [
-        1,
-        "normal"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "normal",
+      "2": "flying"
+    },
     "base_experience": 50,
     "stats": {
       "hp": 40,
@@ -6073,16 +5998,10 @@
   {
     "id": 17,
     "name": "pidgeotto",
-    "types": [
-      [
-        1,
-        "normal"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "normal",
+      "2": "flying"
+    },
     "base_experience": 122,
     "stats": {
       "hp": 63,
@@ -6459,16 +6378,10 @@
   {
     "id": 18,
     "name": "pidgeot",
-    "types": [
-      [
-        1,
-        "normal"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "normal",
+      "2": "flying"
+    },
     "base_experience": 216,
     "stats": {
       "hp": 83,
@@ -6853,12 +6766,9 @@
   {
     "id": 19,
     "name": "rattata",
-    "types": [
-      [
-        1,
-        "normal"
-      ]
-    ],
+    "types": {
+      "1": "normal"
+    },
     "base_experience": 51,
     "stats": {
       "hp": 30,
@@ -7283,12 +7193,9 @@
   {
     "id": 20,
     "name": "raticate",
-    "types": [
-      [
-        1,
-        "normal"
-      ]
-    ],
+    "types": {
+      "1": "normal"
+    },
     "base_experience": 145,
     "stats": {
       "hp": 55,
@@ -7737,16 +7644,10 @@
   {
     "id": 21,
     "name": "spearow",
-    "types": [
-      [
-        1,
-        "normal"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "normal",
+      "2": "flying"
+    },
     "base_experience": 52,
     "stats": {
       "hp": 40,
@@ -8128,16 +8029,10 @@
   {
     "id": 22,
     "name": "fearow",
-    "types": [
-      [
-        1,
-        "normal"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "normal",
+      "2": "flying"
+    },
     "base_experience": 155,
     "stats": {
       "hp": 65,
@@ -8527,12 +8422,9 @@
   {
     "id": 23,
     "name": "ekans",
-    "types": [
-      [
-        1,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "poison"
+    },
     "base_experience": 58,
     "stats": {
       "hp": 35,
@@ -8962,12 +8854,9 @@
   {
     "id": 24,
     "name": "arbok",
-    "types": [
-      [
-        1,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "poison"
+    },
     "base_experience": 157,
     "stats": {
       "hp": 60,
@@ -9405,12 +9294,9 @@
   {
     "id": 25,
     "name": "pikachu",
-    "types": [
-      [
-        1,
-        "electric"
-      ]
-    ],
+    "types": {
+      "1": "electric"
+    },
     "base_experience": 112,
     "stats": {
       "hp": 35,
@@ -9888,12 +9774,9 @@
   {
     "id": 26,
     "name": "raichu",
-    "types": [
-      [
-        1,
-        "electric"
-      ]
-    ],
+    "types": {
+      "1": "electric"
+    },
     "base_experience": 218,
     "stats": {
       "hp": 60,
@@ -10326,12 +10209,9 @@
   {
     "id": 27,
     "name": "sandshrew",
-    "types": [
-      [
-        1,
-        "ground"
-      ]
-    ],
+    "types": {
+      "1": "ground"
+    },
     "base_experience": 60,
     "stats": {
       "hp": 50,
@@ -10788,12 +10668,9 @@
   {
     "id": 28,
     "name": "sandslash",
-    "types": [
-      [
-        1,
-        "ground"
-      ]
-    ],
+    "types": {
+      "1": "ground"
+    },
     "base_experience": 158,
     "stats": {
       "hp": 75,
@@ -11258,12 +11135,9 @@
   {
     "id": 29,
     "name": "nidoran-f",
-    "types": [
-      [
-        1,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "poison"
+    },
     "base_experience": 55,
     "stats": {
       "hp": 55,
@@ -11672,12 +11546,9 @@
   {
     "id": 30,
     "name": "nidorina",
-    "types": [
-      [
-        1,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "poison"
+    },
     "base_experience": 128,
     "stats": {
       "hp": 70,
@@ -12155,16 +12026,10 @@
   {
     "id": 31,
     "name": "nidoqueen",
-    "types": [
-      [
-        1,
-        "poison"
-      ],
-      [
-        2,
-        "ground"
-      ]
-    ],
+    "types": {
+      "1": "poison",
+      "2": "ground"
+    },
     "base_experience": 227,
     "stats": {
       "hp": 90,
@@ -12773,12 +12638,9 @@
   {
     "id": 32,
     "name": "nidoran-m",
-    "types": [
-      [
-        1,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "poison"
+    },
     "base_experience": 55,
     "stats": {
       "hp": 46,
@@ -13182,12 +13044,9 @@
   {
     "id": 33,
     "name": "nidorino",
-    "types": [
-      [
-        1,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "poison"
+    },
     "base_experience": 128,
     "stats": {
       "hp": 61,
@@ -13644,16 +13503,10 @@
   {
     "id": 34,
     "name": "nidoking",
-    "types": [
-      [
-        1,
-        "poison"
-      ],
-      [
-        2,
-        "ground"
-      ]
-    ],
+    "types": {
+      "1": "poison",
+      "2": "ground"
+    },
     "base_experience": 227,
     "stats": {
       "hp": 81,
@@ -14257,12 +14110,9 @@
   {
     "id": 35,
     "name": "clefairy",
-    "types": [
-      [
-        1,
-        "fairy"
-      ]
-    ],
+    "types": {
+      "1": "fairy"
+    },
     "base_experience": 113,
     "stats": {
       "hp": 70,
@@ -14963,12 +14813,9 @@
   {
     "id": 36,
     "name": "clefable",
-    "types": [
-      [
-        1,
-        "fairy"
-      ]
-    ],
+    "types": {
+      "1": "fairy"
+    },
     "base_experience": 217,
     "stats": {
       "hp": 95,
@@ -15603,12 +15450,9 @@
   {
     "id": 37,
     "name": "vulpix",
-    "types": [
-      [
-        1,
-        "fire"
-      ]
-    ],
+    "types": {
+      "1": "fire"
+    },
     "base_experience": 60,
     "stats": {
       "hp": 38,
@@ -15996,12 +15840,9 @@
   {
     "id": 38,
     "name": "ninetales",
-    "types": [
-      [
-        1,
-        "fire"
-      ]
-    ],
+    "types": {
+      "1": "fire"
+    },
     "base_experience": 177,
     "stats": {
       "hp": 73,
@@ -16349,16 +16190,10 @@
   {
     "id": 39,
     "name": "jigglypuff",
-    "types": [
-      [
-        1,
-        "normal"
-      ],
-      [
-        2,
-        "fairy"
-      ]
-    ],
+    "types": {
+      "1": "normal",
+      "2": "fairy"
+    },
     "base_experience": 95,
     "stats": {
       "hp": 115,
@@ -17001,16 +16836,10 @@
   {
     "id": 40,
     "name": "wigglytuff",
-    "types": [
-      [
-        1,
-        "normal"
-      ],
-      [
-        2,
-        "fairy"
-      ]
-    ],
+    "types": {
+      "1": "normal",
+      "2": "fairy"
+    },
     "base_experience": 196,
     "stats": {
       "hp": 140,
@@ -17645,16 +17474,10 @@
   {
     "id": 41,
     "name": "zubat",
-    "types": [
-      [
-        1,
-        "poison"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "poison",
+      "2": "flying"
+    },
     "base_experience": 49,
     "stats": {
       "hp": 40,
@@ -17989,16 +17812,10 @@
   {
     "id": 42,
     "name": "golbat",
-    "types": [
-      [
-        1,
-        "poison"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "poison",
+      "2": "flying"
+    },
     "base_experience": 159,
     "stats": {
       "hp": 75,
@@ -18362,16 +18179,10 @@
   {
     "id": 43,
     "name": "oddish",
-    "types": [
-      [
-        1,
-        "grass"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "grass",
+      "2": "poison"
+    },
     "base_experience": 64,
     "stats": {
       "hp": 45,
@@ -18732,16 +18543,10 @@
   {
     "id": 44,
     "name": "gloom",
-    "types": [
-      [
-        1,
-        "grass"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "grass",
+      "2": "poison"
+    },
     "base_experience": 138,
     "stats": {
       "hp": 60,
@@ -19102,16 +18907,10 @@
   {
     "id": 45,
     "name": "vileplume",
-    "types": [
-      [
-        1,
-        "grass"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "grass",
+      "2": "poison"
+    },
     "base_experience": 221,
     "stats": {
       "hp": 75,
@@ -19480,16 +19279,10 @@
   {
     "id": 46,
     "name": "paras",
-    "types": [
-      [
-        1,
-        "bug"
-      ],
-      [
-        2,
-        "grass"
-      ]
-    ],
+    "types": {
+      "1": "bug",
+      "2": "grass"
+    },
     "base_experience": 57,
     "stats": {
       "hp": 35,
@@ -19902,16 +19695,10 @@
   {
     "id": 47,
     "name": "parasect",
-    "types": [
-      [
-        1,
-        "bug"
-      ],
-      [
-        2,
-        "grass"
-      ]
-    ],
+    "types": {
+      "1": "bug",
+      "2": "grass"
+    },
     "base_experience": 142,
     "stats": {
       "hp": 60,
@@ -20332,16 +20119,10 @@
   {
     "id": 48,
     "name": "venonat",
-    "types": [
-      [
-        1,
-        "bug"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "bug",
+      "2": "poison"
+    },
     "base_experience": 61,
     "stats": {
       "hp": 60,
@@ -20713,16 +20494,10 @@
   {
     "id": 49,
     "name": "venomoth",
-    "types": [
-      [
-        1,
-        "bug"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "bug",
+      "2": "poison"
+    },
     "base_experience": 158,
     "stats": {
       "hp": 70,
@@ -21166,12 +20941,9 @@
   {
     "id": 50,
     "name": "diglett",
-    "types": [
-      [
-        1,
-        "ground"
-      ]
-    ],
+    "types": {
+      "1": "ground"
+    },
     "base_experience": 53,
     "stats": {
       "hp": 10,
@@ -21500,12 +21272,9 @@
   {
     "id": 51,
     "name": "dugtrio",
-    "types": [
-      [
-        1,
-        "ground"
-      ]
-    ],
+    "types": {
+      "1": "ground"
+    },
     "base_experience": 149,
     "stats": {
       "hp": 35,
@@ -21842,12 +21611,9 @@
   {
     "id": 52,
     "name": "meowth",
-    "types": [
-      [
-        1,
-        "normal"
-      ]
-    ],
+    "types": {
+      "1": "normal"
+    },
     "base_experience": 58,
     "stats": {
       "hp": 40,
@@ -22261,12 +22027,9 @@
   {
     "id": 53,
     "name": "persian",
-    "types": [
-      [
-        1,
-        "normal"
-      ]
-    ],
+    "types": {
+      "1": "normal"
+    },
     "base_experience": 154,
     "stats": {
       "hp": 65,
@@ -22688,12 +22451,9 @@
   {
     "id": 54,
     "name": "psyduck",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 64,
     "stats": {
       "hp": 50,
@@ -23230,12 +22990,9 @@
   {
     "id": 55,
     "name": "golduck",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 175,
     "stats": {
       "hp": 80,
@@ -23780,12 +23537,9 @@
   {
     "id": 56,
     "name": "mankey",
-    "types": [
-      [
-        1,
-        "fighting"
-      ]
-    ],
+    "types": {
+      "1": "fighting"
+    },
     "base_experience": 61,
     "stats": {
       "hp": 40,
@@ -24301,12 +24055,9 @@
   {
     "id": 57,
     "name": "primeape",
-    "types": [
-      [
-        1,
-        "fighting"
-      ]
-    ],
+    "types": {
+      "1": "fighting"
+    },
     "base_experience": 159,
     "stats": {
       "hp": 65,
@@ -24830,12 +24581,9 @@
   {
     "id": 58,
     "name": "growlithe",
-    "types": [
-      [
-        1,
-        "fire"
-      ]
-    ],
+    "types": {
+      "1": "fire"
+    },
     "base_experience": 70,
     "stats": {
       "hp": 55,
@@ -25228,12 +24976,9 @@
   {
     "id": 59,
     "name": "arcanine",
-    "types": [
-      [
-        1,
-        "fire"
-      ]
-    ],
+    "types": {
+      "1": "fire"
+    },
     "base_experience": 194,
     "stats": {
       "hp": 90,
@@ -25597,12 +25342,9 @@
   {
     "id": 60,
     "name": "poliwag",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 60,
     "stats": {
       "hp": 40,
@@ -26021,12 +25763,9 @@
   {
     "id": 61,
     "name": "poliwhirl",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 135,
     "stats": {
       "hp": 65,
@@ -26589,16 +26328,10 @@
   {
     "id": 62,
     "name": "poliwrath",
-    "types": [
-      [
-        1,
-        "water"
-      ],
-      [
-        2,
-        "fighting"
-      ]
-    ],
+    "types": {
+      "1": "water",
+      "2": "fighting"
+    },
     "base_experience": 230,
     "stats": {
       "hp": 90,
@@ -27111,12 +26844,9 @@
   {
     "id": 63,
     "name": "abra",
-    "types": [
-      [
-        1,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "psychic"
+    },
     "base_experience": 62,
     "stats": {
       "hp": 25,
@@ -27541,12 +27271,9 @@
   {
     "id": 64,
     "name": "kadabra",
-    "types": [
-      [
-        1,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "psychic"
+    },
     "base_experience": 140,
     "stats": {
       "hp": 40,
@@ -28051,12 +27778,9 @@
   {
     "id": 65,
     "name": "alakazam",
-    "types": [
-      [
-        1,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "psychic"
+    },
     "base_experience": 225,
     "stats": {
       "hp": 55,
@@ -28569,12 +28293,9 @@
   {
     "id": 66,
     "name": "machop",
-    "types": [
-      [
-        1,
-        "fighting"
-      ]
-    ],
+    "types": {
+      "1": "fighting"
+    },
     "base_experience": 61,
     "stats": {
       "hp": 70,
@@ -29042,12 +28763,9 @@
   {
     "id": 67,
     "name": "machoke",
-    "types": [
-      [
-        1,
-        "fighting"
-      ]
-    ],
+    "types": {
+      "1": "fighting"
+    },
     "base_experience": 142,
     "stats": {
       "hp": 80,
@@ -29515,12 +29233,9 @@
   {
     "id": 68,
     "name": "machamp",
-    "types": [
-      [
-        1,
-        "fighting"
-      ]
-    ],
+    "types": {
+      "1": "fighting"
+    },
     "base_experience": 227,
     "stats": {
       "hp": 90,
@@ -29996,16 +29711,10 @@
   {
     "id": 69,
     "name": "bellsprout",
-    "types": [
-      [
-        1,
-        "grass"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "grass",
+      "2": "poison"
+    },
     "base_experience": 60,
     "stats": {
       "hp": 50,
@@ -30423,16 +30132,10 @@
   {
     "id": 70,
     "name": "weepinbell",
-    "types": [
-      [
-        1,
-        "grass"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "grass",
+      "2": "poison"
+    },
     "base_experience": 137,
     "stats": {
       "hp": 65,
@@ -30850,16 +30553,10 @@
   {
     "id": 71,
     "name": "victreebel",
-    "types": [
-      [
-        1,
-        "grass"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "grass",
+      "2": "poison"
+    },
     "base_experience": 221,
     "stats": {
       "hp": 80,
@@ -31244,16 +30941,10 @@
   {
     "id": 72,
     "name": "tentacool",
-    "types": [
-      [
-        1,
-        "water"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "water",
+      "2": "poison"
+    },
     "base_experience": 67,
     "stats": {
       "hp": 40,
@@ -31746,16 +31437,10 @@
   {
     "id": 73,
     "name": "tentacruel",
-    "types": [
-      [
-        1,
-        "water"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "water",
+      "2": "poison"
+    },
     "base_experience": 180,
     "stats": {
       "hp": 80,
@@ -32256,16 +31941,10 @@
   {
     "id": 74,
     "name": "geodude",
-    "types": [
-      [
-        1,
-        "rock"
-      ],
-      [
-        2,
-        "ground"
-      ]
-    ],
+    "types": {
+      "1": "rock",
+      "2": "ground"
+    },
     "base_experience": 60,
     "stats": {
       "hp": 40,
@@ -32738,16 +32417,10 @@
   {
     "id": 75,
     "name": "graveler",
-    "types": [
-      [
-        1,
-        "rock"
-      ],
-      [
-        2,
-        "ground"
-      ]
-    ],
+    "types": {
+      "1": "rock",
+      "2": "ground"
+    },
     "base_experience": 137,
     "stats": {
       "hp": 55,
@@ -33220,16 +32893,10 @@
   {
     "id": 76,
     "name": "golem",
-    "types": [
-      [
-        1,
-        "rock"
-      ],
-      [
-        2,
-        "ground"
-      ]
-    ],
+    "types": {
+      "1": "rock",
+      "2": "ground"
+    },
     "base_experience": 223,
     "stats": {
       "hp": 80,
@@ -33726,12 +33393,9 @@
   {
     "id": 77,
     "name": "ponyta",
-    "types": [
-      [
-        1,
-        "fire"
-      ]
-    ],
+    "types": {
+      "1": "fire"
+    },
     "base_experience": 82,
     "stats": {
       "hp": 50,
@@ -34113,12 +33777,9 @@
   {
     "id": 78,
     "name": "rapidash",
-    "types": [
-      [
-        1,
-        "fire"
-      ]
-    ],
+    "types": {
+      "1": "fire"
+    },
     "base_experience": 175,
     "stats": {
       "hp": 65,
@@ -34508,16 +34169,10 @@
   {
     "id": 79,
     "name": "slowpoke",
-    "types": [
-      [
-        1,
-        "water"
-      ],
-      [
-        2,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "water",
+      "2": "psychic"
+    },
     "base_experience": 63,
     "stats": {
       "hp": 90,
@@ -35133,16 +34788,10 @@
   {
     "id": 80,
     "name": "slowbro",
-    "types": [
-      [
-        1,
-        "water"
-      ],
-      [
-        2,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "water",
+      "2": "psychic"
+    },
     "base_experience": 172,
     "stats": {
       "hp": 95,
@@ -35867,16 +35516,10 @@
   {
     "id": 81,
     "name": "magnemite",
-    "types": [
-      [
-        1,
-        "electric"
-      ],
-      [
-        2,
-        "steel"
-      ]
-    ],
+    "types": {
+      "1": "electric",
+      "2": "steel"
+    },
     "base_experience": 65,
     "stats": {
       "hp": 25,
@@ -36253,16 +35896,10 @@
   {
     "id": 82,
     "name": "magneton",
-    "types": [
-      [
-        1,
-        "electric"
-      ],
-      [
-        2,
-        "steel"
-      ]
-    ],
+    "types": {
+      "1": "electric",
+      "2": "steel"
+    },
     "base_experience": 163,
     "stats": {
       "hp": 50,
@@ -36647,16 +36284,10 @@
   {
     "id": 83,
     "name": "farfetchd",
-    "types": [
-      [
-        1,
-        "normal"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "normal",
+      "2": "flying"
+    },
     "base_experience": 132,
     "stats": {
       "hp": 52,
@@ -37083,16 +36714,10 @@
   {
     "id": 84,
     "name": "doduo",
-    "types": [
-      [
-        1,
-        "normal"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "normal",
+      "2": "flying"
+    },
     "base_experience": 62,
     "stats": {
       "hp": 35,
@@ -37469,16 +37094,10 @@
   {
     "id": 85,
     "name": "dodrio",
-    "types": [
-      [
-        1,
-        "normal"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "normal",
+      "2": "flying"
+    },
     "base_experience": 165,
     "stats": {
       "hp": 60,
@@ -37863,12 +37482,9 @@
   {
     "id": 86,
     "name": "seel",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 65,
     "stats": {
       "hp": 65,
@@ -38266,16 +37882,10 @@
   {
     "id": 87,
     "name": "dewgong",
-    "types": [
-      [
-        1,
-        "water"
-      ],
-      [
-        2,
-        "ice"
-      ]
-    ],
+    "types": {
+      "1": "water",
+      "2": "ice"
+    },
     "base_experience": 166,
     "stats": {
       "hp": 90,
@@ -38681,12 +38291,9 @@
   {
     "id": 88,
     "name": "grimer",
-    "types": [
-      [
-        1,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "poison"
+    },
     "base_experience": 65,
     "stats": {
       "hp": 80,
@@ -39089,12 +38696,9 @@
   {
     "id": 89,
     "name": "muk",
-    "types": [
-      [
-        1,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "poison"
+    },
     "base_experience": 175,
     "stats": {
       "hp": 105,
@@ -39505,12 +39109,9 @@
   {
     "id": 90,
     "name": "shellder",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 61,
     "stats": {
       "hp": 30,
@@ -39977,16 +39578,10 @@
   {
     "id": 91,
     "name": "cloyster",
-    "types": [
-      [
-        1,
-        "water"
-      ],
-      [
-        2,
-        "ice"
-      ]
-    ],
+    "types": {
+      "1": "water",
+      "2": "ice"
+    },
     "base_experience": 184,
     "stats": {
       "hp": 50,
@@ -40440,16 +40035,10 @@
   {
     "id": 92,
     "name": "gastly",
-    "types": [
-      [
-        1,
-        "ghost"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "ghost",
+      "2": "poison"
+    },
     "base_experience": 62,
     "stats": {
       "hp": 30,
@@ -40789,16 +40378,10 @@
   {
     "id": 93,
     "name": "haunter",
-    "types": [
-      [
-        1,
-        "ghost"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "ghost",
+      "2": "poison"
+    },
     "base_experience": 142,
     "stats": {
       "hp": 45,
@@ -41138,16 +40721,10 @@
   {
     "id": 94,
     "name": "gengar",
-    "types": [
-      [
-        1,
-        "ghost"
-      ],
-      [
-        2,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "ghost",
+      "2": "poison"
+    },
     "base_experience": 225,
     "stats": {
       "hp": 60,
@@ -41671,16 +41248,10 @@
   {
     "id": 95,
     "name": "onix",
-    "types": [
-      [
-        1,
-        "rock"
-      ],
-      [
-        2,
-        "ground"
-      ]
-    ],
+    "types": {
+      "1": "rock",
+      "2": "ground"
+    },
     "base_experience": 77,
     "stats": {
       "hp": 35,
@@ -42097,12 +41668,9 @@
   {
     "id": 96,
     "name": "drowzee",
-    "types": [
-      [
-        1,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "psychic"
+    },
     "base_experience": 66,
     "stats": {
       "hp": 60,
@@ -42660,12 +42228,9 @@
   {
     "id": 97,
     "name": "hypno",
-    "types": [
-      [
-        1,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "psychic"
+    },
     "base_experience": 169,
     "stats": {
       "hp": 85,
@@ -43231,12 +42796,9 @@
   {
     "id": 98,
     "name": "krabby",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 65,
     "stats": {
       "hp": 30,
@@ -43692,12 +43254,9 @@
   {
     "id": 99,
     "name": "kingler",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 166,
     "stats": {
       "hp": 55,
@@ -44161,12 +43720,9 @@
   {
     "id": 100,
     "name": "voltorb",
-    "types": [
-      [
-        1,
-        "electric"
-      ]
-    ],
+    "types": {
+      "1": "electric"
+    },
     "base_experience": 66,
     "stats": {
       "hp": 40,
@@ -44543,12 +44099,9 @@
   {
     "id": 101,
     "name": "electrode",
-    "types": [
-      [
-        1,
-        "electric"
-      ]
-    ],
+    "types": {
+      "1": "electric"
+    },
     "base_experience": 172,
     "stats": {
       "hp": 60,
@@ -44949,16 +44502,10 @@
   {
     "id": 102,
     "name": "exeggcute",
-    "types": [
-      [
-        1,
-        "grass"
-      ],
-      [
-        2,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "grass",
+      "2": "psychic"
+    },
     "base_experience": 65,
     "stats": {
       "hp": 60,
@@ -45362,16 +44909,10 @@
   {
     "id": 103,
     "name": "exeggutor",
-    "types": [
-      [
-        1,
-        "grass"
-      ],
-      [
-        2,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "grass",
+      "2": "psychic"
+    },
     "base_experience": 186,
     "stats": {
       "hp": 95,
@@ -45767,12 +45308,9 @@
   {
     "id": 104,
     "name": "cubone",
-    "types": [
-      [
-        1,
-        "ground"
-      ]
-    ],
+    "types": {
+      "1": "ground"
+    },
     "base_experience": 64,
     "stats": {
       "hp": 50,
@@ -46314,12 +45852,9 @@
   {
     "id": 105,
     "name": "marowak",
-    "types": [
-      [
-        1,
-        "ground"
-      ]
-    ],
+    "types": {
+      "1": "ground"
+    },
     "base_experience": 149,
     "stats": {
       "hp": 60,
@@ -46869,12 +46404,9 @@
   {
     "id": 106,
     "name": "hitmonlee",
-    "types": [
-      [
-        1,
-        "fighting"
-      ]
-    ],
+    "types": {
+      "1": "fighting"
+    },
     "base_experience": 159,
     "stats": {
       "hp": 50,
@@ -47302,12 +46834,9 @@
   {
     "id": 107,
     "name": "hitmonchan",
-    "types": [
-      [
-        1,
-        "fighting"
-      ]
-    ],
+    "types": {
+      "1": "fighting"
+    },
     "base_experience": 159,
     "stats": {
       "hp": 50,
@@ -47719,12 +47248,9 @@
   {
     "id": 108,
     "name": "lickitung",
-    "types": [
-      [
-        1,
-        "normal"
-      ]
-    ],
+    "types": {
+      "1": "normal"
+    },
     "base_experience": 77,
     "stats": {
       "hp": 90,
@@ -48359,12 +47885,9 @@
   {
     "id": 109,
     "name": "koffing",
-    "types": [
-      [
-        1,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "poison"
+    },
     "base_experience": 68,
     "stats": {
       "hp": 40,
@@ -48672,12 +48195,9 @@
   {
     "id": 110,
     "name": "weezing",
-    "types": [
-      [
-        1,
-        "poison"
-      ]
-    ],
+    "types": {
+      "1": "poison"
+    },
     "base_experience": 172,
     "stats": {
       "hp": 65,
@@ -48993,16 +48513,10 @@
   {
     "id": 111,
     "name": "rhyhorn",
-    "types": [
-      [
-        1,
-        "ground"
-      ],
-      [
-        2,
-        "rock"
-      ]
-    ],
+    "types": {
+      "1": "ground",
+      "2": "rock"
+    },
     "base_experience": 69,
     "stats": {
       "hp": 80,
@@ -49443,16 +48957,10 @@
   {
     "id": 112,
     "name": "rhydon",
-    "types": [
-      [
-        1,
-        "ground"
-      ],
-      [
-        2,
-        "rock"
-      ]
-    ],
+    "types": {
+      "1": "ground",
+      "2": "rock"
+    },
     "base_experience": 170,
     "stats": {
       "hp": 105,
@@ -50082,12 +49590,9 @@
   {
     "id": 113,
     "name": "chansey",
-    "types": [
-      [
-        1,
-        "normal"
-      ]
-    ],
+    "types": {
+      "1": "normal"
+    },
     "base_experience": 395,
     "stats": {
       "hp": 250,
@@ -50828,12 +50333,9 @@
   {
     "id": 114,
     "name": "tangela",
-    "types": [
-      [
-        1,
-        "grass"
-      ]
-    ],
+    "types": {
+      "1": "grass"
+    },
     "base_experience": 87,
     "stats": {
       "hp": 65,
@@ -51259,12 +50761,9 @@
   {
     "id": 115,
     "name": "kangaskhan",
-    "types": [
-      [
-        1,
-        "normal"
-      ]
-    ],
+    "types": {
+      "1": "normal"
+    },
     "base_experience": 172,
     "stats": {
       "hp": 105,
@@ -51846,12 +51345,9 @@
   {
     "id": 116,
     "name": "horsea",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 59,
     "stats": {
       "hp": 30,
@@ -52243,12 +51739,9 @@
   {
     "id": 117,
     "name": "seadra",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 154,
     "stats": {
       "hp": 55,
@@ -52648,12 +52141,9 @@
   {
     "id": 118,
     "name": "goldeen",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 64,
     "stats": {
       "hp": 45,
@@ -53083,12 +52573,9 @@
   {
     "id": 119,
     "name": "seaking",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 158,
     "stats": {
       "hp": 80,
@@ -53526,12 +53013,9 @@
   {
     "id": 120,
     "name": "staryu",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 68,
     "stats": {
       "hp": 30,
@@ -54083,16 +53567,10 @@
   {
     "id": 121,
     "name": "starmie",
-    "types": [
-      [
-        1,
-        "water"
-      ],
-      [
-        2,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "water",
+      "2": "psychic"
+    },
     "base_experience": 182,
     "stats": {
       "hp": 60,
@@ -54583,16 +54061,10 @@
   {
     "id": 122,
     "name": "mr-mime",
-    "types": [
-      [
-        1,
-        "psychic"
-      ],
-      [
-        2,
-        "fairy"
-      ]
-    ],
+    "types": {
+      "1": "psychic",
+      "2": "fairy"
+    },
     "base_experience": 161,
     "stats": {
       "hp": 40,
@@ -55147,16 +54619,10 @@
   {
     "id": 123,
     "name": "scyther",
-    "types": [
-      [
-        1,
-        "bug"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "bug",
+      "2": "flying"
+    },
     "base_experience": 100,
     "stats": {
       "hp": 70,
@@ -55498,16 +54964,10 @@
   {
     "id": 124,
     "name": "jynx",
-    "types": [
-      [
-        1,
-        "ice"
-      ],
-      [
-        2,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "ice",
+      "2": "psychic"
+    },
     "base_experience": 159,
     "stats": {
       "hp": 65,
@@ -56052,12 +55512,9 @@
   {
     "id": 125,
     "name": "electabuzz",
-    "types": [
-      [
-        1,
-        "electric"
-      ]
-    ],
+    "types": {
+      "1": "electric"
+    },
     "base_experience": 172,
     "stats": {
       "hp": 65,
@@ -56644,12 +56101,9 @@
   {
     "id": 126,
     "name": "magmar",
-    "types": [
-      [
-        1,
-        "fire"
-      ]
-    ],
+    "types": {
+      "1": "fire"
+    },
     "base_experience": 173,
     "stats": {
       "hp": 65,
@@ -57167,12 +56621,9 @@
   {
     "id": 127,
     "name": "pinsir",
-    "types": [
-      [
-        1,
-        "bug"
-      ]
-    ],
+    "types": {
+      "1": "bug"
+    },
     "base_experience": 175,
     "stats": {
       "hp": 65,
@@ -57541,12 +56992,9 @@
   {
     "id": 128,
     "name": "tauros",
-    "types": [
-      [
-        1,
-        "normal"
-      ]
-    ],
+    "types": {
+      "1": "normal"
+    },
     "base_experience": 172,
     "stats": {
       "hp": 75,
@@ -57979,12 +57427,9 @@
   {
     "id": 129,
     "name": "magikarp",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 40,
     "stats": {
       "hp": 20,
@@ -58042,16 +57487,10 @@
   {
     "id": 130,
     "name": "gyarados",
-    "types": [
-      [
-        1,
-        "water"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "water",
+      "2": "flying"
+    },
     "base_experience": 189,
     "stats": {
       "hp": 95,
@@ -58500,16 +57939,10 @@
   {
     "id": 131,
     "name": "lapras",
-    "types": [
-      [
-        1,
-        "water"
-      ],
-      [
-        2,
-        "ice"
-      ]
-    ],
+    "types": {
+      "1": "water",
+      "2": "ice"
+    },
     "base_experience": 187,
     "stats": {
       "hp": 130,
@@ -59043,12 +58476,9 @@
   {
     "id": 132,
     "name": "ditto",
-    "types": [
-      [
-        1,
-        "normal"
-      ]
-    ],
+    "types": {
+      "1": "normal"
+    },
     "base_experience": 101,
     "stats": {
       "hp": 48,
@@ -59082,12 +58512,9 @@
   {
     "id": 133,
     "name": "eevee",
-    "types": [
-      [
-        1,
-        "normal"
-      ]
-    ],
+    "types": {
+      "1": "normal"
+    },
     "base_experience": 65,
     "stats": {
       "hp": 55,
@@ -59430,12 +58857,9 @@
   {
     "id": 134,
     "name": "vaporeon",
-    "types": [
-      [
-        1,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "water"
+    },
     "base_experience": 184,
     "stats": {
       "hp": 130,
@@ -59926,12 +59350,9 @@
   {
     "id": 135,
     "name": "jolteon",
-    "types": [
-      [
-        1,
-        "electric"
-      ]
-    ],
+    "types": {
+      "1": "electric"
+    },
     "base_experience": 184,
     "stats": {
       "hp": 65,
@@ -60390,12 +59811,9 @@
   {
     "id": 136,
     "name": "flareon",
-    "types": [
-      [
-        1,
-        "fire"
-      ]
-    ],
+    "types": {
+      "1": "fire"
+    },
     "base_experience": 184,
     "stats": {
       "hp": 65,
@@ -60817,12 +60235,9 @@
   {
     "id": 137,
     "name": "porygon",
-    "types": [
-      [
-        1,
-        "normal"
-      ]
-    ],
+    "types": {
+      "1": "normal"
+    },
     "base_experience": 79,
     "stats": {
       "hp": 65,
@@ -61329,16 +60744,10 @@
   {
     "id": 138,
     "name": "omanyte",
-    "types": [
-      [
-        1,
-        "rock"
-      ],
-      [
-        2,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "rock",
+      "2": "water"
+    },
     "base_experience": 71,
     "stats": {
       "hp": 35,
@@ -61720,16 +61129,10 @@
   {
     "id": 139,
     "name": "omastar",
-    "types": [
-      [
-        1,
-        "rock"
-      ],
-      [
-        2,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "rock",
+      "2": "water"
+    },
     "base_experience": 173,
     "stats": {
       "hp": 70,
@@ -62183,16 +61586,10 @@
   {
     "id": 140,
     "name": "kabuto",
-    "types": [
-      [
-        1,
-        "rock"
-      ],
-      [
-        2,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "rock",
+      "2": "water"
+    },
     "base_experience": 71,
     "stats": {
       "hp": 30,
@@ -62590,16 +61987,10 @@
   {
     "id": 141,
     "name": "kabutops",
-    "types": [
-      [
-        1,
-        "rock"
-      ],
-      [
-        2,
-        "water"
-      ]
-    ],
+    "types": {
+      "1": "rock",
+      "2": "water"
+    },
     "base_experience": 173,
     "stats": {
       "hp": 60,
@@ -63106,16 +62497,10 @@
   {
     "id": 142,
     "name": "aerodactyl",
-    "types": [
-      [
-        1,
-        "rock"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "rock",
+      "2": "flying"
+    },
     "base_experience": 180,
     "stats": {
       "hp": 80,
@@ -63495,12 +62880,9 @@
   {
     "id": 143,
     "name": "snorlax",
-    "types": [
-      [
-        1,
-        "normal"
-      ]
-    ],
+    "types": {
+      "1": "normal"
+    },
     "base_experience": 189,
     "stats": {
       "hp": 160,
@@ -64167,16 +63549,10 @@
   {
     "id": 144,
     "name": "articuno",
-    "types": [
-      [
-        1,
-        "ice"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "ice",
+      "2": "flying"
+    },
     "base_experience": 261,
     "stats": {
       "hp": 90,
@@ -64577,16 +63953,10 @@
   {
     "id": 145,
     "name": "zapdos",
-    "types": [
-      [
-        1,
-        "electric"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "electric",
+      "2": "flying"
+    },
     "base_experience": 261,
     "stats": {
       "hp": 90,
@@ -65003,16 +64373,10 @@
   {
     "id": 146,
     "name": "moltres",
-    "types": [
-      [
-        1,
-        "fire"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "fire",
+      "2": "flying"
+    },
     "base_experience": 261,
     "stats": {
       "hp": 90,
@@ -65381,12 +64745,9 @@
   {
     "id": 147,
     "name": "dratini",
-    "types": [
-      [
-        1,
-        "dragon"
-      ]
-    ],
+    "types": {
+      "1": "dragon"
+    },
     "base_experience": 60,
     "stats": {
       "hp": 41,
@@ -65880,12 +65241,9 @@
   {
     "id": 148,
     "name": "dragonair",
-    "types": [
-      [
-        1,
-        "dragon"
-      ]
-    ],
+    "types": {
+      "1": "dragon"
+    },
     "base_experience": 147,
     "stats": {
       "hp": 61,
@@ -66395,16 +65753,10 @@
   {
     "id": 149,
     "name": "dragonite",
-    "types": [
-      [
-        1,
-        "dragon"
-      ],
-      [
-        2,
-        "flying"
-      ]
-    ],
+    "types": {
+      "1": "dragon",
+      "2": "flying"
+    },
     "base_experience": 270,
     "stats": {
       "hp": 91,
@@ -66938,12 +66290,9 @@
   {
     "id": 150,
     "name": "mewtwo",
-    "types": [
-      [
-        1,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "psychic"
+    },
     "base_experience": 306,
     "stats": {
       "hp": 106,
@@ -67679,12 +67028,9 @@
   {
     "id": 151,
     "name": "mew",
-    "types": [
-      [
-        1,
-        "psychic"
-      ]
-    ],
+    "types": {
+      "1": "psychic"
+    },
     "base_experience": 270,
     "stats": {
       "hp": 100,

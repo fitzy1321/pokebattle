@@ -46,20 +46,6 @@ def _():
         with open(filename, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    def get_compiled_json(file_path: Path | str | None = None):
-        if not file_path:
-            file_path = Path.cwd()
-        if not isinstance(file_path, Path):
-            file_path = Path(file_path)
-
-        if "poke_api_data" not in file_path.parts:
-            file_path = file_path / "poke_api_data"
-
-        if "compiled_pokemon_data.json" not in file_path.parts:
-            file_path = file_path / "compiled_pokemon_data.json"
-
-        return open_json_file(file_path)
-
     return mo, request_pokeapi
 
 

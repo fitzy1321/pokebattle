@@ -2,7 +2,7 @@
 default:
     @just --list
 
-API_DATA_DIR := "poke_api_data"
+DATA_DIR := "data"
 C_BUILD_DIR := "c/build"
 C_SRC_DIR := "c/src"
 C_TEST_DIR := "c/tests"
@@ -40,7 +40,7 @@ marimo:
 
 # open the poke-api marimo notebook
 open-notebook:
-    marimo edit --no-sandbox {{ API_DATA_DIR }}/gen1_data_notebook.py --watch
+    marimo edit --no-sandbox {{ DATA_DIR }}/gen1_data_notebook.py --watch
 
 # Run the compiled C binary
 run:
@@ -48,8 +48,8 @@ run:
 
 # Call a couple python scripts to download pokeapi data and create a sqlite db
 setup_db:
-    ./{{ API_DATA_DIR }}/compile_gen1_data.py
-    ./{{ API_DATA_DIR }}/setup_db.py
+    ./{{ DATA_DIR }}/compile_gen1_data.py
+    ./{{ DATA_DIR }}/setup_db.py
 
 # Run C "unit tests"
 test:

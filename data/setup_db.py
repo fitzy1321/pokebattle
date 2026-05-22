@@ -8,8 +8,8 @@ def upsert_pokemon(cur: sqlite3.Cursor, poke_id: int, poke: dict) -> None:
     stats = poke.get("stats", {})
 
     # types is [[slot, name], ...] — slot 1 always present, slot 2 optional
-    types = {slot: name for slot, name in poke.get("types", [])}
-    type_1 = types.get(1)
+    types = poke.get("types", {})
+    type_1 = types.get(1, "UNKNOWN")
     type_2 = types.get(2)  # None for single-type pokemon
 
     # --- pokemon ---
@@ -158,52 +158,61 @@ def load_static_data(conn: sqlite3.Connection, data: list[dict]) -> None:
 
     cur.execute("SELECT COUNT(*) FROM pokemon")
     print(f"  Loaded {cur.fetchone()[0]} Pokémon.")
+
     cur.execute("SELECT COUNT(*) FROM moves")
     print(f"  Loaded {cur.fetchone()[0]} unique moves.")
+
     cur.execute("SELECT COUNT(*) FROM pokemon_evolutions")
     print(f"  Loaded {cur.fetchone()[0]} evolution entries.")
 
 
+def find_file(p: Path, file_name) -> Path | None:
+    if p.is_file() and file_name in p.parts:
+        return p
+
+    for sp in [p, *p.parents]:
+        candidate = sp / file_name
+        if candidate.is_file():
+            return candidate
+
+    return None
+
+
 def main():
     # Find data json file
-    FILE_NAME = "compiled_pokemon_data.json"
+    DATA_DIR = "data"
+    DATA_FILE_NAME = "compiled_pokemon_data.json"
+    SCHEMA_FILE_NAME = "POKEMON_TABLE_SCHEMAS.sql"
     cwd = Path.cwd()
-    data_path = cwd / FILE_NAME
-    if not data_path.exists():
-        data_path = cwd / "poke_api_data" / FILE_NAME
-    if not data_path.exists():
-        print(f"ERROR: data file not found: {data_path}")
+
+    data_file_path = find_file(cwd / DATA_DIR / DATA_FILE_NAME, DATA_FILE_NAME)
+    if not data_file_path or not data_file_path.exists():
+        print(f"ERROR: data file not found: {DATA_FILE_NAME}")
         raise SystemExit(1)
 
-    # Find schema file
-    for s_path in (cwd, *cwd.parents):
-        candidate = s_path / "POKEMON_TABLE_SCHEMAS.sql"
-        if candidate.is_file():
-            sql_schema_file = candidate
-            break
-    else:
-        print("Error, could not find schema file. Exiting Program ...")
+    sql_file_path = find_file(cwd / DATA_DIR / SCHEMA_FILE_NAME, SCHEMA_FILE_NAME)
+    if not sql_file_path or not sql_file_path.exists():
+        print(f"ERROR: sql schema file not found: {SCHEMA_FILE_NAME}")
         raise SystemExit(1)
-
-    with open(sql_schema_file) as f:
-        sql_schema = f.read()
 
     db_path = Path("pokedata.db")
-
-    print(f"Data file: {data_path}")
+    print(f"Data file: {data_file_path}")
     print(f"Database : {db_path}")
-    print(f"SQL Schema file: {sql_schema_file}")
+    print(f"SQL Schema file: {sql_file_path}")
+
+    with open(sql_file_path) as f:
+        sql_scripts = f.read()
 
     conn = sqlite3.connect(db_path)
     try:
         print("Creating schema...")
         cur = conn.cursor()
         # cur.execute("PRAGMA foreign_keys = ON")
-        cur.executescript(sql_schema)
+        cur.executescript(sql_scripts)
         conn.commit()
 
         print("Loading static Pokémon data...")
-        with open(data_path) as f:
+        with open(data_file_path) as f:
             data = json.load(f)
         load_static_data(conn, data)
     finally:
