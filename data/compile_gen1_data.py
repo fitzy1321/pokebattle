@@ -247,7 +247,7 @@ def fetch_all():
     return all_pokemon
 
 
-if __name__ == "__main__":
+def main():
     print(f"Fetching data for {TOTAL_POKEMON} Gen 1 Pokémon (Red/Blue only)...")
     print("This will take a while due to rate limiting. Go grab a coffee ☕\n")
 
@@ -257,3 +257,7 @@ if __name__ == "__main__":
         json.dump(data, f, indent=2)
 
     print(f"\nDone! Saved {len(data)} Pokémon to {OUTPUT_FILE}")
+
+
+if __name__ == "__main__":
+    main()

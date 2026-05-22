@@ -3,6 +3,10 @@ import json
 import sqlite3
 from pathlib import Path
 
+DATA_DIR = "data"
+DATA_FILE_NAME = "compiled_pokemon_data.json"
+SCHEMA_FILE_NAME = "POKEMON_TABLE_SCHEMAS.sql"
+
 
 def upsert_pokemon(cur: sqlite3.Cursor, poke_id: int, poke: dict) -> None:
     stats = poke.get("stats", {})
@@ -179,10 +183,6 @@ def find_file(p: Path, file_name) -> Path | None:
 
 
 def main():
-    # Find data json file
-    DATA_DIR = "data"
-    DATA_FILE_NAME = "compiled_pokemon_data.json"
-    SCHEMA_FILE_NAME = "POKEMON_TABLE_SCHEMAS.sql"
     cwd = Path.cwd()
 
     data_file_path = find_file(cwd / DATA_DIR / DATA_FILE_NAME, DATA_FILE_NAME)
