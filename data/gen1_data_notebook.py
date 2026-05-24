@@ -1,12 +1,8 @@
 # /// script
 # requires-python = ">=3.14"
 # dependencies = [
-#     "duckdb==1.5.2",
-#     "marimo>=0.23.6",
-#     "polars==1.40.1",
-#     "requests==2.34.0",
-#     "sqlalchemy==2.0.49",
-#     "sqlglot==30.7.0",
+#     "marimo>=0.23.8",
+#     "requests==2.34.2",
 # ]
 # ///
 
@@ -14,7 +10,7 @@
 
 import marimo
 
-__generated_with = "0.23.6"
+__generated_with = "0.23.8"
 app = marimo.App(width="columns")
 
 
@@ -105,15 +101,6 @@ def _(mo, move_run_btn, request_pokeapi):
 
     move_data = request_pokeapi("https://pokeapi.co/api/v2/move/1")
     move_data
-    return
-
-
-@app.cell
-def _():
-    # import sqlalchemy
-
-    # DATABASE_URL = "sqlite:///pokedata.db"
-    # engine = sqlalchemy.create_engine(DATABASE_URL)
     return
 
 
