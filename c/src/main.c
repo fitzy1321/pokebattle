@@ -3,6 +3,8 @@
 #include <sqlite3.h>
 #include <string.h>
 
+#define M_DB_PATH_SIZE 256
+
 #ifdef _WIN32
     #include <direct.h>
     #define m_getcwd _getcwd
@@ -10,9 +12,6 @@
     #include <unistd.h>
     #define m_getcwd getcwd
 #endif
-
-// 1k might be overkill for a path string size
-#define M_PATH_SIZE 1024
 
 // // Gen 1 Type Enum (matches internal game values)
 // // ? Do I really need to make the gameboy internal values?
@@ -69,10 +68,7 @@
 // }
 
 int get_sqlite_db_path(char *out, size_t out_size) {
-    // TODO: what path should this be, and do I really care right now as long as it runs?
     const char *pokedb = "pokebattle/pokedata.db";
-    char home_buf[M_PATH_SIZE];
-    char xdg_buf[M_PATH_SIZE];
     const char *home = getenv("HOME");
     const char *xdg_data = getenv("XDG_DATA_HOME");
 
@@ -80,59 +76,53 @@ int get_sqlite_db_path(char *out, size_t out_size) {
         if (!home) {
             return -1;
         }
-        // deep copy HOME env, don't owe that memory
-        snprintf(home_buf, M_PATH_SIZE, "%s", home);
-        // TODO OS specific? For now XDG standard
         // check for ending slash
         size_t hlen = strlen(home);
-        if (home[hlen - 1] != '/') {
-            strncat(home_buf, "/", M_PATH_SIZE - hlen - 1);
-        }
-        snprintf(out, out_size, "%s%s%s", home_buf, ".local/share/", pokedb);
+        const char *slash = (home[hlen - 1] != '/') ? "/" : "";
+        // construct XDG_DATA path manually, with our application and db path
+        snprintf(out, out_size, "%s%s.local/share/%s", home, slash, pokedb);
         return 0;
     }
 
-    // deep copy XDG_DATA_HOME env, we don't own that memory
-    snprintf(xdg_buf, M_PATH_SIZE, "%s", xdg_data);
     // check for ending slash
     size_t xlen = strlen(xdg_data);
-    if (xdg_data[xlen - 1] != '/') {
-        strncat(xdg_buf, "/", M_PATH_SIZE - xlen - 1);
-    }
-    // now make our path
-    snprintf(out, out_size, "%s%s", xdg_buf, pokedb);
+    const char *slash = (xdg_data[xlen - 1] != '/') ? "/" : "";
+    // add our application path to XDG_DATA path
+    snprintf(out, out_size, "%s%s%s", xdg_data, slash, pokedb);
     return 0;
 }
 
 int main() {
     puts("Welcome to Pokémon Battle CLI!\n");
-    #ifdef DEV
-        const char *db_path = "pokedata.db";
-    #else
-        char db_path[M_PATH_SIZE];
-        int err = get_sqlite_db_path(db_path, M_PATH_SIZE);
-        if (err) {
-            perror("Could not get path to sqlite db. Closing ...");
-            return 1;
-        }
-    #endif
+
+#ifdef DEV
+    const char *db_path = "pokedata.db";
+#else
+    char db_path[M_DB_PATH_SIZE];
+    int err = get_sqlite_db_path(db_path, sizeof db_path);
+    if (err) {
+        perror("Could not get path to sqlite db.\nClosing ...");
+        return 1;
+    }
+#endif
     printf("Sqlite DB Path: %s\n", db_path);
 
-    // sqlite3 *db;
-    // // char *zErrMsg = 0;
+    sqlite3 *db;
+    // char *zErrMsg = 0;
 
-    // int rc = sqlite3_open(db_path, &db);
-    // if (rc) {
-    //     fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-    //     sqlite3_close(db);
-    //     return 1;
-    // }
+    int rc = sqlite3_open(db_path, &db);
+    if (rc) {
+        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+        sqlite3_close(db);
+        return 1;
+    }
 
     // // Pokemon *p1 = calloc(1, sizeof(Pokemon));
     // // p1->species=1;
 
     // // free(p1);
 
-    // sqlite3_close(db);
+    puts("Closing ...");
+    sqlite3_close(db);
     return 0;
 }

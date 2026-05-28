@@ -16,23 +16,23 @@ clean:
     rm -rf {{ C_BUILD_DIR }}
     mkdir -p {{ C_BUILD_DIR }}
 
-# # Compile C Binary
-# compile:
-#     # #!/usr/bin/env bash
-#     # if [ ! -f "pokedata.db" ]; then
-#     #     ./pokedata
-#     # fi
-#     mkdir -p {{ C_BUILD_DIR }}
-#     cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain \
-#         {{ C_SRC_DIR }}/main.c
+# Compile C Binary
+compile:
+    # #!/usr/bin/env bash
+    # if [ ! -f "pokedata.db" ]; then
+    #     ./pokedata
+    # fi
+    mkdir -p {{ C_BUILD_DIR }}
+    cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain \
+        {{ C_SRC_DIR }}/main.c
 
-# # Run the compiled C binary
-# run:
-#     ./{{ C_BUILD_DIR }}/pokemain
+# Run the compiled C binary
+run:
+    ./{{ C_BUILD_DIR }}/pokemain
 
-# compile-and-run: compile run
+compile-and-run: compile run
 
-# alias car := compile-and-run
+alias car := compile-and-run
 
 dev-compile:
     mkdir -p {{ C_BUILD_DIR }}
