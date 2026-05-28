@@ -5,7 +5,7 @@
         "ms-python.python",
         // "marimo-team.vscode-marimo",
         "charliermarsh.ruff",
-        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.cpptools",
         "nefrob.vscode-just-syntax"
     ]
 }

@@ -16,19 +16,36 @@ clean:
     rm -rf {{ C_BUILD_DIR }}
     mkdir -p {{ C_BUILD_DIR }}
 
-# Create C binary
-compile:
-    # #!/usr/bin/env bash
-    # if [ ! -f "pokedata.db" ]; then
-    #     ./pokedata
-    # fi
+# # Compile C Binary
+# compile:
+#     # #!/usr/bin/env bash
+#     # if [ ! -f "pokedata.db" ]; then
+#     #     ./pokedata
+#     # fi
+#     mkdir -p {{ C_BUILD_DIR }}
+#     cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain \
+#         {{ C_SRC_DIR }}/main.c
+
+# # Run the compiled C binary
+# run:
+#     ./{{ C_BUILD_DIR }}/pokemain
+
+# compile-and-run: compile run
+
+# alias car := compile-and-run
+
+dev-compile:
     mkdir -p {{ C_BUILD_DIR }}
-    cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain \
+    cc -std=c11 -Wall -Werror -lsqlite3 -DDEV -o {{ C_BUILD_DIR }}/pokemain-dev \
         {{ C_SRC_DIR }}/main.c
 
-compile-and-run: compile run
+dev-run:
+    ./{{ C_BUILD_DIR }}/pokemain-dev
 
-alias car := compile-and-run
+dev-compile-and-run: dev-compile dev-run
+
+# ! Use this one, to run in the repo folder !
+alias dar := dev-compile-and-run
 
 # formats just file only
 fmt:
@@ -38,13 +55,9 @@ fmt:
 marimo:
     marimo edit --watch
 
-# open the poke-api marimo notebook
+# open the gen1_data marimo notebook
 open-notebook:
     marimo edit --no-sandbox {{ DATA_DIR }}/gen1_data_notebook.py --watch
-
-# Run the compiled C binary
-run:
-    ./{{ C_BUILD_DIR }}/pokemain
 
 # Call a couple python scripts to download pokeapi data and create a sqlite db
 setup_db:
