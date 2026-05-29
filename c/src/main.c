@@ -3,16 +3,6 @@
 #include <sqlite3.h>
 #include <string.h>
 
-#define M_DB_PATH_SIZE 256
-
-#ifdef _WIN32
-    #include <direct.h>
-    #define m_getcwd _getcwd
-#else
-    #include <unistd.h>
-    #define m_getcwd getcwd
-#endif
-
 // // Gen 1 Type Enum (matches internal game values)
 // // ? Do I really need to make the gameboy internal values?
 // // *Not really, this isn't a one to one simulation, just my silly C code.*
@@ -58,6 +48,14 @@
 //     uint pp[4];          // PP for each move
 // } Pokemon;
 
+// #ifdef _WIN32
+//     #include <direct.h>
+//     #define m_getcwd _getcwd
+// #else
+//     #include <unistd.h>
+//     #define m_getcwd getcwd
+// #endif
+
 // void print_cwd() {
 //     char buff[FILENAME_MAX];
 //     if (m_getcwd(buff, FILENAME_MAX) != NULL) {
@@ -92,37 +90,41 @@ int get_sqlite_db_path(char *out, size_t out_size) {
     return 0;
 }
 
-int main() {
-    puts("Welcome to Pokémon Battle CLI!\n");
-
+sqlite3 *setup_db(void) {
 #ifdef DEV
     const char *db_path = "pokedata.db";
 #else
-    char db_path[M_DB_PATH_SIZE];
+    char db_path[256];
     int err = get_sqlite_db_path(db_path, sizeof db_path);
     if (err) {
         perror("Could not get path to sqlite db.\nClosing ...");
-        return 1;
+        return NULL;
     }
 #endif
-    printf("Sqlite DB Path: %s\n", db_path);
+    // printf("Sqlite DB Path: %s\n", db_path);
 
     sqlite3 *db;
-    // char *zErrMsg = 0;
-
     int rc = sqlite3_open(db_path, &db);
     if (rc) {
         fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
         sqlite3_close(db);
+        return NULL;
+    }
+    return db;
+}
+
+int main(int argc, char *argv[]) {
+    puts("\nWelcome to Pokémon Battle CLI!\n");
+
+    sqlite3 *db = setup_db();
+    if (!db) {
+        // func already displays error message
+        puts("Closing with error ...\n");
         return 1;
     }
 
-    // // Pokemon *p1 = calloc(1, sizeof(Pokemon));
-    // // p1->species=1;
-
-    // // free(p1);
-
-    puts("Closing ...");
+    puts("Closing ...\n");
     sqlite3_close(db);
+
     return 0;
 }
