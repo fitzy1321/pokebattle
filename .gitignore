@@ -11,3 +11,5 @@
 **/*.ruff_cache
 **/__pycache__
 **/__marimo__
+
+**/*.DS_Store

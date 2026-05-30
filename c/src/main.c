@@ -5,6 +5,24 @@
 
 #define POKEDEX_COUNT 151
 
+// #ifdef _WIN32
+//     #include <direct.h>
+//     #define m_getcwd _getcwd
+// #else
+//     #include <unistd.h>
+//     #define m_getcwd getcwd
+// #endif
+
+// void print_cwd() {
+//     char buff[FILENAME_MAX];
+//     if (m_getcwd(buff, FILENAME_MAX) != NULL) {
+//         printf("\nC execution Current working directory: %s\n", buff);
+//     } else {
+//         perror("Error getting cwd");
+//     }
+// }
+
+
 // // Gen 1 Type Enum (matches internal game values)
 // // ? Do I really need to make the gameboy internal values?
 // // *Not really, this isn't a one to one simulation, just my silly C code.*
@@ -32,41 +50,36 @@ typedef unsigned int uint;
 
 // "Static" Pokemon Data
 typedef struct {
-    uint  id;
+    uint id;                 // PK
     char name[64];
     char type_1[32];
-    char type_2[32];     /* empty string if single-type */
-    uint  base_hp;
-    uint  base_attack;
-    uint  base_defense;
-    uint  base_sp_attack;
-    uint  base_sp_defense;
-    uint  base_speed;
-    uint  base_experience;
-    char growth_rate[32];
+    char type_2[32];         // nullable
+    uint base_hp;
+    uint base_attack;
+    uint base_defense;
+    uint base_sp_attack;
+    uint base_sp_defense;
+    uint base_speed;
+    uint base_experience;
+    char growth_rate[32];    // nullable
 } Pokemon;
 
-// #ifdef _WIN32
-//     #include <direct.h>
-//     #define m_getcwd _getcwd
-// #else
-//     #include <unistd.h>
-//     #define m_getcwd getcwd
-// #endif
+typedef struct {
+    uint id;                 // PK
+    char name[64];
+    uint power;              // nullable
+    uint accuracy;           // nullable
+    uint max_pp;
+    char type[32];           // nullable
+    char damage_class[32];   // nullable
+    char ailment[32];        // nullable
+    int  ailment_chance;     // nullable
+    char move_category[32];  // nullable
+    int  healing;            // nullable
+    int  drain;              // nullable
+} Move;
 
-// void print_cwd() {
-//     char buff[FILENAME_MAX];
-//     if (m_getcwd(buff, FILENAME_MAX) != NULL) {
-//         printf("\nC execution Current working directory: %s\n", buff);
-//     } else {
-//         perror("Error getting cwd");
-//     }
-// }
-
-
-
-static int safe_strcpy(char *dst, size_t dst_size, const char *src)
-{
+static int safe_strcpy(char *dst, size_t dst_size, const char *src) {
     if (!dst || dst_size == 0) return 1;
     if (!src) { dst[0] = '\0'; return 0; }
 
@@ -79,7 +92,6 @@ static int safe_strcpy(char *dst, size_t dst_size, const char *src)
     memcpy(dst, src, src_len + 1);
     return 0;
 }
-
 
 static void row_to_pokemon(sqlite3_stmt *stmt, Pokemon *p) {
     const char *col;
@@ -126,54 +138,8 @@ static void row_to_pokemon(sqlite3_stmt *stmt, Pokemon *p) {
     if (truncated) {
         fprintf(stderr, "warning: data truncated for pokemon id=%d\n", p->id);
     }
-
 }
 
-int get_db_path(char *out, size_t out_size) {
-    const char *pokedb = "pokebattle/pokedata.db";
-    const char *home = getenv("HOME");
-    const char *xdg_data = getenv("XDG_DATA_HOME");
-
-    if (!xdg_data) {
-        if (!home) return -1;
-        // check for ending slash
-        size_t hlen = strlen(home);
-        const char *slash = (home[hlen - 1] != '/') ? "/" : "";
-        // construct XDG_DATA path manually, with our application and db path
-        snprintf(out, out_size, "%s%s.local/share/%s", home, slash, pokedb);
-        return 0;
-    }
-
-    // check for ending slash
-    size_t xlen = strlen(xdg_data);
-    const char *slash = (xdg_data[xlen - 1] != '/') ? "/" : "";
-    // add our application path to XDG_DATA path
-    snprintf(out, out_size, "%s%s%s", xdg_data, slash, pokedb);
-    return 0;
-}
-
-sqlite3 *setup_db(void) {
-#ifdef DEV
-    const char *db_path = "pokedata.db";
-#else
-    char db_path[256];
-    int err = get_db_path(db_path, sizeof db_path);
-    if (err) {
-        perror("Could not get path to sqlite db.\nClosing ...");
-        return NULL;
-    }
-#endif
-    // printf("Sqlite DB Path: %s\n", db_path);
-
-    sqlite3 *db = NULL;
-    int rc = sqlite3_open(db_path, &db);
-    if (rc != SQLITE_OK) {
-        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-        sqlite3_close(db);
-        return NULL;
-    }
-    return db;
-}
 
 /*
 This function will get data from Pokemon Table in sqlite3, and turn them into
@@ -222,6 +188,53 @@ static int get_pokedex(sqlite3 *db, Pokemon dex[]) {
     }
 
     return count;
+}
+
+int get_db_path(char *out, size_t out_size) {
+    const char *pokedb = "pokebattle/pokedata.db";
+    const char *home = getenv("HOME");
+    const char *xdg_data = getenv("XDG_DATA_HOME");
+
+    if (!xdg_data) {
+        if (!home) return -1;
+        // check for ending slash
+        size_t hlen = strlen(home);
+        const char *slash = (home[hlen - 1] != '/') ? "/" : "";
+        // construct XDG_DATA path manually, with our application and db path
+        snprintf(out, out_size, "%s%s.local/share/%s", home, slash, pokedb);
+        return 0;
+    }
+
+    // check for ending slash
+    size_t xlen = strlen(xdg_data);
+    const char *slash = (xdg_data[xlen - 1] != '/') ? "/" : "";
+    // add our application path to XDG_DATA path
+    snprintf(out, out_size, "%s%s%s", xdg_data, slash, pokedb);
+    return 0;
+}
+
+
+sqlite3 *setup_db(void) {
+    #ifdef DEV
+        const char *db_path = "pokedata.db";
+    #else
+        char db_path[256];
+        int err = get_db_path(db_path, sizeof db_path);
+        if (err) {
+            perror("Could not get path to sqlite db.\nClosing ...");
+            return NULL;
+        }
+    #endif
+    // printf("Sqlite DB Path: %s\n", db_path);
+
+    sqlite3 *db = NULL;
+    int rc = sqlite3_open(db_path, &db);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+        sqlite3_close(db);
+        return NULL;
+    }
+    return db;
 }
 
 int main(int argc, char *argv[]) {
