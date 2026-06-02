@@ -205,13 +205,14 @@ def main():
 
     conn = sqlite3.connect(db_path)
     try:
-        print("Creating schema...")
+        print("Creating Table schema...")
         cur = conn.cursor()
         # cur.execute("PRAGMA foreign_keys = ON")
         cur.executescript(sql_scripts)
         conn.commit()
 
         print("Loading static Pokémon data...")
+        # large file, will take a bit
         with open(data_file_path) as f:
             data = json.load(f)
         load_static_data(conn, data)
