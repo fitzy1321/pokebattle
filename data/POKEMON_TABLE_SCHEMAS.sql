@@ -57,27 +57,40 @@ CREATE TABLE pokemon_evolutions (
 );
 
 
--- -- The player's current party (up to 6 pokemon)
--- CREATE TABLE IF NOT EXISTS party_pokemon (
---     id         INTEGER PRIMARY KEY AUTOINCREMENT,
---     pokemon_id INTEGER NOT NULL REFERENCES pokemon(id),
---     nickname   TEXT,                     -- NULL = use species name in C
---     level      INTEGER NOT NULL DEFAULT 5,
---     xp         INTEGER NOT NULL DEFAULT 0,
---     max_hp     INTEGER NOT NULL,         -- recalculated on level-up
---     current_hp INTEGER NOT NULL,         -- set to max_hp on heal
---     party_slot INTEGER NOT NULL UNIQUE   -- 1-6, enforces party order
--- );
+DROP TABLE IF EXISTS user_save;
+CREATE TABLE user_save (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    name        TEXT NOT NULL,
 
--- -- The 4 moves each party member currently knows
--- CREATE TABLE IF NOT EXISTS party_pokemon_moves (
---     id               INTEGER PRIMARY KEY AUTOINCREMENT,
---     party_pokemon_id INTEGER NOT NULL REFERENCES party_pokemon(id) ON DELETE CASCADE,
---     move_id          INTEGER NOT NULL REFERENCES moves(id),
---     slot             INTEGER NOT NULL,   -- 1-4, move order
---     current_pp       INTEGER NOT NULL,   -- set to moves.max_pp on heal
---     UNIQUE(party_pokemon_id, slot)
--- );
+);
+
+DROP TABLE IF EXISTS user_party_pokemon;
+CREATE TABLE user_party_pokemon (
+    id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_save_id        INTEGER NOT NULL REFERENCES user_save(id),
+    pokemon_id          INTEGER NOT NULL REFERENCES pokemon(id),
+    display_name        TEXT, -- nickname
+    party_order_num     INTEGER NOT NULL, -- 1 - 6
+    curr_health         INTEGER NOT NULL,
+    max_health          INTEGER NOT NULL,
+    move_1_id           INTEGER NOT NULL REFERENCES move(id),
+    move_1_pp           INTEGER NOT NULL,
+    move_2_id           INTEGER NOT NULL REFERENCES move(id),
+    move_2_pp           INTEGER NOT NULL,
+    move_3_id           INTEGER NOT NULL REFERENCES move(id),
+    move_3_pp           INTEGER NOT NULL,
+    move_4_id           INTEGER NOT NULL REFERENCES move(id),
+    move_4_pp           INTEGER NOT NULL,
+    -- ailments?
+    -- status effects?
+    FOREIGN KEY(user_save_id) REFERENCES user_save(id),
+    FOREIGN KEY(pokemon_id) REFERENCES pokemon(id),
+    FOREIGN KEY(move_1_id) REFERENCES move(id),
+    FOREIGN KEY(move_2_id) REFERENCES move(id),
+    FOREIGN KEY(move_3_id) REFERENCES move(id),
+    FOREIGN KEY(move_4_id) REFERENCES move(id),
+);
+
 
 -- -- Current enemy pokemon — enforced single row via CHECK (id = 1)
 -- CREATE TABLE IF NOT EXISTS enemy_pokemon (

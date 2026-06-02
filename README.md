@@ -28,6 +28,11 @@ For the actual battles, I want to implement strategy pattern in C, but I'm not s
   - [x] How to query in C sqlite?
   - [ ] How to insert, update (upsert possible?) in C sqlite?
 - [x] C sqlite library
+- [ ] Load Pokedex
+- [ ] Check for and load user save
+  - [ ] If not save, prompt user to make one
+  - [ ] Party selection menu
+- [ ] ?What about Enemy and Their party?
 - [ ] Strategy pattern in C, for the battle system
 - [ ] C unit testing
 
