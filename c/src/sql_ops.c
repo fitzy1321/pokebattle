@@ -10,26 +10,30 @@ sqlite3 *setup_db(const char *db_path) {
     if (rc != SQLITE_OK) {
         fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
         sqlite3_close(db);
-        return NULL;
+        db = NULL;
     }
     return db;
 }
 
 static int safe_strcpy(char *dst, size_t dst_size, const char *src) {
-    if (!dst || dst_size == 0) return 1;
-    if (!src) { dst[0] = '\0'; return 0; }
+    if (!dst || dst_size == 0)
+        return 1;
+    if (!src) {
+        dst[0] = '\0';
+        return 0;
+    }
 
     size_t src_len = strlen(src);
     if (src_len >= dst_size) {
         memcpy(dst, src, dst_size - 1);
         dst[dst_size - 1] = '\0';
-        return 1;   /* truncated */
+        return 1; /* truncated */
     }
     memcpy(dst, src, src_len + 1);
     return 0;
 }
 
-static void row_to_pokemon(sqlite3_stmt *stmt, Pokemon *p) {
+static void row_to_pokemon_t(sqlite3_stmt *stmt, Pokemon *p) {
     const char *col;
     int truncated = 0;
 
@@ -53,12 +57,12 @@ static void row_to_pokemon(sqlite3_stmt *stmt, Pokemon *p) {
     }
 
     // All the next are required int fields
-    p->base_hp          = sqlite3_column_int(stmt, 4);
-    p->base_attack      = sqlite3_column_int(stmt, 5);
-    p->base_defense     = sqlite3_column_int(stmt, 6);
-    p->base_sp_attack   = sqlite3_column_int(stmt, 7);
-    p->base_sp_defense  = sqlite3_column_int(stmt, 8);
-    p->base_speed       = sqlite3_column_int(stmt, 9);
+    p->base_hp = sqlite3_column_int(stmt, 4);
+    p->base_attack = sqlite3_column_int(stmt, 5);
+    p->base_defense = sqlite3_column_int(stmt, 6);
+    p->base_sp_attack = sqlite3_column_int(stmt, 7);
+    p->base_sp_defense = sqlite3_column_int(stmt, 8);
+    p->base_speed = sqlite3_column_int(stmt, 9);
 
     // base_experience, INT nullable
     if (sqlite3_column_type(stmt, 10) != SQLITE_NULL) {
@@ -88,17 +92,15 @@ Output:
     int: Postive value is the count (should always be 151).
          A zero or negative value means an error occured.
 */
-int get_pokedex(sqlite3 *db, Pokemon dex[]) {
+int get_pokedex(sqlite3 *db, Pokemon dex_out[]) {
     sqlite3_stmt *stmt = NULL;
-    static const char sql_str[] =
-        "SELECT id, name, type_1, type_2,"
-        "       base_hp, base_attack, base_defense,"
-        "       base_sp_attack, base_sp_defense, base_speed,"
-        "       base_experience, growth_rate"
-        "  FROM pokemon"
-        " ORDER BY id"
-        " LIMIT ?";
-
+    static const char sql_str[] = "SELECT id, name, type_1, type_2,"
+                                  "       base_hp, base_attack, base_defense,"
+                                  "       base_sp_attack, base_sp_defense, base_speed,"
+                                  "       base_experience, growth_rate"
+                                  "  FROM pokemon"
+                                  " ORDER BY id"
+                                  " LIMIT ?";
 
     int rc = sqlite3_prepare_v2(db, sql_str, -1, &stmt, NULL);
     if (rc != SQLITE_OK) {
@@ -111,8 +113,8 @@ int get_pokedex(sqlite3 *db, Pokemon dex[]) {
     }
 
     int count = 0;
-    while((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
-        row_to_pokemon(stmt, &dex[count++]);
+    while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
+        row_to_pokemon_t(stmt, &dex_out[count++]);
     }
 
     sqlite3_finalize(stmt);

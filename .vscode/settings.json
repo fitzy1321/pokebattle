@@ -6,5 +6,7 @@
             "name": "pokedata",
             "database": "pokedata.db"
         }
-    ]
+    ],
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: LLVM, IndentWidth: 4, ColumnLimit: 120 }",
+    "C_Cpp.clang_format_fallbackStyle": "LLVM"
 }

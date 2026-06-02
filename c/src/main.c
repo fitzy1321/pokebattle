@@ -5,47 +5,49 @@
 #include "sql_ops.h"
 #include "types.h"
 
+// check for ending slash, will return "/" or ""
+static const char *slash_or_no_slash(const char *mstr) {
+    size_t mlen = strlen(mstr);
+    return (mstr[mlen - 1] != '/') ? "/" : "";
+}
 
 int get_db_path(char *out, size_t out_size) {
-    const char *pokedb = "pokebattle/pokedata.db";
+    const char *db_file_path = "pokebattle/pokedata.db";
     const char *home = getenv("HOME");
     const char *xdg_data = getenv("XDG_DATA_HOME");
 
     if (!xdg_data) {
-        if (!home) return -1;
-        // check for ending slash
-        size_t hlen = strlen(home);
-        const char *slash = (home[hlen - 1] != '/') ? "/" : "";
+        if (!home)
+            return -1;
+
         // construct XDG_DATA path manually, with our application and db path
-        snprintf(out, out_size, "%s%s.local/share/%s", home, slash, pokedb);
+        snprintf(out, out_size, "%s%s.local/share/%s", home, slash_or_no_slash(home), db_file_path);
         return 0;
     }
 
-    // check for ending slash
-    size_t xlen = strlen(xdg_data);
-    const char *slash = (xdg_data[xlen - 1] != '/') ? "/" : "";
     // add our application path to XDG_DATA path
-    snprintf(out, out_size, "%s%s%s", xdg_data, slash, pokedb);
+    snprintf(out, out_size, "%s%s%s", xdg_data, slash_or_no_slash(xdg_data), db_file_path);
     return 0;
 }
 
 int main(int _argc, char *_argv[]) {
     puts("\nWelcome to Pokémon Battle CLI!\n");
 
-    #ifdef DEV
-        const char *db_path = "pokedata.db";
-    #else
-        char db_path[256];
-        int err = get_db_path(db_path, sizeof db_path);
-        if (err) {
-            perror("Could not get path to sqlite db.\nClosing ...");
-            return 1;
-        }
-    #endif
+#ifdef DEV
+    const char *db_path = "pokedata.db";
+#else
+    char db_path[256];
+    int err = get_db_path(db_path, sizeof db_path);
+    if (err) {
+        perror("Could not get path to sqlite db.\nClosing ...");
+        return 1;
+    }
+#endif
 
     sqlite3 *db = setup_db(db_path);
     if (!db) {
-        // setup func already displays error message, and closes the db if in a failed state
+        // setup func already displays error message, and closes the db if in a
+        // failed state
         puts("Closing with error ...\n");
         return 1;
     }
@@ -68,7 +70,6 @@ int main(int _argc, char *_argv[]) {
     p = NULL;
 
     printf("Size of pokedex(in bytes): %zu\n", sizeof(pokedex));
-
 
     puts("Closing ...\n");
     sqlite3_close(db);
