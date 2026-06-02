@@ -24,6 +24,7 @@ compile:
     # fi
     mkdir -p {{ C_BUILD_DIR }}
     cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain \
+        {{ C_SRC_DIR }}/sql_ops.c \
         {{ C_SRC_DIR }}/main.c
 
 # Run the compiled C binary
@@ -37,6 +38,7 @@ alias car := compile-and-run
 dev-compile:
     mkdir -p {{ C_BUILD_DIR }}
     cc -std=c11 -Wall -Werror -lsqlite3 -DDEV -o {{ C_BUILD_DIR }}/pokemain-dev \
+        {{ C_SRC_DIR }}/sql_ops.c \
         {{ C_SRC_DIR }}/main.c
 
 dev-run:
