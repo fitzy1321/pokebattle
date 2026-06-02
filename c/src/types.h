@@ -27,7 +27,6 @@
 
 typedef unsigned int uint;
 
-// "Static" Pokemon Data
 typedef struct {
     uint id;                 // PK
     char name[64];
@@ -57,3 +56,21 @@ typedef struct {
     int  healing;            // nullable
     int  drain;              // nullable
 } Move;
+
+typedef struct {
+    uint id; // PK
+    uint pokemon_id; // FK pokemon.id
+    uint move_id; // FK move.id
+    uint level_learned; // 0 = learns from the start
+    char learn_method[32]; // nullable
+} PokemonMove;
+
+typedef struct {
+    uint id; // PK
+    uint pokemon_id;
+    uint evolves_into_id;
+    char trigger[32];
+    uint min_level;
+    char text[32];
+    _Bool is_player_choice; // really int 'under the hood'
+} PokemonEvolution;
