@@ -58,11 +58,11 @@ typedef struct {
 } Move;
 
 typedef struct {
-    uint id; // PK
-    uint pokemon_id; // FK pokemon.id
-    uint move_id; // FK move.id
-    uint level_learned; // 0 = learns from the start
-    char learn_method[32]; // nullable
+    uint id;                // PK
+    uint pokemon_id;        // FK pokemon.id
+    uint move_id;           // FK move.id
+    uint level_learned;     // 0 = learns from the start
+    char learn_method[32];  // nullable
 } PokemonMove;
 
 typedef struct {

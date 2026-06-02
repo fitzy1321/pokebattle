@@ -12,6 +12,8 @@ sqlite3 *setup_db(const char *db_path) {
         sqlite3_close(db);
         db = NULL;
     }
+    // turn on foreign keys
+    sqlite3_exec(db, "PRAGMA foreign_keys = ON", NULL, NULL, NULL);
     return db;
 }
 
@@ -98,7 +100,7 @@ int get_pokedex(sqlite3 *db, Pokemon dex_out[]) {
                                   "       base_hp, base_attack, base_defense,"
                                   "       base_sp_attack, base_sp_defense, base_speed,"
                                   "       base_experience, growth_rate"
-                                  "  FROM pokemon"
+                                  "  FROM dex_pokemon"
                                   " ORDER BY id"
                                   " LIMIT ?";
 

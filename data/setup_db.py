@@ -19,7 +19,7 @@ def upsert_pokemon(cur: sqlite3.Cursor, poke_id: int, poke: dict) -> None:
     # --- pokemon ---
     cur.execute(
         """
-        INSERT OR REPLACE INTO pokemon
+        INSERT OR REPLACE INTO dex_pokemon
             (id, name, type_1, type_2,
                 base_hp, base_attack, base_defense,
                 base_sp_attack, base_sp_defense, base_speed,
@@ -55,7 +55,7 @@ def insert_moves(
         if move_name not in move_name_to_id:
             cur.execute(
                 """
-                INSERT OR IGNORE INTO moves
+                INSERT OR IGNORE INTO dex_move
                     (name, power, accuracy, max_pp, type, damage_class,
                         ailment, ailment_chance, move_category, healing, drain)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -74,12 +74,12 @@ def insert_moves(
                     move.get("drain"),
                 ),
             )
-            cur.execute("SELECT id FROM moves WHERE name = ?", (move_name,))
+            cur.execute("SELECT id FROM dex_move WHERE name = ?", (move_name,))
             move_name_to_id[move_name] = cur.fetchone()[0]
 
         cur.execute(
             """
-            INSERT OR IGNORE INTO pokemon_moves (pokemon_id, move_id, level_learned, learn_method)
+            INSERT OR IGNORE INTO dex_pokemon_moves (pokemon_id, move_id, level_learned, learn_method)
             VALUES (?, ?, ?, ?)
             """,
             (
@@ -101,7 +101,7 @@ def inserst_evolutions(conn: sqlite3.Connection, evolutions: dict) -> None:
             try:
                 cur.execute(
                     """
-                        INSERT OR IGNORE INTO pokemon_evolutions
+                        INSERT OR IGNORE INTO dex_evolutions
                             (pokemon_id, evolves_into_id, trigger, min_level, item, is_player_choice)
                         VALUES (?, ?, ?, ?, ?, ?)
                         """,
@@ -160,23 +160,23 @@ def load_static_data(conn: sqlite3.Connection, data: list[dict]) -> None:
 
     inserst_evolutions(conn, evolutions)
 
-    cur.execute("SELECT COUNT(*) FROM pokemon")
+    cur.execute("SELECT COUNT(*) FROM dex_pokemon")
     print(f"  Loaded {cur.fetchone()[0]} Pokémon.")
 
-    cur.execute("SELECT COUNT(*) FROM moves")
+    cur.execute("SELECT COUNT(*) FROM dex_move")
     print(f"  Loaded {cur.fetchone()[0]} unique moves.")
 
-    cur.execute("SELECT COUNT(*) FROM pokemon_evolutions")
+    cur.execute("SELECT COUNT(*) FROM dex_evolutions")
     print(f"  Loaded {cur.fetchone()[0]} evolution entries.")
 
 
-def find_file(p: Path, file_name) -> Path | None:
+def find_file(p: Path, file_name: str) -> Path | None:
     if p.is_file() and file_name in p.parts:
         return p
 
     for sp in [p, *p.parents]:
         candidate = sp / file_name
-        if candidate.is_file():
+        if candidate.exists() and candidate.is_file():
             return candidate
 
     return None

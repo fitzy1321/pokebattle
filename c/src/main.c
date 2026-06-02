@@ -30,6 +30,16 @@ int get_db_path(char *out, size_t out_size) {
     return 0;
 }
 
+void print_pokedex(Pokemon dex[], int count){
+    int i;
+    Pokemon *p = NULL;
+    for (i = 0; i < POKEDEX_COUNT; i++) {
+        p = &dex[i];
+        printf("Pokemon: %s. Id: %d\n", p->name, p->id);
+    }
+    p = NULL;
+}
+
 int main(int _argc, char *_argv[]) {
     puts("\nWelcome to Pokémon Battle CLI!\n");
 
@@ -39,7 +49,7 @@ int main(int _argc, char *_argv[]) {
     char db_path[256];
     int err = get_db_path(db_path, sizeof db_path);
     if (err) {
-        perror("Could not get path to sqlite db.\nClosing ...");
+        perror("Could not get path to sqlite db.\nClosing with error ...\n");
         return 1;
     }
 #endif
@@ -61,13 +71,7 @@ int main(int _argc, char *_argv[]) {
         return 1;
     }
 
-    int i;
-    Pokemon *p = NULL;
-    for (i = 0; i < POKEDEX_COUNT; i++) {
-        p = &pokedex[i];
-        printf("Pokemon: %s. Id: %d\n", p->name, p->id);
-    }
-    p = NULL;
+    print_pokedex(pokedex, POKEDEX_COUNT);
 
     printf("Size of pokedex(in bytes): %zu\n", sizeof(pokedex));
 
