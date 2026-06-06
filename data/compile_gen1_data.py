@@ -432,7 +432,7 @@ def main(
     save_cache: Annotated[
         bool,
         typer.Option("--save-cache", help="Save fetched data to local pickle cache."),
-    ] = False,
+    ] = True,
     load_cache: Annotated[
         bool,
         typer.Option(
@@ -444,14 +444,10 @@ def main(
         bool,
         typer.Option(
             "--cache-only",
-            help="With --save-cache: skip SQLite and exit after saving cache.",
+            help="Skip SQLite and exit after saving cache.",
         ),
     ] = False,
 ) -> None:
-    if cache_only and not save_cache:
-        typer.echo("ERROR: --cache-only requires --save-cache.", err=True)
-        raise typer.Exit(1)
-
     if load_cache and cache_only:
         typer.echo(
             "ERROR: --cache-only and --load-cache are mutually exclusive.", err=True
@@ -466,7 +462,7 @@ def main(
         typer.echo("This will take a while — go grab a coffee ☕\n")
         data = fetch_gen1_data()
 
-    if save_cache:
+    if save_cache or cache_only:
         typer.echo("\nSaving cache...")
         save_pickle(data)
         if cache_only:
