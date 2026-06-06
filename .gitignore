@@ -1,16 +1,19 @@
+# C build stuff
 **/build
 **build/**
 **/*.out
 **/*.o
 **/*.so
 
-**/**.db**
-
+# Python stuff
 **/*.env
 **/*.venv
 **/*.ruff_cache
 **/__pycache__
 **/__marimo__
 
+# File and data stuff
+**/**.db**
 **/*.DS_Store
-**/*compiled_gen1_data.json
+**/*.json
+**/*.pkl

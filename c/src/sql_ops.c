@@ -79,40 +79,40 @@ static void row_to_pokemon_t(sqlite3_stmt *stmt, Pokemon *p) {
     }
 
     // // front_sprite, blob NULLABLE (png sprite)
-    // if (sqlite3_column_type(stmt, 12) != SQLITE_NULL) {
-    //     const void *front_sprite_blob = sqlite3_column_blob(stmt, 12);
-    //     if (front_sprite_blob) {
-    //         printf("Front sprite data: %s\n", (char *)front_sprite_blob);
-    //         p->front_sprite_size = sqlite3_column_bytes(stmt, 12);
-    //         //! MUST BE FREED LATER !
-    //         p->front_sprite_blob = malloc(p->front_sprite_size);
-    //         memcpy(p->front_sprite_blob, front_sprite_blob, p->front_sprite_size);
-    //     } else {
-    //         p->front_sprite_blob = NULL;
-    //         p->front_sprite_size = 0;
-    //     }
-    // } else {
-    //     p->front_sprite_blob = NULL;
-    //     p->front_sprite_size = 0;
-    // }
+    if (sqlite3_column_type(stmt, 12) != SQLITE_NULL) {
+        const void *front_sprite_blob = sqlite3_column_blob(stmt, 12);
+        if (front_sprite_blob) {
+            printf("Front sprite data: %s\n", (char *)front_sprite_blob);
+            p->front_sprite_size = sqlite3_column_bytes(stmt, 12);
+            //! MUST BE FREED LATER !
+            p->front_sprite_blob = malloc(p->front_sprite_size);
+            memcpy(p->front_sprite_blob, front_sprite_blob, p->front_sprite_size);
+        } else {
+            p->front_sprite_blob = NULL;
+            p->front_sprite_size = 0;
+        }
+    } else {
+        p->front_sprite_blob = NULL;
+        p->front_sprite_size = 0;
+    }
 
-    // // back_sprite, blob NULLABLE (png sprite)
-    // if (sqlite3_column_type(stmt, 13) != SQLITE_NULL) {
-    //     const void *back_blob = sqlite3_column_blob(stmt, 13);
-    //     if (back_blob) {
-    //         puts("adding back sprite!");
-    //         p->back_sprite_size = sqlite3_column_bytes(stmt, 13);
-    //         //! MUST BE FREED LATER !
-    //         p->back_sprite_blob = malloc(p->back_sprite_size);
-    //         memcpy(p->back_sprite_blob, back_blob, p->back_sprite_size);
-    //     } else {
-    //         p->back_sprite_blob = NULL;
-    //         p->back_sprite_size = 0;
-    //     }
-    // } else {
-    //     p->back_sprite_blob = NULL;
-    //     p->back_sprite_size = 0;
-    // }
+    // back_sprite, blob NULLABLE (png sprite)
+    if (sqlite3_column_type(stmt, 13) != SQLITE_NULL) {
+        const void *back_blob = sqlite3_column_blob(stmt, 13);
+        if (back_blob) {
+            puts("adding back sprite!");
+            p->back_sprite_size = sqlite3_column_bytes(stmt, 13);
+            //! MUST BE FREED LATER !
+            p->back_sprite_blob = malloc(p->back_sprite_size);
+            memcpy(p->back_sprite_blob, back_blob, p->back_sprite_size);
+        } else {
+            p->back_sprite_blob = NULL;
+            p->back_sprite_size = 0;
+        }
+    } else {
+        p->back_sprite_blob = NULL;
+        p->back_sprite_size = 0;
+    }
 
     if (truncated) {
         fprintf(stderr, "warning: data truncated for pokemon id=%d\n", p->id);

@@ -1,3 +1,5 @@
+-- Sqlite3 syntax btw (whatever that means?)
+
 DROP TABLE IF EXISTS dex_pokemon;
 CREATE TABLE dex_pokemon (
     id              INTEGER PRIMARY KEY,   -- matches PokéAPI pokemon id
