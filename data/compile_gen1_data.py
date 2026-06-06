@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-fetch_gen1.py — Gen 1 Pokémon data pipeline for a Red/Blue battle system.
+Gen 1 Pokémon data pipeline for a Red/Blue battle system.
 
 Fetches all 151 Pokémon from PokéAPI and saves to SQLite. Supports a local
 pickle cache so you don't have to hammer the API every time you touch the DB.
