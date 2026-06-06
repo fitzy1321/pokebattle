@@ -11,6 +11,7 @@ Collects for each of the 151 Pokémon:
   - Growth rate name
 """
 
+import base64
 import json
 import time
 from functools import lru_cache
@@ -174,6 +175,33 @@ def get_next_evolutions(species_data: dict, pokemon_name: str) -> list[dict]:
     return walk(chain_data.get("chain", {}), pokemon_name) or []
 
 
+def get_sprites(poke_id: int) -> tuple[str | None, str | None]:
+    def _check_content_type(resp):
+        if not resp.ok or not resp.headers["content-type"].startswith("image"):
+            raise RuntimeError(
+                f"Network request error getting front sprite: {resp.status_code} {resp.raw}"
+            )
+
+    if not poke_id:
+        raise ValueError("poke_id must have a positive value between 1 - 151.")
+
+    front_png_resp = session.get(
+        f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/{poke_id}.png"
+    )
+    back_png_resp = session.get(
+        f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/back/{poke_id}.png"
+    )
+    try:
+        _check_content_type(front_png_resp)
+        _check_content_type(back_png_resp)
+    except RuntimeError as e:
+        print(e)
+        return None, None
+    front_sprite = base64.b64encode(front_png_resp.content).decode()
+    back_sprite = base64.b64encode(back_png_resp.content).decode()
+    return front_sprite, back_sprite
+
+
 def fetch_all():
     all_pokemon = []
 
@@ -214,6 +242,11 @@ def fetch_all():
             species_data = fetch(species_url)
             if species_data:
                 next_evolutions = get_next_evolutions(species_data, name)
+        try:
+            front_sprite, back_sprite = get_sprites(poke_id)
+        except Exception as e:
+            print(e)
+            front_sprite = back_sprite = None
 
         all_pokemon.append(
             {
@@ -232,6 +265,8 @@ def fetch_all():
                 "moves": moves,
                 "next_evolutions": next_evolutions,  # [] if none, [e] if one, [e1,e2,...] if branching
                 "growth_rate": species_data.get("growth_rate", {}).get("name"),
+                "front_sprite": front_sprite,
+                "back_sprite": back_sprite,
             }
         )
 

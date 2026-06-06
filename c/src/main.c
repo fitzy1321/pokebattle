@@ -5,7 +5,7 @@
 #include "sql_ops.h"
 #include "types.h"
 
-// check for ending slash, will return "/" or ""
+// check for ending slash, will return "/" or "" str literals
 static const char *slash_or_no_slash(const char *mstr) {
     size_t mlen = strlen(mstr);
     return (mstr[mlen - 1] != '/') ? "/" : "";

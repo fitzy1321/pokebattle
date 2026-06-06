@@ -13,3 +13,4 @@
 **/__marimo__
 
 **/*.DS_Store
+**/*compiled_pokemon_data.json

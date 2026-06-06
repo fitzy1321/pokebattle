@@ -2,6 +2,10 @@
 
 #define POKEDEX_COUNT 151
 
+#define bool _Bool
+#define true 1
+#define false 0
+
 // // Gen 1 Type Enum (matches internal game values)
 // // ? Do I really need to make the gameboy internal values?
 // // *Not really, this isn't a one to one simulation, just my silly C code.*
@@ -72,5 +76,5 @@ typedef struct {
     char trigger[32];
     uint min_level;
     char text[32];
-    _Bool is_player_choice; // really int 'under the hood'
+    bool is_player_choice; // really int 'under the hood'
 } PokemonEvolution;
