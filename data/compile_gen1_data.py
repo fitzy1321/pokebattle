@@ -442,10 +442,7 @@ def main(
     ] = False,
     cache_only: Annotated[
         bool,
-        typer.Option(
-            "--cache-only",
-            help="Skip SQLite and exit after saving cache.",
-        ),
+        typer.Option("--cache-only", help="Skip SQLite and exit after saving cache."),
     ] = False,
 ) -> None:
     if load_cache and cache_only:
