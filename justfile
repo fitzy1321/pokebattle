@@ -54,8 +54,8 @@ open-notebook:
 
 # Call a couple python scripts to download pokeapi data and create a sqlite db
 setup_db:
-    ./{{ DATA_DIR }}/compile_gen1_data.py
-    ./{{ DATA_DIR }}/setup_db.py
+    ./{{ DATA_DIR }}/compile_gen1_data.py -h
+    # ./{{ DATA_DIR }}/setup_db.py -h
 
 # Run C "unit tests"
 test:

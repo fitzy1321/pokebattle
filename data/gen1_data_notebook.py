@@ -144,19 +144,23 @@ def utils():
 
     DELAY = 0.3
 
-    POKE_ID_MAX = 151
+    # POKE_ID_MAX = 151
 
-    @mo.persistent_cache
+
+    @mo.cache
     def requests_get(url: str):
         time.sleep(DELAY)
         return requests.get(url, timeout=10)
+
 
     # @lru_cache(maxsize=None)
     def requests_pokeapi(url: str) -> dict:
         """GET with basic error handling. Cached by URL — repeated calls are free."""
         resp = requests_get(url)
         if not resp.ok:
-            print(f"Error fetching from api, HTTP Code: {resp.status_code}. {resp.raw}")
+            print(
+                f"Error fetching from api, HTTP Code: {resp.status_code}. {resp.raw}"
+            )
             return {}
 
         return resp.json()

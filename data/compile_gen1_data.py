@@ -1,14 +1,27 @@
 #!/usr/bin/env python3
 """
-Fetch Gen 1 Pokémon data from PokéAPI for a Red/Blue battle system.
+fetch_gen1.py — Gen 1 Pokémon data pipeline for a Red/Blue battle system.
 
-Collects for each of the 151 Pokémon:
+Fetches all 151 Pokémon from PokéAPI and saves to SQLite. Supports a local
+pickle cache so you don't have to hammer the API every time you touch the DB.
+
+Collects for each Pokémon:
   - Base stats (HP, Attack, Defense, Sp.Atk, Sp.Def, Speed)
-  - Moves learned in Red/Blue (level-up only, with level learned)
-  - Type(s) as [slot, name] pairs
-  - Next evolutions (always a list; empty if none, multiple if branching e.g. Eevee)
+  - Moves learned in Red/Blue (with level, PP, power, accuracy, type, etc.)
+  - Type(s) — slot 1 always present, slot 2 optional
+  - Next evolutions (empty list if none, multiple if branching e.g. Eevee)
   - Base experience (XP yielded when defeated)
   - Growth rate name
+  - Front and back sprites as raw PNG bytes
+
+Usage:
+  python fetch_gen1.py                            # fetch from API → save to SQLite
+  python fetch_gen1.py --save-cache               # fetch from API → save cache + SQLite
+  python fetch_gen1.py --save-cache --cache-only  # fetch from API → save cache only
+  python fetch_gen1.py --load-cache               # load cache → save to SQLite
+
+Trade evolutions (Kadabra, Machoke, Graveler, Haunter) are remapped to
+level-up at level 36 — the common fan game standard for single-player.
 """
 
 import pickle
@@ -16,51 +29,43 @@ import sqlite3
 import time
 from functools import lru_cache
 from pathlib import Path
-from typing import Any
+from typing import Annotated
 
 import requests
 import typer
 
 BASE_URL = "https://pokeapi.co/api/v2"
-JSON_DATA_FILE = "compiled_gen1_data.json"
-PICKLE_DATA_FILE = "pokemon_gen1_data.pkl"
+SPRITE_BASE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent"
 VERSION_GROUP = "red-blue"
 TOTAL_POKEMON = 151
-DELAY = 0.3  # seconds between requests to be polite
+DELAY = 0.3  # seconds between API requests — be polite
+TRADE_EVO_LEVEL = 36  # level trade evolutions are remapped to
 
-# Trade evolutions don't exist in a single-player context.
-# These four are remapped to level-up at level 36 (common fan game standard).
-TRADE_EVO_LEVEL = 36
+CACHE_FILE = Path("pokemon_gen1_data.pkl")
+DB_FILE = Path("pokedata.db")
+SCHEMA_FILE = Path("POKEMON_TABLE_SCHEMAS.sql")
 
 session = requests.Session()
 
 
 @lru_cache(maxsize=None)
 def _fetch(url: str) -> dict:
-    """GET with basic error handling. Cached by URL — repeated calls are free."""
+    """GET JSON with basic error handling. LRU-cached — repeated calls are free."""
     time.sleep(DELAY)
-    resp = session.get(url, timeout=10)
+    resp = session.get(url)
     if not resp.ok:
-        print(f"Error fetching from api, HTTP Code: {resp.status_code}. {resp.raw}")
+        print(f"  [WARN] HTTP {resp.status_code} for {url}")
         return {}
     return resp.json()
 
 
 def _get_moves(pokemon_data: dict) -> list[dict]:
-    """
-    Return moves available in Red/Blue via level-up, with the level learned.
-    Each entry: { name, level_learned, power, accuracy, pp, type, damage_class,
-                  ailment, ailment_chance, stat_changes, move_category, healing, drain }
-    """
     rb_moves = []
-    seen = set()
+    seen: set[str] = set()
 
     for move_entry in pokemon_data.get("moves", []):
         for vgd in move_entry.get("version_group_details", []):
-            if (
-                vgd["version_group"]["name"] == VERSION_GROUP
-                # and vgd["move_learn_method"]["name"] == "level-up"
-            ):
+            if vgd["version_group"]["name"] == VERSION_GROUP:
                 move_name = move_entry["move"]["name"]
                 if move_name not in seen:
                     seen.add(move_name)
@@ -109,11 +114,6 @@ def _get_moves(pokemon_data: dict) -> list[dict]:
 
 
 def _build_evo_entry(next_node: dict) -> dict | None:
-    """
-    Build a single evolution entry from a chain node.
-    Fetches /pokemon/{name}/ to get the FK-ready pokemon id.
-    Remaps trade triggers to level-up at TRADE_EVO_LEVEL.
-    """
     next_name = next_node["species"]["name"]
     details = next_node.get("evolution_details", [{}])
     detail = details[0] if details else {}
@@ -122,7 +122,6 @@ def _build_evo_entry(next_node: dict) -> dict | None:
     min_level = detail.get("min_level")
     item = detail.get("item", {}).get("name") if detail.get("item") else None
 
-    # Remap trade evolutions to level-up at TRADE_EVO_LEVEL
     if trigger == "trade":
         trigger = "level-up"
         min_level = TRADE_EVO_LEVEL
@@ -135,7 +134,7 @@ def _build_evo_entry(next_node: dict) -> dict | None:
         return None
 
     return {
-        "evolves_into_id": next_id,  # FK-ready pokemon.id
+        "evolves_into_id": next_id,
         "evolves_into": next_name,
         "trigger": trigger,
         "min_level": min_level,
@@ -144,15 +143,6 @@ def _build_evo_entry(next_node: dict) -> dict | None:
 
 
 def _get_next_evolutions(species_data: dict, pokemon_name: str) -> list[dict]:
-    """
-    Walk the evolution chain and return ALL next-stage evolutions for pokemon_name.
-    Always returns a list:
-      []           — no further evolution (legendaries, final forms, etc.)
-      [entry]      — single evolution  (Charmander -> Charmeleon)
-      [e1, e2, e3] — branching         (Eevee -> Vaporeon / Jolteon / Flareon)
-
-    Each entry: { evolves_into_id, evolves_into, trigger, min_level, item }
-    """
     evo_chain_url = species_data.get("evolution_chain", {}).get("url")
     if not evo_chain_url:
         return []
@@ -161,17 +151,15 @@ def _get_next_evolutions(species_data: dict, pokemon_name: str) -> list[dict]:
     if not chain_data:
         return []
 
-    def walk(node, target_name):
-        if node.get("species", {}).get("name") == target_name:
-            evolutions = []
-            for child in node.get("evolves_to", []):
-                evo_entry = _build_evo_entry(child)
-                if not evo_entry:
-                    continue
-                evolutions.append(evo_entry)
-            return evolutions
+    def walk(node: dict, target: str) -> list[dict] | None:
+        if node.get("species", {}).get("name") == target:
+            return [
+                e
+                for child in node.get("evolves_to", [])
+                if (e := _build_evo_entry(child))
+            ]
         for child in node.get("evolves_to", []):
-            result = walk(child, target_name)
+            result = walk(child, target)
             if result is not None:
                 return result
         return None
@@ -179,44 +167,26 @@ def _get_next_evolutions(species_data: dict, pokemon_name: str) -> list[dict]:
     return walk(chain_data.get("chain", {}), pokemon_name) or []
 
 
-# Will raise a RuntimeError if not an image response
-def _check_content_type_is_image(resp) -> None:
-    if not resp.ok or not resp.headers["content-type"].startswith("image"):
-        raise RuntimeError(
-            f"Network request error getting front sprite: {resp.status_code} {resp.raw}"
-        )
+def _get_sprites(poke_id: int) -> tuple[bytes | None, bytes | None]:
+    front_resp = session.get(f"{SPRITE_BASE}/{poke_id}.png")
+    back_resp = session.get(f"{SPRITE_BASE}/back/{poke_id}.png")
 
+    def valid_image(resp) -> bool:
+        return resp.ok and resp.headers.get("content-type", "").startswith("image")
 
-def _get_sprites(poke_id: int) -> tuple[Any | None, Any | None]:
-
-    if not poke_id:
-        raise ValueError("poke_id must have a positive value between 1 - 151.")
-
-    front_png_resp = session.get(
-        f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/{poke_id}.png"
-    )
-    back_png_resp = session.get(
-        f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/red-blue/transparent/back/{poke_id}.png"
-    )
-    try:
-        _check_content_type_is_image(front_png_resp)
-        _check_content_type_is_image(back_png_resp)
-    except RuntimeError as e:
-        print(e)
+    if not valid_image(front_resp) or not valid_image(back_resp):
+        print(f"  [WARN] Sprite fetch failed for #{poke_id}")
         return None, None
 
-    return front_png_resp.content, back_png_resp.content
+    return front_resp.content, back_resp.content
 
 
 def fetch_gen1_data() -> list[dict]:
+    """Fetch all 151 Gen 1 Pokémon from PokéAPI. Returns a list of dicts."""
     all_pokemon = []
 
     for poke_id in range(1, TOTAL_POKEMON + 1):
-        print(
-            f"[{poke_id:3d}/{TOTAL_POKEMON}] Fetching #{poke_id}...",
-            end=" ",
-            flush=True,
-        )
+        print(f"[{poke_id:3d}/{TOTAL_POKEMON}] Fetching...", end=" ", flush=True)
 
         poke_data = _fetch(f"{BASE_URL}/pokemon/{poke_id}/")
         if not poke_data:
@@ -226,33 +196,25 @@ def fetch_gen1_data() -> list[dict]:
         name = poke_data["name"]
         print(name, flush=True)
 
-        # --- Stats ---
         stats = {s["stat"]["name"]: s["base_stat"] for s in poke_data.get("stats", [])}
-
-        # --- Types ---
         types = {
             t["slot"]: t["type"]["name"]
             for t in sorted(poke_data.get("types", []), key=lambda x: x["slot"])
         }
 
-        # --- Moves (Red/Blue level-up) ---
-        print(f"    Fetching moves for {name}...")
+        print("    Fetching moves...")
         moves = _get_moves(poke_data)
 
-        # --- Species (evolution + growth rate) ---
-        species_url = poke_data.get("species", {}).get("url")
-        species_data = {}
-        next_evolutions = []
-        if species_url:
-            print(f"    Fetching species data for {name}...")
+        species_data: dict = {}
+        next_evolutions: list[dict] = []
+        if species_url := poke_data.get("species", {}).get("url"):
+            print("    Fetching species data...")
             species_data = _fetch(species_url)
             if species_data:
                 next_evolutions = _get_next_evolutions(species_data, name)
-        try:
-            front_sprite, back_sprite = _get_sprites(poke_id)
-        except Exception as e:
-            print(e)
-            front_sprite = back_sprite = None
+
+        print("    Fetching sprite PNGs...")
+        front_sprite, back_sprite = _get_sprites(poke_id)
 
         all_pokemon.append(
             {
@@ -269,50 +231,46 @@ def fetch_gen1_data() -> list[dict]:
                     "speed": stats.get("speed", 0),
                 },
                 "moves": moves,
-                "next_evolutions": next_evolutions,  # [] if none, [e] if one, [e1,e2,...] if branching
+                "next_evolutions": next_evolutions,
                 "growth_rate": species_data.get("growth_rate", {}).get("name"),
                 "front_sprite": front_sprite,
                 "back_sprite": back_sprite,
             }
         )
 
-        if next_evolutions:
-            evo_str = ", ".join(
-                f"{e['evolves_into']} (id={e['evolves_into_id']})"
+        evo_str = (
+            ", ".join(
+                f"{e['evolves_into']} (#{e['evolves_into_id']})"
                 for e in next_evolutions
             )
-        else:
-            evo_str = "none"
-        print(f"    -> {len(moves)} moves | evo: {evo_str}")
+            if next_evolutions
+            else "none"
+        )
+        print(f"    → {len(moves)} moves | evo: {evo_str}")
 
     return all_pokemon
 
 
 def _upsert_pokemon(cur: sqlite3.Cursor, poke_id: int, poke: dict) -> None:
     stats = poke.get("stats", {})
-
-    # types is [[slot, name], ...] — slot 1 always present, slot 2 optional
     types = poke.get("types", {})
-    type_1 = types.get(1, "UNKNOWN")
-    type_2 = types.get(2)  # None for single-type pokemon
-    front_sprite = poke.get("front_sprite")
-    back_sprite = poke.get("back_sprite")
+    front = poke.get("front_sprite")
+    back = poke.get("back_sprite")
 
-    # --- pokemon ---
     cur.execute(
         """
         INSERT OR REPLACE INTO dex_pokemon
             (id, name, type_1, type_2,
-                base_hp, base_attack, base_defense,
-                base_sp_attack, base_sp_defense, base_speed,
-                base_experience, front_sprite, back_sprite, growth_rate)
+             base_hp, base_attack, base_defense,
+             base_sp_attack, base_sp_defense, base_speed,
+             base_experience, front_sprite, back_sprite, growth_rate)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         (
             poke_id,
             poke["name"],
-            type_1,
-            type_2,
+            types.get(1, "UNKNOWN"),
+            types.get(2),
             stats.get("hp", 0),
             stats.get("attack", 0),
             stats.get("defense", 0),
@@ -320,8 +278,8 @@ def _upsert_pokemon(cur: sqlite3.Cursor, poke_id: int, poke: dict) -> None:
             stats.get("special_defense", 0),
             stats.get("speed", 0),
             poke.get("base_experience"),
-            sqlite3.Binary(front_sprite) if front_sprite else None,
-            sqlite3.Binary(back_sprite) if back_sprite else None,
+            sqlite3.Binary(front) if front else None,
+            sqlite3.Binary(back) if back else None,
             poke.get("growth_rate"),
         ),
     )
@@ -341,14 +299,14 @@ def _insert_moves(
                 """
                 INSERT OR IGNORE INTO dex_move
                     (name, power, accuracy, max_pp, type, damage_class,
-                        ailment, ailment_chance, move_category, healing, drain)
+                     ailment, ailment_chance, move_category, healing, drain)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     move_name,
                     move.get("power"),
                     move.get("accuracy"),
-                    move.get("pp") or 1,  # guard against null pp
+                    move.get("pp") or 1,
                     move.get("type"),
                     move.get("damage_class"),
                     move.get("ailment"),
@@ -363,72 +321,54 @@ def _insert_moves(
 
         cur.execute(
             """
-            INSERT OR IGNORE INTO dex_pokemon_moves (pokemon_id, move_id, level_learned, learn_method)
+            INSERT OR IGNORE INTO dex_pokemon_moves
+                (pokemon_id, move_id, level_learned, learn_method)
             VALUES (?, ?, ?, ?)
             """,
             (
                 poke_id,
                 move_name_to_id[move_name],
                 move.get("level_learned", 0),
-                move.get("learn_method", "NOT FOUND"),
+                move.get("learn_method", "unknown"),
             ),
         )
 
 
-def _inserst_evolutions(conn: sqlite3.Connection, evolutions: dict) -> None:
-    conn.execute("PRAGMA foreign_keys = ON")
-    cur = conn.cursor()
-    for p_id, evos in evolutions.items():
-        if not evos:
-            continue
+def _insert_evolutions(cur: sqlite3.Cursor, evolutions: dict[int, list[tuple]]) -> None:
+    for poke_id, evos in evolutions.items():
         for evo in evos:
             try:
                 cur.execute(
                     """
-                        INSERT OR IGNORE INTO dex_evolutions
-                            (pokemon_id, evolves_into_id, trigger, min_level, item, is_player_choice)
-                        VALUES (?, ?, ?, ?, ?, ?)
-                        """,
-                    (
-                        p_id,
-                        evo[0],
-                        evo[1],
-                        evo[2],
-                        evo[3],
-                        evo[4],
-                    ),
+                    INSERT OR IGNORE INTO dex_evolutions
+                        (pokemon_id, evolves_into_id, trigger, min_level, item, is_player_choice)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    """,
+                    (poke_id, *evo),
                 )
             except Exception as e:
-                print(f"Error occurred inserting pokemon_evolutions: {e}")
-                print(f"pokemon id: {p_id}, evolves into id: {evo[0]}")
-
-    conn.commit()
+                print(
+                    f"  [WARN] Evolution insert failed (pokemon #{poke_id} → #{evo[0]}): {e}"
+                )
 
 
 def save_to_sqlite(conn: sqlite3.Connection, data: list[dict]) -> None:
     cur = conn.cursor()
-    move_name_to_id = {}
-    evolutions = {}
+    move_name_to_id: dict[str, int] = {}
+    evolutions: dict[int, list[tuple]] = {}
+
     for poke in data:
         poke_id = poke["id"]
         _upsert_pokemon(cur, poke_id, poke)
-
-        # --- moves + pokemon_moves ---
         _insert_moves(cur, poke_id, move_name_to_id, poke.get("moves", []))
-        conn.commit()
 
-        # --- pokemon_evolutions ---
-        # need to insert ALL pokemon first, then pokemon_evolutions
         next_evolutions = poke.get("next_evolutions", [])
-        is_player_choice = 1 if len(next_evolutions) > 1 else 0  # eevee evos ...
+        is_player_choice = 1 if len(next_evolutions) > 1 else 0  # Eevee branches
 
         cur_evos = []
-
         for evo in next_evolutions:
-            into_id = evo.get("evolves_into_id")
-            if into_id is None:
+            if (into_id := evo.get("evolves_into_id")) is None:
                 continue
-
             cur_evos.append(
                 (
                     into_id,
@@ -442,80 +382,103 @@ def save_to_sqlite(conn: sqlite3.Connection, data: list[dict]) -> None:
         if cur_evos:
             evolutions[poke_id] = cur_evos
 
-    _inserst_evolutions(conn, evolutions)
+    _insert_evolutions(cur, evolutions)
+    conn.commit()
 
     cur.execute("SELECT COUNT(*) FROM dex_pokemon")
-    print(f"  Loaded {cur.fetchone()[0]} Pokémon.")
-
+    print(f"  {cur.fetchone()[0]} Pokémon loaded.")
     cur.execute("SELECT COUNT(*) FROM dex_move")
-    print(f"  Loaded {cur.fetchone()[0]} unique moves.")
-
+    print(f"  {cur.fetchone()[0]} unique moves loaded.")
     cur.execute("SELECT COUNT(*) FROM dex_evolutions")
-    print(f"  Loaded {cur.fetchone()[0]} evolution entries.")
+    print(f"  {cur.fetchone()[0]} evolution entries loaded.")
 
 
+def init_db(db_path: Path) -> sqlite3.Connection:
+    if not SCHEMA_FILE.exists():
+        typer.echo(f"ERROR: schema file not found: {SCHEMA_FILE}", err=True)
+        raise typer.Exit(1)
+    conn = sqlite3.connect(db_path)
+    conn.execute("PRAGMA foreign_keys = ON")
+    print(f"  Initialising schema from {SCHEMA_FILE}...")
+    with conn:
+        conn.executescript(SCHEMA_FILE.read_text())
+    return conn
+
+
+def save_pickle(data: list[dict]) -> None:
+    with open(CACHE_FILE, "wb") as f:
+        pickle.dump(data, f)
+    print(f"  Cached {len(data)} Pokémon → {CACHE_FILE}")
+
+
+def load_pickle() -> list[dict]:
+    if not CACHE_FILE.exists():
+        typer.echo(f"ERROR: cache file not found: {CACHE_FILE}", err=True)
+        raise typer.Exit(1)
+    print(f"  Loading cache from {CACHE_FILE}...")
+    with open(CACHE_FILE, "rb") as f:
+        return pickle.load(f)
+
+
+app = typer.Typer(
+    help=__doc__,
+    context_settings={"help_option_names": ["-h", "--help"]},
+    pretty_exceptions_show_locals=False,
+)
+
+
+@app.command()
 def main(
-    fetch_only: bool = False,
-    save_ir: bool = False,
-    load_data_file: bool = False,
-):
-    if load_data_file:
-        # print(f"Loading data from {JSON_DATA_FILE}")
-        # with open(JSON_DATA_FILE) as f:
-        #     data = json.load(f)
-        # for item in data:
-        #     if fsp := item.get("front_sprite"):
-        #         item["front_sprite"] = base64.b64decode(fsp)
-        #     if bsp := item.get("back_sprite"):
-        #         item["back_sprite"] = base64.b64decode(bsp)
-        print(f"Loading data from {PICKLE_DATA_FILE}")
-        with open(PICKLE_DATA_FILE, "rb") as f:
-            data = pickle.load(f)
+    save_cache: Annotated[
+        bool,
+        typer.Option("--save-cache", help="Save fetched data to local pickle cache."),
+    ] = False,
+    load_cache: Annotated[
+        bool,
+        typer.Option(
+            "--load-cache",
+            help="Load data from pickle cache instead of hitting the API.",
+        ),
+    ] = False,
+    cache_only: Annotated[
+        bool,
+        typer.Option(
+            "--cache-only",
+            help="With --save-cache: skip SQLite and exit after saving cache.",
+        ),
+    ] = False,
+) -> None:
+    if cache_only and not save_cache:
+        typer.echo("ERROR: --cache-only requires --save-cache.", err=True)
+        raise typer.Exit(1)
 
+    if load_cache and cache_only:
+        typer.echo(
+            "ERROR: --cache-only and --load-cache are mutually exclusive.", err=True
+        )
+        raise typer.Exit(1)
+
+    if load_cache:
+        typer.echo("Loading from cache...")
+        data = load_pickle()
     else:
-        print(f"Fetching data for {TOTAL_POKEMON} Gen 1 Pokémon (Red/Blue only)...")
-        print("This will take a while due to rate limiting. Go grab a coffee ☕\n")
-        # this will do all the network requests
+        typer.echo(f"Fetching {TOTAL_POKEMON} Gen 1 Pokémon from PokéAPI...")
+        typer.echo("This will take a while — go grab a coffee ☕\n")
         data = fetch_gen1_data()
 
-    if fetch_only or save_ir:
-        # # encode png data when saving to json file
-        # for item in data:
-        #     if fsp := item.get("front_sprite"):
-        #         item["front_sprite"] = base64.b64encode(fsp).decode()
-        #     if bsp := item.get("back_sprite"):
-        #         item["back_sprite"] = base64.b64encode(bsp).decode()
-
-        # with open(DATA_FILE, "w") as f:
-        #     json.dump(data, f, indent=2)
-        # print(f"\nDone! Saved {len(data)} Pokémon to {JSON_DATA_FILE}")
-        with open(PICKLE_DATA_FILE, "wb") as f:
-            pickle.dump(data, f)
-
-        if fetch_only:
-            print(f"\nDone! Saved {len(data)} Pokémon to {PICKLE_DATA_FILE}")
+    if save_cache:
+        typer.echo("\nSaving cache...")
+        save_pickle(data)
+        if cache_only:
+            typer.echo("Done! (--cache-only, skipping SQLite)")
             return
 
-    # this will save all data to sqlite
-    db_path = Path("pokedata.db")
-
-    with open("POKEMON_TABLE_SCHEMAS.sql") as f:
-        sql_scripts = f.read()
-
-    conn = sqlite3.connect(db_path)
-    try:
-        print("Creating Table schema...")
-        cur = conn.cursor()
-        # cur.execute("PRAGMA foreign_keys = ON")
-        cur.executescript(sql_scripts)
-        conn.commit()
-
+    typer.echo(f"\nWriting to {DB_FILE}...")
+    with init_db(DB_FILE) as conn:
         save_to_sqlite(conn, data)
-    finally:
-        conn.close()
 
-    print("\nAll done! Database is ready.")
+    typer.echo("\nAll done! 🎉")
 
 
 if __name__ == "__main__":
-    typer.run(main)
+    app()
