@@ -40,6 +40,26 @@ void print_pokedex(Pokemon dex[], int count){
     p = NULL;
 }
 
+void free_sprites(Pokemon pokedex[], size_t plen) {
+    // todo should it be less than or less than and equal too.?
+    Pokemon *p = NULL;
+    for (size_t i = 0; i < plen; i++) {
+        printf("Freeing sprint data for Poke id: %zu\n", i+1);
+        p = &pokedex[i];
+        if (p->front_sprite_blob) {
+            printf("Sprite data before free: %s\n", (char *)p->front_sprite_blob);
+            free(p->front_sprite_blob);
+            p->front_sprite_blob = NULL;
+        }
+        if (p->back_sprite_blob) {
+            printf("Sprite data: %s\n",(char *)p->back_sprite_blob);
+            free(p->back_sprite_blob);
+            p->back_sprite_blob = NULL;
+        }
+        p = NULL;
+    }
+}
+
 int main(int _argc, char *_argv[]) {
     puts("\nWelcome to Pokémon Battle CLI!\n");
 
@@ -77,6 +97,9 @@ int main(int _argc, char *_argv[]) {
 
     puts("Closing ...\n");
     sqlite3_close(db);
+
+    // free all the sprite memory
+    // free_sprites(pokedex, POKEDEX_COUNT);
 
     return 0;
 }

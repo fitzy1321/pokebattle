@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdlib.h>
+
 #define POKEDEX_COUNT 151
 
 #define bool _Bool
@@ -43,6 +45,10 @@ typedef struct {
     uint base_sp_defense;
     uint base_speed;
     uint base_experience;
+    // void *front_sprite_blob; // nullable, png sprite data
+    // size_t front_sprite_size;
+    // void *back_sprite_blob;  // nullable, png sprite data
+    // size_t back_sprite_size;
     char growth_rate[32];    // nullable
 } Pokemon;
 

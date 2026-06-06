@@ -11,7 +11,9 @@ CREATE TABLE dex_pokemon (
     base_sp_defense INTEGER NOT NULL,
     base_speed      INTEGER NOT NULL,
     base_experience INTEGER,               -- XP yielded when defeated
-    growth_rate     TEXT                   -- e.g. "slow", "medium-slow", "medium-fast" "fast"
+    growth_rate     TEXT,                   -- e.g. "slow", "medium-slow", "medium-fast" "fast"
+    front_sprite    BLOB,                  -- NULL
+    back_sprite     BLOB                   -- NULL
 );
 
 DROP TABLE IF EXISTS dex_move;

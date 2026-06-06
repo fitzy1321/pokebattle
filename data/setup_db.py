@@ -23,8 +23,8 @@ def upsert_pokemon(cur: sqlite3.Cursor, poke_id: int, poke: dict) -> None:
             (id, name, type_1, type_2,
                 base_hp, base_attack, base_defense,
                 base_sp_attack, base_sp_defense, base_speed,
-                base_experience, growth_rate)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                base_experience, front_sprite, back_sprite, growth_rate)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         (
             poke_id,
@@ -38,6 +38,8 @@ def upsert_pokemon(cur: sqlite3.Cursor, poke_id: int, poke: dict) -> None:
             stats.get("special_defense", 0),
             stats.get("speed", 0),
             poke.get("base_experience"),
+            poke.get("front_sprite"),
+            poke.get("back_sprite"),
             poke.get("growth_rate"),
         ),
     )
