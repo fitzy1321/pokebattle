@@ -57,8 +57,8 @@ fmt:
 marimo:
     marimo edit --watch
 
-export-notebook:
-    marimo export ipynb data/gen1_data_notebook.py -o data/notebook.ipynb
+# export-notebook:
+#     marimo export ipynb data/gen1_data_notebook.py -o data/notebook.ipynb
 
 # open the gen1_data marimo notebook
 open-notebook:
