@@ -3,8 +3,10 @@ default:
 
 DATA_DIR := "data"
 C_BUILD_DIR := "c/build"
-C_SRC_DIR := "c/src"
+# C_SRC_DIR := "c/src"
 C_TEST_DIR := "c/tests"
+
+ALL_C_FILES := "c/src/sql_ops.c c/src/main.c"
 
 # Clean up C build files
 clean:
@@ -14,9 +16,7 @@ clean:
 # Compile C Binary
 compile:
     mkdir -p {{ C_BUILD_DIR }}
-    cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain \
-        {{ C_SRC_DIR }}/sql_ops.c \
-        {{ C_SRC_DIR }}/main.c
+    cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain {{ ALL_C_FILES }}
 
 # Run the compiled C binary
 run:
@@ -28,9 +28,7 @@ alias car := compile-and-run
 
 dev-compile:
     mkdir -p {{ C_BUILD_DIR }}
-    cc -std=c11 -Wall -Werror -lsqlite3 -DDEV -o {{ C_BUILD_DIR }}/pokemain-dev \
-        {{ C_SRC_DIR }}/sql_ops.c \
-        {{ C_SRC_DIR }}/main.c
+    cc -std=c11 -Wall -Werror -lsqlite3 -DDEV -o {{ C_BUILD_DIR }}/pokemain-dev {{ ALL_C_FILES }}
 
 dev-run:
     ./{{ C_BUILD_DIR }}/pokemain-dev

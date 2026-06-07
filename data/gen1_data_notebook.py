@@ -150,13 +150,14 @@ def utils():
     @mo.cache
     def requests_get(url: str):
         time.sleep(DELAY)
-        return requests.get(url, timeout=10)
+        return requests.get(url)
 
 
-    # @lru_cache(maxsize=None)
+    @mo.cache
     def requests_pokeapi(url: str) -> dict:
         """GET with basic error handling. Cached by URL — repeated calls are free."""
-        resp = requests_get(url)
+        time.sleep(DELAY)
+        resp = requests.get(url)
         if not resp.ok:
             print(
                 f"Error fetching from api, HTTP Code: {resp.status_code}. {resp.raw}"

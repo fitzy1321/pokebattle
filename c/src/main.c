@@ -17,8 +17,7 @@ int get_db_path(char *out, size_t out_size) {
     const char *xdg_data = getenv("XDG_DATA_HOME");
 
     if (!xdg_data) {
-        if (!home)
-            return -1;
+        if (!home) return -1;
 
         // construct XDG_DATA path manually, with our application and db path
         snprintf(out, out_size, "%s%s.local/share/%s", home, slash_or_no_slash(home), db_file_path);
