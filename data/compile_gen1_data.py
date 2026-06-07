@@ -14,12 +14,6 @@ Collects for each Pokémon:
   - Growth rate name
   - Front and back sprites as raw PNG bytes
 
-Usage:
-  python fetch_gen1.py                            # fetch from API → save to SQLite
-  python fetch_gen1.py --save-cache               # fetch from API → save cache + SQLite
-  python fetch_gen1.py --save-cache --cache-only  # fetch from API → save cache only
-  python fetch_gen1.py --load-cache               # load cache → save to SQLite
-
 Trade evolutions (Kadabra, Machoke, Graveler, Haunter) are remapped to
 level-up at level 36 — the common fan game standard for single-player.
 """
