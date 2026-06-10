@@ -8,6 +8,12 @@ C_TEST_DIR := "c/tests"
 
 ALL_C_FILES := "c/src/sql_ops.c c/src/main.c"
 
+notcurses_brew_prefix := `brew --prefix notcurses`
+
+cflags := "-I" + notcurses_brew_prefix + "/include"
+wflags := "-Wall -Werror"
+ldflags := "-L" + notcurses_brew_prefix + "/lib -lnotcurses -lsqlite3"
+
 # Clean up C build files
 clean:
     rm -rf {{ C_BUILD_DIR }}
@@ -16,7 +22,9 @@ clean:
 # Compile C Binary
 compile:
     mkdir -p {{ C_BUILD_DIR }}
-    cc -std=c11 -Wall -Werror -lsqlite3 -o {{ C_BUILD_DIR }}/pokemain {{ ALL_C_FILES }}
+    cc -std=c18 {{ cflags }} {{ wflags }} {{ ldflags }} \
+        -o {{ C_BUILD_DIR }}/pokemain \
+        {{ ALL_C_FILES }}
 
 # Run the compiled C binary
 run:
@@ -28,7 +36,9 @@ alias car := compile-and-run
 
 dev-compile:
     mkdir -p {{ C_BUILD_DIR }}
-    cc -std=c11 -Wall -Werror -lsqlite3 -DDEV -o {{ C_BUILD_DIR }}/pokemain-dev {{ ALL_C_FILES }}
+    cc -std=c18 {{ cflags }} {{ wflags }} {{ ldflags }} -DDEV \
+        -o {{ C_BUILD_DIR }}/pokemain-dev \
+        {{ ALL_C_FILES }}
 
 dev-run:
     ./{{ C_BUILD_DIR }}/pokemain-dev
@@ -41,6 +51,11 @@ alias dar := dev-compile-and-run
 # formats just file only
 fmt:
     just --fmt --unstable
+
+install-cdeps:
+    # install notcurses and setup zed editor to find include path
+    brew install notcurses && \
+        echo {{ cflags }} > compile_flags.txt
 
 # open marimo server. pip3 install -U marimo
 marimo:

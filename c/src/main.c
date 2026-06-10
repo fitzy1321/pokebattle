@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <notcurses/direct.h>
+
 #include "sql_ops.h"
 #include "types.h"
 

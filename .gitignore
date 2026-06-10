@@ -17,3 +17,4 @@
 **/*.DS_Store
 **/*.json
 **/*.pkl
+**/compile_flags.txt
