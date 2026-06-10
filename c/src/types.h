@@ -1,12 +1,9 @@
 #pragma once
 
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define POKEDEX_COUNT 151
-
-#define bool _Bool
-#define true 1
-#define false 0
 
 // // Gen 1 Type Enum (matches internal game values)
 // // ? Do I really need to make the gameboy internal values?
