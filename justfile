@@ -12,7 +12,7 @@ notcurses_brew_prefix := `brew --prefix notcurses`
 
 cflags := "-I" + notcurses_brew_prefix + "/include"
 wflags := "-Wall -Werror"
-ldflags := "-L" + notcurses_brew_prefix + "/lib -lnotcurses -lsqlite3"
+ldflags := "-L" + notcurses_brew_prefix + "/lib -lnotcurses -lnotcurses-core -lsqlite3"
 
 # Clean up C build files
 clean:
@@ -22,7 +22,10 @@ clean:
 # Compile C Binary
 compile:
     mkdir -p {{ C_BUILD_DIR }}
-    cc -std=c18 {{ cflags }} {{ wflags }} {{ ldflags }} \
+    cc -std=c23 \
+        {{ wflags }} \
+        {{ cflags }} \
+        {{ ldflags }} \
         -o {{ C_BUILD_DIR }}/pokemain \
         {{ ALL_C_FILES }}
 
@@ -36,7 +39,11 @@ alias car := compile-and-run
 
 dev-compile:
     mkdir -p {{ C_BUILD_DIR }}
-    cc -std=c18 {{ cflags }} {{ wflags }} {{ ldflags }} -DDEV \
+    cc -std=c23 \
+        {{ wflags }} \
+        {{ cflags }} \
+        {{ ldflags }} \
+        -DDEV \
         -o {{ C_BUILD_DIR }}/pokemain-dev \
         {{ ALL_C_FILES }}
 

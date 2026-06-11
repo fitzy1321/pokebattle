@@ -61,7 +61,7 @@ void free_sprites(Pokemon pokedex[], size_t plen) {
     }
 }
 
-int main(int _argc, char *_argv[]) {
+int _old_main(int _argc, char *_argv[]) {
     puts("\nWelcome to Pokémon Battle CLI!\n");
 
 #ifdef DEV
@@ -102,5 +102,30 @@ int main(int _argc, char *_argv[]) {
     // free all the sprite memory
     // free_sprites(pokedex, POKEDEX_COUNT);
 
+    return 0;
+}
+
+int main(void) {
+    struct notcurses_options opts = {
+        .flags = NCOPTION_SUPPRESS_BANNERS,
+    };
+    struct notcurses *nc = notcurses_init(&opts, NULL);
+    if (!nc) {
+        perror("There was a problem starting the TUI!!!\nClosing ...\n");
+        return 1;
+    }
+    struct ncplane *stdplane = notcurses_stdplane(nc);
+
+    // Write text at row 2, col 4
+    ncplane_set_fg_rgb8(stdplane, 0x00, 0xff, 0xaa);  // teal color
+    ncplane_putstr_yx(stdplane, 2, 4, "Hello, Notcurses!");
+
+    notcurses_render(nc);
+
+    // Wait for key press
+    ncinput ninput;
+    notcurses_get_blocking(nc, &ninput);
+
+    notcurses_stop(nc);
     return 0;
 }
