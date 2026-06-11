@@ -31,20 +31,20 @@ int get_db_path(char *out, size_t out_size) {
     return 0;
 }
 
-void print_pokedex(Pokemon dex[], int count){
-    int i;
+void print_pokedex(Pokemon dex[], size_t count){
+    size_t i;
     Pokemon *p = NULL;
-    for (i = 0; i < POKEDEX_COUNT; i++) {
+    for (i = 0; i < count; i++) {
         p = &dex[i];
         printf("Pokemon: %s. Id: %d\n", p->name, p->id);
     }
     p = NULL;
 }
 
-void free_sprites(Pokemon pokedex[], size_t plen) {
+void free_sprites(Pokemon pokedex[], size_t count) {
     // todo should it be less than or less than and equal too.?
     Pokemon *p = NULL;
-    for (size_t i = 0; i < plen; i++) {
+    for (size_t i = 0; i < count; i++) {
         printf("Freeing sprint data for Poke id: %zu\n", i+1);
         p = &pokedex[i];
         if (p->front_sprite_blob) {
@@ -84,7 +84,7 @@ int _old_main(int _argc, char *_argv[]) {
     }
 
     Pokemon pokedex[POKEDEX_COUNT];
-    int rc = get_pokedex(db, pokedex);
+    int rc = get_pokedex(db, pokedex, POKEDEX_COUNT);
     if (rc <= 0) {
         fprintf(stderr, "Error occured creating the pokedex: %s\n", sqlite3_errmsg(db));
         puts("Closing with error ...\n");

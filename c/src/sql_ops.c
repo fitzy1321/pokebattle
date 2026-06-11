@@ -1,7 +1,7 @@
 #include "sql_ops.h"
 
 #include <stdio.h>
-#include <stdlib.h>
+// #include <stdlib.h>
 #include <string.h>
 
 sqlite3 *setup_db(const char *db_path) {
@@ -126,12 +126,13 @@ Pokemon structs, and into the dex array.
 Input:
     sqlite *db: pointer to sqlite3 db, where all the data lives
     Pokemon dex[]: basically a pointer to an array of Pokemon structs.
+    size_t count: the size of the Pokedex array.
 
 Output:
     int: Postive value is the count (should always be 151).
          A zero or negative value means an error occured.
 */
-int get_pokedex(sqlite3 *db, Pokemon dex_out[]) {
+int get_pokedex(sqlite3 *db, Pokemon dex_out[], const size_t count) {
     sqlite3_stmt *stmt = NULL;
     static const char sql_str[] = "SELECT id, name, type_1, type_2,"
                                   "       base_hp, base_attack, base_defense,"
@@ -146,14 +147,14 @@ int get_pokedex(sqlite3 *db, Pokemon dex_out[]) {
         return -1;
     }
 
-    rc = sqlite3_bind_int(stmt, 1, POKEDEX_COUNT);
+    rc = sqlite3_bind_int(stmt, 1, (int)count);
     if (rc != SQLITE_OK) {
         return -1;
     }
 
-    int count = 0;
+    int sql_count = 0;
     while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
-        row_to_pokemon_t(stmt, &dex_out[count++]);
+        row_to_pokemon_t(stmt, &dex_out[sql_count++]);
     }
 
     sqlite3_finalize(stmt);
@@ -163,5 +164,5 @@ int get_pokedex(sqlite3 *db, Pokemon dex_out[]) {
         return -1;
     }
 
-    return count;
+    return sql_count;
 }
