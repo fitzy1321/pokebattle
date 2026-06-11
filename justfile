@@ -83,3 +83,12 @@ setup_db:
 #     gcc -o {{ C_BUILD_DIR }}/test_runner \
 #         {{ C_TEST_DIR }}/test_mylib.c
 #     ./{{ C_BUILD_DIR }}/test_runner
+
+venv-make:
+    @test -d .venv || python3 -m venv .venv
+
+venv-pip-up: venv-make
+    .venv/bin/pip install -U pip && \
+        .venv/bin/pip install -U ruff marimo typer requests
+
+alias python-setup := venv-pip-up
