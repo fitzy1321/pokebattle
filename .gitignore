@@ -11,10 +11,11 @@
 **/*.ruff_cache
 **/__pycache__
 **/__marimo__
+**/*.pkl
+**/*.pyc
 
 # File and data stuff
 **/**.db**
 **/*.DS_Store
 **/*.json
-**/*.pkl
 **/compile_flags.txt
