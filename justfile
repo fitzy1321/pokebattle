@@ -1,54 +1,54 @@
 default:
     @just --list
 
-DATA_DIR := "data"
-C_BUILD_DIR := "c/build"
-# C_SRC_DIR := "c/src"
-C_TEST_DIR := "c/tests"
+all_c_files := "c/src/sql_ops.c c/src/main.c"
 
-ALL_C_FILES := "c/src/sql_ops.c c/src/main.c"
+data_dir := "data"
+c_build_dir := "c/build"
+# C_SRC_DIR := "c/src"
+# C_TEST_DIR := "c/tests"
 
 notcurses_brew_prefix := `brew --prefix notcurses`
-
 cflags := "-I" + notcurses_brew_prefix + "/include"
 wflags := "-Wall -Werror"
 ldflags := "-L" + notcurses_brew_prefix + "/lib -lnotcurses -lnotcurses-core -lsqlite3"
 
 # Clean up C build files
 clean:
-    rm -rf {{ C_BUILD_DIR }}
-    mkdir -p {{ C_BUILD_DIR }}
+    rm -rf {{ c_build_dir }}
+    # should I delete the db and other files?
+    # mkdir -p {{ c_build_dir }}
 
 # Compile C Binary
 compile:
-    mkdir -p {{ C_BUILD_DIR }}
+    mkdir -p {{ c_build_dir }}
     cc -std=c23 \
         {{ wflags }} \
         {{ cflags }} \
         {{ ldflags }} \
-        -o {{ C_BUILD_DIR }}/pokemain \
-        {{ ALL_C_FILES }}
+        -o {{ c_build_dir }}/pokemain \
+        {{ all_c_files }}
 
 # Run the compiled C binary
 run:
-    ./{{ C_BUILD_DIR }}/pokemain
+    ./{{ c_build_dir }}/pokemain
 
 compile-and-run: compile run
 
 alias car := compile-and-run
 
 dev-compile:
-    mkdir -p {{ C_BUILD_DIR }}
+    mkdir -p {{ c_build_dir }}
     cc -std=c23 \
         {{ wflags }} \
         {{ cflags }} \
         {{ ldflags }} \
         -DDEV \
-        -o {{ C_BUILD_DIR }}/pokemain-dev \
-        {{ ALL_C_FILES }}
+        -o {{ c_build_dir }}/pokemain-dev \
+        {{ all_c_files }}
 
 dev-run:
-    ./{{ C_BUILD_DIR }}/pokemain-dev
+    ./{{ c_build_dir }}/pokemain-dev
 
 dev-compile-and-run: dev-compile dev-run
 
@@ -64,21 +64,22 @@ install-cdeps:
     brew install notcurses && \
         echo {{ cflags }} > compile_flags.txt
 
+install-all-deps: setup_db install-cdeps
+
 # open marimo server. pip3 install -U marimo
 marimo:
     marimo edit --watch
 
 # open the gen1_data marimo notebook
 open-notebook:
-    marimo edit --no-sandbox {{ DATA_DIR }}/gen1_data_notebook.py --watch
+    marimo edit --no-sandbox {{ data_dir }}/gen1_data_notebook.py --watch
 
 # Call a couple python scripts to download pokeapi data and create a sqlite db
 setup_db:
-    ./{{ DATA_DIR }}/compile_gen1_data.py -h
-    # ./{{ DATA_DIR }}/setup_db.py -h
+    ./{{ data_dir }}/compile_gen1_data.py
 
-# Run C "unit tests"
-test:
-    gcc -o {{ C_BUILD_DIR }}/test_runner \
-        {{ C_TEST_DIR }}/test_mylib.c
-    ./{{ C_BUILD_DIR }}/test_runner
+# # Run C "unit tests"
+# test:
+#     gcc -o {{ C_BUILD_DIR }}/test_runner \
+#         {{ C_TEST_DIR }}/test_mylib.c
+#     ./{{ C_BUILD_DIR }}/test_runner
