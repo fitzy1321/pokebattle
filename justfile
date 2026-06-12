@@ -64,7 +64,7 @@ install-cdeps:
     brew install notcurses && \
         echo {{ cflags }} > compile_flags.txt
 
-install-all-deps: setup_db install-cdeps
+install-all-deps: venv-pip-up setup-db install-cdeps
 
 # open marimo server. pip3 install -U marimo
 marimo:
@@ -75,8 +75,8 @@ open-notebook:
     marimo edit --no-sandbox {{ data_dir }}/gen1_data_notebook.py --watch
 
 # Call a couple python scripts to download pokeapi data and create a sqlite db
-setup_db:
-    ./{{ data_dir }}/compile_gen1_data.py
+setup-db:
+    .venv/bin/python3 {{ data_dir }}/compile_gen1_data.py
 
 # # Run C "unit tests"
 # test:

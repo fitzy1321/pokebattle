@@ -448,6 +448,8 @@ def main(
     if load_cache:
         typer.echo("Loading from cache...")
         data = load_pickle()
+        save_cache = False
+        cache_only = False
     else:
         typer.echo(f"Fetching {TOTAL_POKEMON} Gen 1 Pokémon from PokéAPI...")
         typer.echo("This will take a while — go grab a coffee ☕\n")
