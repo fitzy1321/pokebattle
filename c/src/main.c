@@ -61,19 +61,61 @@ void free_sprites(Pokemon pokedex[], size_t count) {
     }
 }
 
-int _old_main(int _argc, char *_argv[]) {
-    puts("\nWelcome to Pokémon Battle CLI!\n");
+// int _old_main(int _argc, char *_argv[]) {
+//     puts("\nWelcome to Pokémon Battle CLI!\n");
 
-#ifdef DEV
-    const char *db_path = "pokedata.db";
-#else
-    char db_path[256];
-    int err = get_db_path(db_path, sizeof db_path);
-    if (err) {
-        perror("Could not get path to sqlite db.\nClosing with error ...\n");
-        return 1;
-    }
-#endif
+// #ifdef DEV
+//     const char *db_path = "pokedata.db";
+// #else
+//     char db_path[256];
+//     int err = get_db_path(db_path, sizeof db_path);
+//     if (err) {
+//         perror("Could not get path to sqlite db.\nClosing with error ...\n");
+//         return 1;
+//     }
+// #endif
+
+//     sqlite3 *db = setup_db(db_path);
+//     if (!db) {
+//         // setup func already displays error message, and closes the db if in a
+//         // failed state
+//         puts("Closing with error ...\n");
+//         return 1;
+//     }
+
+//     Pokemon pokedex[POKEDEX_COUNT];
+//     int rc = get_pokedex(db, pokedex, POKEDEX_COUNT);
+//     if (rc <= 0) {
+//         fprintf(stderr, "Error occured creating the pokedex: %s\n", sqlite3_errmsg(db));
+//         puts("Closing with error ...\n");
+//         sqlite3_close(db);
+//         return 1;
+//     }
+
+//     print_pokedex(pokedex, POKEDEX_COUNT);
+
+//     printf("Size of pokedex(in bytes): %zu\n", sizeof(pokedex));
+
+//     puts("Closing ...\n");
+//     sqlite3_close(db);
+
+//     // free all the sprite memory
+//     // free_sprites(pokedex, POKEDEX_COUNT);
+
+//     return 0;
+// }
+
+int main(void) {
+    #ifdef DEV
+        const char *db_path = "pokedata.db";
+    #else
+        char db_path[256];
+        int err = get_db_path(db_path, sizeof db_path);
+        if (err) {
+            perror("Could not get path to sqlite db.\nClosing with error ...\n");
+            return 1;
+        }
+    #endif
 
     sqlite3 *db = setup_db(db_path);
     if (!db) {
@@ -92,20 +134,6 @@ int _old_main(int _argc, char *_argv[]) {
         return 1;
     }
 
-    print_pokedex(pokedex, POKEDEX_COUNT);
-
-    printf("Size of pokedex(in bytes): %zu\n", sizeof(pokedex));
-
-    puts("Closing ...\n");
-    sqlite3_close(db);
-
-    // free all the sprite memory
-    // free_sprites(pokedex, POKEDEX_COUNT);
-
-    return 0;
-}
-
-int main(void) {
     struct notcurses_options opts = {
         .flags = NCOPTION_SUPPRESS_BANNERS,
     };
@@ -127,5 +155,6 @@ int main(void) {
     notcurses_get_blocking(nc, &ninput);
 
     notcurses_stop(nc);
+    sqlite3_close(db);
     return 0;
 }
