@@ -161,15 +161,15 @@ def _get_next_evolutions(species_data: dict, pokemon_name: str) -> list[dict]:
     return walk(chain_data.get("chain", {}), pokemon_name) or []
 
 
-def _get_sprites(poke_id: int) -> tuple[bytes | None, bytes | None]:
-    front_resp = session.get(f"{SPRITE_BASE}/{poke_id}.png")
-    back_resp = session.get(f"{SPRITE_BASE}/back/{poke_id}.png")
+def _get_sprites(pokemon_id: int) -> tuple[bytes | None, bytes | None]:
+    front_resp = session.get(f"{SPRITE_BASE}/{pokemon_id}.png")
+    back_resp = session.get(f"{SPRITE_BASE}/back/{pokemon_id}.png")
 
     def valid_image(resp) -> bool:
         return resp.ok and resp.headers.get("content-type", "").startswith("image")
 
     if not valid_image(front_resp) or not valid_image(back_resp):
-        print(f"  [WARN] Sprite fetch failed for #{poke_id}")
+        print(f"  [WARN] Sprite fetch failed for #{pokemon_id}")
         return None, None
 
     return front_resp.content, back_resp.content
@@ -179,43 +179,45 @@ def fetch_gen1_data() -> list[dict]:
     """Fetch all 151 Gen 1 Pokémon from PokéAPI. Returns a list of dicts."""
     all_pokemon = []
 
-    for poke_id in range(1, TOTAL_POKEMON + 1):
-        print(f"[{poke_id:3d}/{TOTAL_POKEMON}] Fetching...", end=" ", flush=True)
+    for pokemon_id in range(1, TOTAL_POKEMON + 1):
+        print(f"[{pokemon_id:3d}/{TOTAL_POKEMON}] Fetching...", end=" ", flush=True)
 
-        poke_data = _fetch(f"{BASE_URL}/pokemon/{poke_id}/")
-        if not poke_data:
+        pokemon_data = _fetch(f"{BASE_URL}/pokemon/{pokemon_id}/")
+        if not pokemon_data:
             print("SKIP (no data)")
             continue
 
-        name = poke_data["name"]
+        name = pokemon_data["name"]
         print(name, flush=True)
 
-        stats = {s["stat"]["name"]: s["base_stat"] for s in poke_data.get("stats", [])}
+        stats = {
+            s["stat"]["name"]: s["base_stat"] for s in pokemon_data.get("stats", [])
+        }
         types = {
             t["slot"]: t["type"]["name"]
-            for t in sorted(poke_data.get("types", []), key=lambda x: x["slot"])
+            for t in sorted(pokemon_data.get("types", []), key=lambda x: x["slot"])
         }
 
         print("    Fetching moves...")
-        moves = _get_moves(poke_data)
+        moves = _get_moves(pokemon_data)
 
         species_data: dict = {}
         next_evolutions: list[dict] = []
-        if species_url := poke_data.get("species", {}).get("url"):
+        if species_url := pokemon_data.get("species", {}).get("url"):
             print("    Fetching species data...")
             species_data = _fetch(species_url)
             if species_data:
                 next_evolutions = _get_next_evolutions(species_data, name)
 
         print("    Fetching sprite PNGs...")
-        front_sprite, back_sprite = _get_sprites(poke_id)
+        front_sprite, back_sprite = _get_sprites(pokemon_id)
 
         all_pokemon.append(
             {
-                "id": poke_id,
+                "id": pokemon_id,
                 "name": name,
                 "types": types,
-                "base_experience": poke_data.get("base_experience"),
+                "base_experience": pokemon_data.get("base_experience"),
                 "stats": {
                     "hp": stats.get("hp", 0),
                     "attack": stats.get("attack", 0),
@@ -245,11 +247,11 @@ def fetch_gen1_data() -> list[dict]:
     return all_pokemon
 
 
-def _upsert_pokemon(cur: sqlite3.Cursor, poke_id: int, poke: dict) -> None:
-    stats = poke.get("stats", {})
-    types = poke.get("types", {})
-    front = poke.get("front_sprite")
-    back = poke.get("back_sprite")
+def _upsert_pokemon(cur: sqlite3.Cursor, pokemon_id: int, pokemon: dict) -> None:
+    stats = pokemon.get("stats", {})
+    types = pokemon.get("types", {})
+    front = pokemon.get("front_sprite")
+    back = pokemon.get("back_sprite")
 
     cur.execute(
         """
@@ -261,8 +263,8 @@ def _upsert_pokemon(cur: sqlite3.Cursor, poke_id: int, poke: dict) -> None:
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         (
-            poke_id,
-            poke["name"],
+            pokemon_id,
+            pokemon["name"],
             types.get(1, "UNKNOWN"),
             types.get(2),
             stats.get("hp", 0),
@@ -271,17 +273,17 @@ def _upsert_pokemon(cur: sqlite3.Cursor, poke_id: int, poke: dict) -> None:
             stats.get("special_attack", 0),
             stats.get("special_defense", 0),
             stats.get("speed", 0),
-            poke.get("base_experience"),
+            pokemon.get("base_experience"),
             sqlite3.Binary(front) if front else None,
             sqlite3.Binary(back) if back else None,
-            poke.get("growth_rate"),
+            pokemon.get("growth_rate"),
         ),
     )
 
 
 def _insert_moves(
     cur: sqlite3.Cursor,
-    poke_id: int,
+    pokemon_id: int,
     move_name_to_id: dict[str, int],
     moves: list[dict],
 ) -> None:
@@ -320,7 +322,7 @@ def _insert_moves(
             VALUES (?, ?, ?, ?)
             """,
             (
-                poke_id,
+                pokemon_id,
                 move_name_to_id[move_name],
                 move.get("level_learned", 0),
                 move.get("learn_method", "unknown"),
@@ -329,7 +331,7 @@ def _insert_moves(
 
 
 def _insert_evolutions(cur: sqlite3.Cursor, evolutions: dict[int, list[tuple]]) -> None:
-    for poke_id, evos in evolutions.items():
+    for pokemon_id, evos in evolutions.items():
         for evo in evos:
             try:
                 cur.execute(
@@ -338,25 +340,25 @@ def _insert_evolutions(cur: sqlite3.Cursor, evolutions: dict[int, list[tuple]]) 
                         (pokemon_id, evolves_into_id, trigger, min_level, item, is_player_choice)
                     VALUES (?, ?, ?, ?, ?, ?)
                     """,
-                    (poke_id, *evo),
+                    (pokemon_id, *evo),
                 )
             except Exception as e:
                 print(
-                    f"  [WARN] Evolution insert failed (pokemon #{poke_id} → #{evo[0]}): {e}"
+                    f"  [WARN] Evolution insert failed (pokemon #{pokemon_id} → #{evo[0]}): {e}"
                 )
 
 
 def save_to_sqlite(conn: sqlite3.Connection, data: list[dict]) -> None:
     cur = conn.cursor()
-    move_name_to_id: dict[str, int] = {}
+    move_name_kv: dict[str, int] = {}
     evolutions: dict[int, list[tuple]] = {}
 
-    for poke in data:
-        poke_id = poke["id"]
-        _upsert_pokemon(cur, poke_id, poke)
-        _insert_moves(cur, poke_id, move_name_to_id, poke.get("moves", []))
+    for pokemon in data:
+        pokemon_id = pokemon["id"]
+        _upsert_pokemon(cur, pokemon_id, pokemon)
+        _insert_moves(cur, pokemon_id, move_name_kv, pokemon.get("moves", []))
 
-        next_evolutions = poke.get("next_evolutions", [])
+        next_evolutions = pokemon.get("next_evolutions", [])
         is_player_choice = 1 if len(next_evolutions) > 1 else 0  # Eevee branches
 
         cur_evos = []
@@ -374,7 +376,7 @@ def save_to_sqlite(conn: sqlite3.Connection, data: list[dict]) -> None:
             )
 
         if cur_evos:
-            evolutions[poke_id] = cur_evos
+            evolutions[pokemon_id] = cur_evos
 
     _insert_evolutions(cur, evolutions)
     conn.commit()
@@ -460,7 +462,7 @@ def main(
         save_pickle(data)
         if cache_only:
             typer.echo("Done! (--cache-only, skipping SQLite)")
-            return
+            raise typer.Exit()
 
     typer.echo(f"\nWriting to {DB_FILE}...")
     with init_db(DB_FILE) as conn:
@@ -470,4 +472,7 @@ def main(
 
 
 if __name__ == "__main__":
-    app()
+    try:
+        app()
+    finally:
+        session.close()
