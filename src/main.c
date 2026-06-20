@@ -13,7 +13,7 @@ static const char *slash_or_no_slash(const char *mstr) {
     return (mstr[mlen - 1] != '/') ? "/" : "";
 }
 
-int get_db_path(char *out, size_t out_size) {
+int get_db_str_path(char *out, size_t out_size) {
     const char *db_file_path = "pokebattle/pokedata.db";
     const char *home = getenv("HOME");
     const char *xdg_data = getenv("XDG_DATA_HOME");
@@ -68,7 +68,7 @@ void free_sprites(Pokemon pokedex[], size_t count) {
 //     const char *db_path = "pokedata.db";
 // #else
 //     char db_path[256];
-//     int err = get_db_path(db_path, sizeof db_path);
+//     int err = get_db_str_path(db_path, sizeof db_path);
 //     if (err) {
 //         perror("Could not get path to sqlite db.\nClosing with error ...\n");
 //         return 1;
@@ -105,12 +105,29 @@ void free_sprites(Pokemon pokedex[], size_t count) {
 //     return 0;
 // }
 
+void pokedex_list_plane(struct notcurses *nc, struct ncplane *std, Pokemon *dex, size_t len) {
+    struct ncplane_options popts = {
+        .y = 2, .x = 2, .rows = 5, .cols = 30
+    };
+    struct ncplane* pokedex_list_plane = ncplane_create(std, &popts);
+
+    int offset = 0;
+    int selected = 0;
+
+    struct ncinput ni;
+    while (notcurses_get_blocking(nc, &ni) != (uint32_t)-1) {
+
+    }
+
+
+}
+
 int main(void) {
     #ifdef DEV
         const char *db_path = "pokedata.db";
     #else
         char db_path[256];
-        int err = get_db_path(db_path, sizeof db_path);
+        int err = get_db_str_path(db_path, sizeof db_path);
         if (err) {
             perror("Could not get path to sqlite db.\nClosing with error ...\n");
             return 1;
@@ -134,6 +151,8 @@ int main(void) {
         return 1;
     }
 
+    sqlite3_close(db);
+
     struct notcurses_options opts = {
         .flags = NCOPTION_SUPPRESS_BANNERS,
     };
@@ -154,7 +173,10 @@ int main(void) {
     ncinput ninput;
     notcurses_get_blocking(nc, &ninput);
 
+
+
+    // clear screen and return to terminal
     notcurses_stop(nc);
-    sqlite3_close(db);
+
     return 0;
 }

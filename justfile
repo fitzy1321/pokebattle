@@ -1,12 +1,12 @@
 default:
     @just --list
 
-all_c_files := "c/src/sql_ops.c c/src/main.c"
+all_c_files := "src/sql_ops.c src/main.c"
 
 data_dir := "data"
-c_build_dir := "c/build"
-# C_SRC_DIR := "c/src"
-# C_TEST_DIR := "c/tests"
+c_build_dir := "build"
+# C_SRC_DIR := "src"
+# C_TEST_DIR := "tests"
 
 notcurses_brew_prefix := `brew --prefix notcurses`
 cflags := "-I" + notcurses_brew_prefix + "/include"

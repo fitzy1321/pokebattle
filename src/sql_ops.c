@@ -17,7 +17,7 @@ sqlite3 *setup_db(const char *db_path) {
     return db;
 }
 
-static int safe_strcpy(char *dst, size_t dst_size, const char *src) {
+static int _safe_strcpy(char *dst, size_t dst_size, const char *src) {
     if (!dst || dst_size == 0)
         return 1;
     if (!src) {
@@ -35,7 +35,7 @@ static int safe_strcpy(char *dst, size_t dst_size, const char *src) {
     return 0;
 }
 
-static void row_to_pokemon_t(sqlite3_stmt *stmt, Pokemon *p) {
+static void _sql_row_to_pokemon(sqlite3_stmt *stmt, Pokemon *p) {
     const char *col;
     int truncated = 0;
 
@@ -47,16 +47,16 @@ static void row_to_pokemon_t(sqlite3_stmt *stmt, Pokemon *p) {
 
     // name, TEXT field
     col = (const char *)sqlite3_column_text(stmt, 1);
-    truncated |= safe_strcpy(p->name, sizeof(p->name), col);
+    truncated |= _safe_strcpy(p->name, sizeof(p->name), col);
 
     // type 1, TEXT Field
     col = (const char *)sqlite3_column_text(stmt, 2);
-    truncated |= safe_strcpy(p->type_1, sizeof(p->type_1), col);
+    truncated |= _safe_strcpy(p->type_1, sizeof(p->type_1), col);
 
     // type_2, TEXT nullable
     if (sqlite3_column_type(stmt, 3) != SQLITE_NULL) {
         col = (const char *)sqlite3_column_text(stmt, 3);
-        truncated |= safe_strcpy(p->type_2, sizeof(p->type_2), col);
+        truncated |= _safe_strcpy(p->type_2, sizeof(p->type_2), col);
     }
 
     // All the next are required int fields
@@ -75,7 +75,7 @@ static void row_to_pokemon_t(sqlite3_stmt *stmt, Pokemon *p) {
     // growth_rate, TEXT nullable
     if (sqlite3_column_type(stmt, 11) != SQLITE_NULL) {
         col = (const char *)sqlite3_column_text(stmt, 11);
-        truncated |= safe_strcpy(p->growth_rate, sizeof(p->growth_rate), col);
+        truncated |= _safe_strcpy(p->growth_rate, sizeof(p->growth_rate), col);
     }
 
     // // front_sprite, blob NULLABLE (png sprite)
@@ -154,7 +154,7 @@ int get_pokedex(sqlite3 *db, Pokemon dex_out[], const size_t count) {
 
     int sql_count = 0;
     while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
-        row_to_pokemon_t(stmt, &dex_out[sql_count++]);
+        _sql_row_to_pokemon(stmt, &dex_out[sql_count++]);
     }
 
     sqlite3_finalize(stmt);
