@@ -29,7 +29,7 @@ CREATE TABLE dex_move (
     power          INTEGER,               -- NULL for status moves
     accuracy       INTEGER,               -- NULL for moves that never miss
     max_pp         INTEGER NOT NULL,      -- base PP; current PP tracked in party_pokemon_moves
-    type           TEXT,
+    type           TEXT,                  -- TODO: should this be nullable?
     damage_class   TEXT,                  -- "physical" | "special" | "status"
     ailment        TEXT,                  -- e.g. "paralysis", "poison", NULL if none
     ailment_chance INTEGER,

@@ -401,18 +401,20 @@ def init_db(db_path: Path) -> sqlite3.Connection:
     return conn
 
 
-def save_pickle(data: list[dict]) -> None:
-    with open(CACHE_FILE, "wb") as f:
+def save_pickle(data: list[dict], file_path: Path | str) -> None:
+    _fpath = Path(file_path)
+    with open(_fpath, "wb") as f:
         pickle.dump(data, f)
-    print(f"  Cached {len(data)} Pokémon → {CACHE_FILE}")
+    print(f"  Cached {len(data)} Pokémon → {_fpath}")
 
 
-def load_pickle() -> list[dict]:
-    if not CACHE_FILE.exists():
-        typer.echo(f"ERROR: cache file not found: {CACHE_FILE}", err=True)
+def load_pickle(file_path: Path | str) -> list[dict]:
+    _fpath = Path(file_path)
+    if not _fpath.exists():
+        typer.echo(f"ERROR: cache file not found: {_fpath}", err=True)
         raise typer.Exit(1)
-    print(f"  Loading cache from {CACHE_FILE}...")
-    with open(CACHE_FILE, "rb") as f:
+    print(f"  Loading cache from {_fpath}...")
+    with open(_fpath, "rb") as f:
         return pickle.load(f)
 
 
@@ -449,7 +451,7 @@ def main(
 
     if load_cache:
         typer.echo("Loading from cache...")
-        data = load_pickle()
+        data = load_pickle(CACHE_FILE)
         save_cache = False
         cache_only = False
     else:
@@ -459,7 +461,7 @@ def main(
 
     if save_cache or cache_only:
         typer.echo("\nSaving cache...")
-        save_pickle(data)
+        save_pickle(data, CACHE_FILE)
         if cache_only:
             typer.echo("Done! (--cache-only, skipping SQLite)")
             raise typer.Exit()
